@@ -1,31 +1,22 @@
 fileFormatVersion: 2
-guid: 1e9380b8f63722b42bb95a093e2b60d5
+guid: f4c087e7d89668a43ab68315159b6a63
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4023287244844104467
-    second: Char-Sheet_0
+      213: 3575232768300564821
+    second: Skeleton-Sheet-Bow_0
   - first:
-      213: 2238159689936349305
-    second: Char-Sheet_1
+      213: 8593700317953720375
+    second: Skeleton-Sheet-Bow_1
   - first:
-      213: 4745665727109223929
-    second: Char-Sheet_2
+      213: -2936356255376024598
+    second: Skeleton-Sheet-Bow_2
   - first:
-      213: 8038354303524681256
-    second: Char-Sheet_3
+      213: 1411699959072614596
+    second: Skeleton-Sheet-Bow_3
   - first:
-      213: -7750481599621186201
-    second: Char-Sheet_4
-  - first:
-      213: -2204474038654426982
-    second: Char-Sheet_5
-  - first:
-      213: -4910708934033587567
-    second: Char-Sheet_6
-  - first:
-      213: 4984892858675756339
-    second: Char-Sheet_7
+      213: 7067456395614833402
+    second: Skeleton-Sheet-Bow_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -117,16 +108,29 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Char-Sheet_0
+      name: Skeleton-Sheet-Bow_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 6
         y: 0
-        width: 26
+        width: 16
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -136,19 +140,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 31bfa42de6695d730800000000000000
-      internalID: 4023287244844104467
+      spriteID: 55144e7a247cd9130800000000000000
+      internalID: 3575232768300564821
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Char-Sheet_1
+      name: Skeleton-Sheet-Bow_1
       rect:
         serializedVersion: 2
-        x: 35
+        x: 38
         y: 0
-        width: 26
+        width: 19
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -158,19 +162,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9782145316a8f0f10800000000000000
-      internalID: 2238159689936349305
+      spriteID: 7300bc568e4f24770800000000000000
+      internalID: 8593700317953720375
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Char-Sheet_2
+      name: Skeleton-Sheet-Bow_2
       rect:
         serializedVersion: 2
-        x: 67
+        x: 70
         y: 0
-        width: 26
+        width: 21
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -180,19 +184,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9f5571fc5ddfbd140800000000000000
-      internalID: 4745665727109223929
+      spriteID: aebd0501b87ff37d0800000000000000
+      internalID: -2936356255376024598
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Char-Sheet_3
+      name: Skeleton-Sheet-Bow_3
       rect:
         serializedVersion: 2
-        x: 99
+        x: 102
         y: 0
-        width: 26
+        width: 25
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -202,17 +206,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 826325866a8fd8f60800000000000000
-      internalID: 8038354303524681256
+      spriteID: 4c8e4fd12ad579310800000000000000
+      internalID: 1411699959072614596
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Char-Sheet_4
+      name: Skeleton-Sheet-Bow_4
       rect:
         serializedVersion: 2
-        x: 131
+        x: 134
         y: 0
         width: 26
         height: 32
@@ -224,74 +228,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 76db0688c02c07490800000000000000
-      internalID: -7750481599621186201
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Char-Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 163
-        y: 0
-        width: 26
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a90ae69aa822861e0800000000000000
-      internalID: -2204474038654426982
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Char-Sheet_6
-      rect:
-        serializedVersion: 2
-        x: 195
-        y: 0
-        width: 26
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 19247971e38a9dbb0800000000000000
-      internalID: -4910708934033587567
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Char-Sheet_7
-      rect:
-        serializedVersion: 2
-        x: 227
-        y: 0
-        width: 26
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 33dffb4d4a5ed2540800000000000000
-      internalID: 4984892858675756339
+      spriteID: afa4f269526a41260800000000000000
+      internalID: 7067456395614833402
       vertices: []
       indices: 
       edges: []
