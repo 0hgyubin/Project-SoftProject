@@ -19,9 +19,9 @@ public class ProjectileController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
-        Debug.Log("Trigger!");
+        // Debug.Log("Trigger!");
         if(collision.gameObject.CompareTag("Enemy")){
-            Debug.Log("Enemy 피격!");
+            Debug.Log("Enemy 피격 (1)!");
             //monster.TakeDamage(공격력);
             Destroy(gameObject);
         }
