@@ -20,33 +20,25 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision){
         Debug.Log("Trigger!");
-        if(collision.gameObject.CompareTag("Monster")){
-            Debug.Log("몬스터 피격!");
+        if(collision.gameObject.CompareTag("Enemy")){
+            Debug.Log("Enemy 피격!");
             //monster.TakeDamage(공격력);
             Destroy(gameObject);
         }
-        else if(collision.gameObject.CompareTag("Wall")){
-            Debug.Log("벽 충돌!");
-            Destroy(gameObject);
-        }
         else if(collision.gameObject.CompareTag("Ground")){
-            Debug.Log("바닥 충돌!");
+            // Debug.Log("바닥 충돌!");
             Destroy(gameObject);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision){
         
-        if(collision.gameObject.CompareTag("Monster")){
-            Debug.Log("몬스터 피격!");
+        if(collision.gameObject.CompareTag("Enemy")){
+            Debug.Log("Enemy 피격!");
             //monster.TakeDamage(공격력);
             Destroy(gameObject);
         }
-        else if(collision.gameObject.CompareTag("Wall")){
-            Debug.Log("벽 충돌!");
-            Destroy(gameObject);
-        }
         else if(collision.gameObject.CompareTag("Ground")){
-            Debug.Log("바닥 충돌!");
+            // Debug.Log("바닥 충돌!");
             Destroy(gameObject);
         }
     }
