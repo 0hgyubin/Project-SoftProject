@@ -73,7 +73,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -111,7 +111,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -134,6 +134,19 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -447,7 +460,20 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Skeleton-Sheet-Attack_0: -5451463846874148153
+      Skeleton-Sheet-Attack_1: 5028523721226983603
+      Skeleton-Sheet-Attack_10: -5006162175917777368
+      Skeleton-Sheet-Attack_11: 6140204571246427832
+      Skeleton-Sheet-Attack_12: 4324483707505036388
+      Skeleton-Sheet-Attack_2: -592031638388346466
+      Skeleton-Sheet-Attack_3: 4218792933315375997
+      Skeleton-Sheet-Attack_4: -1735902723036914321
+      Skeleton-Sheet-Attack_5: 8560702966770761747
+      Skeleton-Sheet-Attack_6: 1516456859833914918
+      Skeleton-Sheet-Attack_7: 8725709091099073164
+      Skeleton-Sheet-Attack_8: -926509187259278013
+      Skeleton-Sheet-Attack_9: -5024260009424126612
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
