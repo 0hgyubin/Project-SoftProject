@@ -29,10 +29,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
     public bool isGrounded = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        PlayerRigidBody.freezeRotation = true; // Z축 회전 고정
-    }
 
     // Update is called once per frame
     void Update()
@@ -41,7 +37,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
         // Jump and Down
         Jump();
-        if (PlayerRigidBody.linearVelocity.y < 0) // falling
+        if (isGrounded  == false) // falling
         {
             PlayerRigidBody.gravityScale = 3f;
         }

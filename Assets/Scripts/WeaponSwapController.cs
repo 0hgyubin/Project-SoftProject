@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponController : MonoBehaviour
+public class WeaponSwapController : MonoBehaviour
 {
     public Image currentWeaponImage;
     public Image nextWeaponImage;
