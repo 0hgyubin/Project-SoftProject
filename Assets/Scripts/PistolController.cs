@@ -11,12 +11,12 @@ public class PistolController : WeaponController
         mousePos.z = 0f;
         Vector3 fireDirection = (mousePos - transform.position).normalized;
 
-        float angle = Mathf.Atan2(fireDirection.y,fireDirection.x) * Mathf.Rad2Deg - 90f;   //이미지 90도 회전
+        float angle = Mathf.Atan2(fireDirection.y,fireDirection.x) * Mathf.Rad2Deg;   //이미지 90도 회전
         bullet.transform.rotation = Quaternion.Euler(new Vector3(0,0,angle));   //Z축 회전.
 
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if(rb != null){
-            Debug.Log("Shot!!");
+            // Debug.Log("Shot!!");
             //  rb.velocity = fireDirection * bulletSpeed;
              rb.linearVelocity = fireDirection * bulletSpeed;
             // rb.linearVelocityY = fireDirection * bulletSpeed;
