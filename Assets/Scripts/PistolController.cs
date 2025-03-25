@@ -4,6 +4,13 @@ public class PistolController : WeaponController
 {
     public float bulletSpeed = 15f;
     
+    protected override void Start()
+    {
+        base.Start();
+        weaponID = 1;
+        attackPower = 10f;
+        // animator = GetComponent<Animator>();
+    }
     protected override void FireProjectile(){
         GameObject bullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
 
@@ -28,6 +35,15 @@ public class PistolController : WeaponController
         }
 
         // Debug.Log("Pistol fired bullet in direction: " + fireDirection);
+    }
+
+    protected override void FollowMouse(){
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
+
+        Vector3 direction = mousePosition - transform.position;
+        float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg + 75f;  //degree 90도 빼줘야 '칼'이 정상적인 방향을 가르킴. '총'은 아님.
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0,0,angle), rotationSpeed * Time.deltaTime);
     }
 
     
