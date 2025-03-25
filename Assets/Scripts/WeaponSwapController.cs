@@ -7,6 +7,9 @@ public class WeaponSwapController : MonoBehaviour
     public Image nextWeaponImage;
 
     public Sprite[] weaponSprites; 
+    // public GameObject[] weaponPrefab;
+    public GameObject swordPrefab;
+    public GameObject pistolPrefab;
     private int currentIndex = 0;
 
     public Vector2 currentSize = new Vector2(100, 100); //size1
@@ -50,9 +53,26 @@ public class WeaponSwapController : MonoBehaviour
     }
 
     void SwapWeapon(){
+        WeaponController currentWeaponController = FindObjectOfType<WeaponController>();
+        
         if(currentWeaponController != null){
-            currentWeaponController.weaponID = currentIndex;
-            Debug.Log("Weapon swapped to: " + currentWeaponController.weaponID);
+            //기존 무기 제거
+            Destroy(currentWeaponController.gameObject);
+
+            //무기 ID에 맞는 새로운 WeaponController 생성
+            WeaponController newWeaponController = null;
+
+            if(currentIndex == 0){
+                newWeaponController = Instantiate(swordPrefab, transform.position, Quaternion.identity).GetComponent<WeaponController>();
+            }
+            else if(currentIndex == 1){
+                newWeaponController = Instantiate(pistolPrefab, transform.position, Quaternion.identity).GetComponent<WeaponController>();
+            }
+
+            if(newWeaponController != null){
+                currentWeaponController.weaponID = currentIndex;
+                Debug.Log("Weapon swapped to: " + currentWeaponController.weaponID);
+            }
         }
     }
 }
