@@ -12,6 +12,8 @@ public class WeaponSwapController : MonoBehaviour
     public Vector2 currentSize = new Vector2(100, 100); //size1
     public Vector2 nextSize = new Vector2(60, 60); // size2
 
+    public WeaponController currentWeaponController;
+
     void Start()
     {
         UpdateWeaponUI();
@@ -24,11 +26,13 @@ public class WeaponSwapController : MonoBehaviour
         {
             currentIndex = (currentIndex - 1 + weaponSprites.Length) % weaponSprites.Length;
             UpdateWeaponUI();
+            SwapWeapon();
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             currentIndex = (currentIndex + 1) % weaponSprites.Length;
             UpdateWeaponUI();
+            SwapWeapon();
         }
     }
 
@@ -36,12 +40,19 @@ public class WeaponSwapController : MonoBehaviour
     {
         int nextIndex = (currentIndex + 1) % weaponSprites.Length;
 
-        // ÀÌ¹ÌÁö ±³Ã¼
+        // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
         currentWeaponImage.sprite = weaponSprites[currentIndex];
         nextWeaponImage.sprite = weaponSprites[nextIndex];
 
-        // Å©±â Á¶Àý
+        // Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         currentWeaponImage.rectTransform.sizeDelta = currentSize;
         nextWeaponImage.rectTransform.sizeDelta = nextSize;
+    }
+
+    void SwapWeapon(){
+        if(currentWeaponController != null){
+            currentWeaponController.weaponID = currentIndex;
+            Debug.Log("Weapon swapped to: " + currentWeaponController.weaponID);
+        }
     }
 }

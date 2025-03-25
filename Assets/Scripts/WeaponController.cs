@@ -10,10 +10,15 @@ public class WeaponController : MonoBehaviour
     public float rotationSpeed = 5f;
     public float projectileLifetime = 0.4f; //무기마다 lifetime을 다르게 설정하기 위한 변수
 
+    public GameObject swordPrefab;
+    public GameObject pistolPrefab;
+    private GameObject currentWeapon;
+
     protected virtual void Start(){
         if(player == null){
             player = GameObject.FindWithTag("Player").transform;
         }
+        // SwitchWeapon();
     }
 
     protected virtual void Update(){
@@ -24,12 +29,23 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    protected virtual void FireProjectile(){
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
+    public void SwitchWeapon(){
+        if(currentWeapon != null){
+            Destroy(currentWeapon);
+        }
 
-        ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
-        projectileController.SetLifetime(projectileLifetime);
-        // projectileController.direction = transform.up;  // 무기 방향에 맞춰서 발사
+        if(weaponID == 0){
+            currentWeapon = Instantiate(swordPrefab, transform.position, Quaternion.identity);
+        }
+        else if(weaponID == 1){
+            currentWeapon = Instantiate(pistolPrefab, transform.position, Quaternion.identity);
+        }
+    }
+
+    protected virtual void FireProjectile(){
+        // GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
+        // ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
+        // projectileController.SetLifetime(projectileLifetime);
     }
 
     protected void FollowPlayer(){
