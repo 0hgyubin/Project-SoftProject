@@ -959,6 +959,8 @@ MonoBehaviour:
   weaponSprites:
   - {fileID: -3753825769889500098, guid: 53609647f174d2d48ac4256006e83b64, type: 3}
   - {fileID: -3534485344967467138, guid: 5747a512d4626494fa83cd308c61f072, type: 3}
+  swordPrefab: {fileID: 8290723906184841239, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
+  pistolPrefab: {fileID: 1102845162993337033, guid: ef3bc557731cec1499fbd5a7f6fad7b9, type: 3}
   currentSize: {x: 100, y: 100}
   nextSize: {x: 60, y: 60}
   currentWeaponController: {fileID: 0}
