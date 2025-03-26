@@ -43,6 +43,6 @@ public class ProjectileController : MonoBehaviour
         }
     }
     public void SetLifetime(float newLifetime){
-        lifeTime = newLifetime;
+        lifeTime = newLifetime;//
     }
 }
