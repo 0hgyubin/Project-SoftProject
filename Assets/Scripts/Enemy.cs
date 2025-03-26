@@ -1,18 +1,9 @@
 using UnityEngine;
-
+//작성자: 이태건
 public class Enemy : MonoBehaviour
 {
     public Collider2D enemyCollider;
-    public NewMonoBehaviourScript PlayerScript;
-
-    void Start()
-    {
-
-        if (PlayerScript == null)
-        {
-            PlayerScript = FindObjectOfType<NewMonoBehaviourScript>();
-        }
-    }
+    public Player PlayerScript;
 
     void Update()
     {

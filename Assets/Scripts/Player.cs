@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public HPController hpUI;
 
     private int maxSpeed;
     private int CurJumpCnt = 0;
-    private float damageTimer = 1f;
+    private float damageTimer = 2f;
     private float DashCoolTime = 5f;
 
     public float damageInterval = 0.1f;
@@ -25,6 +25,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     public int MaxJumpCnt = 2;
     public float JumpForce = 30f;
     public float DashForce = 10f;
+    public float BlinkDuration = 1.6f;
 
     public bool isGrounded = true;
 
@@ -56,8 +57,9 @@ public class NewMonoBehaviourScript : MonoBehaviour
         {
             damageTimer += Time.deltaTime;
             if (damageTimer >= damageInterval)
-            {
+            {               
                 hpUI.TakeDamaged(10f); // interval마다 데미지
+                StartCoroutine(CharacterInvincible());
                 damageTimer = 0f;
             }
         }
@@ -100,23 +102,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
             CurJumpCnt = 0;
             isGrounded = true;
         }
-
-        if (collision.gameObject.tag == "Enemy")
-        {
-            isTouched = true;
-            Debug.Log("Hit in PlayerController");
-            hpUI.TakeDamaged(10f); // **데미지는 항상 올바르게 설정할 것
-            damageTimer = 0f;
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            isTouched = false;
-            damageTimer = 0f;
-        }
     }
 
     void Dash()
@@ -141,6 +126,35 @@ public class NewMonoBehaviourScript : MonoBehaviour
         }
     }
 
+    IEnumerator CharacterInvincible()
+    {
+        SpriteRenderer SR = characterSpriteRender;
+
+        float duration = BlinkDuration; // 임의값 조정
+        float curTime = 0f;
+        float blinkInterval = 0.2f;
+
+        while (curTime <= duration)
+        {
+            SR.enabled = false;
+            yield return new WaitForSeconds(blinkInterval/2);
+            SR.enabled = true;
+            yield return new WaitForSeconds(blinkInterval/2);
+            curTime +=  blinkInterval;
+        }
+
+        isTouched = false;
+        damageTimer = 0f;
+    }
+
+    public void TakeDamage(float damage) //데미지를 입었을때 호출될 함수
+    {
+        isTouched = true;
+        Debug.Log("Hit in PlayerController");
+        hpUI.TakeDamaged(damage); // **데미지는 항상 올바르게 설정할 것
+        damageTimer = 0f;
+        StartCoroutine(CharacterInvincible());
+    }
 
     void EndDash()
     {

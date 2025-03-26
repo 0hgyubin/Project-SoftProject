@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class EnemyProjectileController : MonoBehaviour
 {
-    [SerializeField]
-    public int damage; // 투사체의 데미지
-    [SerializeField]
+    public float damage; // 투사체의 데미지
     public float maxDistance = 1f; // 투사체의 최대 이동 거리
 
     private Vector2 startPosition; // 투사체의 시작 위치
@@ -27,7 +25,12 @@ public class EnemyProjectileController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("hit!");
+            Player playerComponent = collision.GetComponent<Player>();
+            if (playerComponent != null)
+            {
+                playerComponent.TakeDamage(damage); // 'damage'는 이 투사체가 가하는 데미지의 양
+            }
+
             Destroy(gameObject); // 투사체 파괴
         }
         else if (collision.CompareTag("Ground"))
