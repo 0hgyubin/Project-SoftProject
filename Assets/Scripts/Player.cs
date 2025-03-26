@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     public float JumpForce = 30f;
     public float DashForce = 10f;
     public float BlinkDuration = 1.6f;
-
+    
     public bool isGrounded = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
