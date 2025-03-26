@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+//1234
 public class Player : MonoBehaviour
 {
     public HPController hpUI;
