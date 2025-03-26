@@ -11,11 +11,11 @@ public class Enemy : MonoBehaviour
 
         if (PlayerScript.isDashed)
         {
-            enemyCollider.isTrigger = true;
+           // enemyCollider.isTrigger = true;
         }
         else
         {
-            enemyCollider.isTrigger = false;
+            //enemyCollider.isTrigger = false;
         }
     }
 }

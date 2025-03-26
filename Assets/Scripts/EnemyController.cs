@@ -1,34 +1,25 @@
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-
-
-    [SerializeField]
     public float detectionRadius = 5f; // 플레이어를 탐지할 수 있는 반경
-    [SerializeField]
     public float attackRadius = 1f; // 플레이어를 공격할 수 있는 반경
-    [SerializeField]
+
+    public HPController hpUI;
     public float moveSpeed = 2f; // 적의 이동 속도
-    [SerializeField]
     public int enemyHealth = 100; // 적의 체력
-    [SerializeField]
     public int playerDamage = 10; // 플레이어가 적에게 가하는 데미지
-    [SerializeField]
     public float attackDelay = 1f; // 공격 준비 시간
-    [SerializeField]
     public float attackDuration = 0.5f; // 공격 애니메이션 시간
-    [SerializeField]
     public GameObject ProjectilePrefab; // 투사체 프리팹
-    [SerializeField]
     public Transform shootTransform; // 투사체 발사 위치
-    [SerializeField]
     public float projectileSpeed = 5f; // 투사체 속도
-    [SerializeField]
     public bool isMeleeOrIsRange = true; //근거리인지 원거리인지
-    [SerializeField]
     public bool isMoved = true;
+    public float damage = 10f; // Enemy가 Player에게 가하는 단순 피격 데미지
 
 
     private Transform player; // 플레이어의 위치를 저장하는 변수
@@ -45,7 +36,6 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.position); // 적과 플레이어 사이의 거리 계산
@@ -61,7 +51,8 @@ public class EnemyController : MonoBehaviour
         else if (distanceToPlayer <= detectionRadius)
         {
             isPlayerInRange = true; // 플레이어가 탐지 범위 내에 있음
-            if(isMoved){
+            if (isMoved)
+            {
                 FollowPlayer(); // 플레이어를 따라감
             }
         }
@@ -72,14 +63,17 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void FollowPlayer(){
-        if(isPlayerInRange && !isPlayerInAttackRange){
+    void FollowPlayer()
+    {
+        if (isPlayerInRange && !isPlayerInAttackRange)
+        {
             Vector2 targetPosition = new Vector2(player.position.x, transform.position.y);
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         }
     }
 
-    IEnumerator PrepareAttack(){
+    IEnumerator PrepareAttack()
+    {
         isPreparingAttack = true;
         attackDirection = (player.position - transform.position).normalized;
         yield return new WaitForSeconds(attackDelay);
@@ -91,46 +85,80 @@ public class EnemyController : MonoBehaviour
         if (Vector2.Distance(transform.position, player.position) > attackRadius && Vector2.Distance(transform.position, player.position) <= detectionRadius)
         {
             isPlayerInAttackRange = false;
-            if(isMoved){
+            if (isMoved)
+            {
                 FollowPlayer();
             }
         }
     }
 
-    void AttackPlayer(){
-        if(isMeleeOrIsRange){
-            if(attackDirection.x > 0){
+    void AttackPlayer()
+    {
+        if (isMeleeOrIsRange)
+        {
+            if (attackDirection.x > 0)
+            {
                 Shoot(Vector2.right);
             }
-            else{
+            else
+            {
                 Shoot(Vector2.left);
             }
         }
-        else{
+        else
+        {
             Shoot(attackDirection);
         }
     }
 
-    void Shoot(Vector2 direction){
+    void Shoot(Vector2 direction)
+    {
         GameObject projectile;
-        if(!isMeleeOrIsRange){
+        if (!isMeleeOrIsRange)
+        {
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             projectile = Instantiate(ProjectilePrefab, shootTransform.position, rotation);
         }
-        else{
+        else
+        {
             projectile = Instantiate(ProjectilePrefab, shootTransform.position, Quaternion.identity);
         }
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * projectileSpeed;
     }
 
-    public void TakeDamage(int damage){
+    public void TakeDamage(int damage)
+    {
         enemyHealth -= damage;
-        if(enemyHealth <= 0){
+        if (enemyHealth <= 0)
+        {
             Destroy(gameObject);
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Player playerComponent = collision.gameObject.GetComponent<Player>();
+            if (playerComponent != null)
+            {
+                playerComponent.TakeDamage(damage); // 플레이어에게 데미지
+                StartCoroutine(MakeEnemyTriggerTrue());
+            }
+        }
+    }
+
+    IEnumerator MakeEnemyTriggerTrue()
+    {
+        Collider2D enemyCol = GetComponent<Collider2D>();
+        if (enemyCol != null)
+        {
+            enemyCol.isTrigger = true;
+            yield return new WaitForSeconds(2f);
+            enemyCol.isTrigger = false;
+        }
+    }
 
 }

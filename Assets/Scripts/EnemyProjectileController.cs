@@ -23,12 +23,18 @@ public class EnemyProjectileController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") )
         {
             Player playerComponent = collision.GetComponent<Player>();
+            if (playerComponent.isDashed)
+            {
+                Invoke("DestroyProjectile", 3f);
+                return;
+            }
             if (playerComponent != null)
             {
                 playerComponent.TakeDamage(damage); // 'damage'는 이 투사체가 가하는 데미지의 양
+
             }
 
             Destroy(gameObject); // 투사체 파괴
@@ -37,5 +43,10 @@ public class EnemyProjectileController : MonoBehaviour
         {
             Destroy(gameObject); // 장애물에 부딪히면 투사체 파괴
         }
+    }
+
+    void DestroyProjectile()
+    {
+        Destroy(gameObject);
     }
 }

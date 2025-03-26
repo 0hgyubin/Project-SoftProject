@@ -7,10 +7,14 @@ public class Player : MonoBehaviour
 {
     public HPController hpUI;
 
+    [SerializeField]
     private int maxSpeed;
+    [SerializeField]
     private int CurJumpCnt = 0;
+    [SerializeField]
     private float damageTimer = 2f;
-    private float DashCoolTime = 5f;
+    [SerializeField]
+    private float DashCoolTime = 3f;
 
     public float damageInterval = 0.1f;
     public bool isDashed = false;
@@ -29,12 +33,22 @@ public class Player : MonoBehaviour
     
     public bool isGrounded = true;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public AudioClip hitSound;         // 플레이어 피격 시 재생할 사운드 파일
+    public AudioClip jumpSound;
+    public AudioClip BattleBGM;
 
-    // Update is called once per frame
+    public AudioSource audioSource; // 재생 도구
+
+
+    void Start()
+    {
+        audioSource.PlayOneShot(BattleBGM);
+    }
     void Update()
     {
         float moveInput = 0f;
+
+        FlipSpriteByMouse();
 
         // Jump and Down
         Jump();
@@ -51,7 +65,6 @@ public class Player : MonoBehaviour
         {
             Dash();
         }
-
 
         if (isTouched)
         {
@@ -71,14 +84,11 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A))
             {
-                characterSpriteRender.flipX = false;
                 PlayerRigidBody.linearVelocityX = -MoveSpeed;
             }
             if (Input.GetKey(KeyCode.D))
             {
                 moveInput = 0.1f;
-                characterSpriteRender.flipX = true;
-
                 PlayerRigidBody.linearVelocityX = MoveSpeed;
             }
 
@@ -89,6 +99,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && CurJumpCnt < MaxJumpCnt)
         {
+            audioSource.PlayOneShot(jumpSound);
             isGrounded = false;
             PlayerRigidBody.AddForceY(JumpForce, ForceMode2D.Impulse);
             CurJumpCnt++;
@@ -102,29 +113,44 @@ public class Player : MonoBehaviour
             CurJumpCnt = 0;
             isGrounded = true;
         }
+        
     }
 
     void Dash()
     {
-        Debug.Log("Dash");
         isDashed = true;
         canDash = false;
+
+        SetAllEnemyCollidersTrigger(true);
 
         if (characterSpriteRender.flipX == false)
         {
             PlayerRigidBody.AddForceX(-DashForce, ForceMode2D.Impulse);
-            Invoke("EndDash", 0.5f);
-            Invoke("ResetDash", DashCoolTime);
-            //CharacterColider.isTrigger = true;
         }
-        if (characterSpriteRender.flipX == true)
+        else
         {
             PlayerRigidBody.AddForceX(DashForce, ForceMode2D.Impulse);
-            Invoke("EndDash", 0.5f);
-            Invoke("ResetDash", DashCoolTime);
-           // CharacterColider.isTrigger = true;
+        }
+
+        Invoke("EndDash", 0.5f);         // 대시 종료
+        Invoke("ResetDash", DashCoolTime); // 대시 쿨타임 초기화
+    }
+
+    void SetAllEnemyCollidersTrigger(bool isTrigger)
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemy in enemies)
+        {
+            Collider2D col = enemy.GetComponent<Collider2D>();
+            if (col != null)
+            {
+                col.isTrigger = isTrigger;
+            }
         }
     }
+
+
 
     IEnumerator CharacterInvincible()
     {
@@ -150,15 +176,40 @@ public class Player : MonoBehaviour
     public void TakeDamage(float damage) //데미지를 입었을때 호출될 함수
     {
         isTouched = true;
-        Debug.Log("Hit in PlayerController");
+        //Debug.Log("Hit in PlayerController");
         hpUI.TakeDamaged(damage); // **데미지는 항상 올바르게 설정할 것
         damageTimer = 0f;
+
+        if (hitSound != null && audioSource != null) // 피격음 재생
+        {
+            audioSource.PlayOneShot(hitSound);
+        }
+
         StartCoroutine(CharacterInvincible());
     }
+
+    private void FlipSpriteByMouse() //마우스 위치에 따라 캐릭터의 flipX 유무 결정하는 함수
+    {
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float mouseX = mouseWorldPosition.x;
+        float playerX = transform.position.x; // 이 스크립트를 지닌 객체의 X좌표 반환
+
+        if (mouseX > playerX)
+        {
+            characterSpriteRender.flipX = true;
+        }
+        else
+        {
+            characterSpriteRender.flipX = false;
+        }
+    }
+
 
     void EndDash()
     {
         isDashed = false;
+        SetAllEnemyCollidersTrigger(false);
+
     }
 
     void ResetDash()
