@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class EnemyProjectileController : MonoBehaviour
 {
-    [SerializeField]
-    public int damage; // 투사체의 데미지
-    [SerializeField]
-    public float maxDistance = 1f; // 투사체의 최대 이동 거리
+
+    private int damage; // 투사체의 데미지
+    private float maxDistance = 100000; // 투사체의 최대 이동 거리
+    private bool isMelee;
 
     private Vector2 startPosition; // 투사체의 시작 위치
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,12 +27,24 @@ public class EnemyProjectileController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("hit!");
-            Destroy(gameObject); // 투사체 파괴
+            Debug.Log(damage);
+            if(!isMelee){
+                Destroy(gameObject); // 몬스터가 원거리 공격일 때는 투사체 파괴 근거리는 파괴 안 하도록
+            }
         }
         else if (collision.CompareTag("Ground"))
         {
             Destroy(gameObject); // 장애물에 부딪히면 투사체 파괴
         }
+    }
+
+    public void SetDamage(int damage){
+        this.damage = damage;
+    }
+    public void SetMaxDistance(float maxDistance){
+        this.maxDistance = maxDistance;
+    }
+    public void SetIsMelee(bool isMelee){
+        this.isMelee = isMelee;
     }
 }

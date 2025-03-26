@@ -6,27 +6,32 @@ public class EnemyController : MonoBehaviour
 
 
     [SerializeField]
-    public float detectionRadius = 5f; // 플레이어를 탐지할 수 있는 반경
+    private float detectionRadius = 5f; // 플레이어를 탐지할 수 있는 반경
     [SerializeField]
-    public float attackRadius = 1f; // 플레이어를 공격할 수 있는 반경
+    private float attackRadius = 1f; // 플레이어를 공격할 수 있는 반경
     [SerializeField]
-    public float moveSpeed = 2f; // 적의 이동 속도
+    private float moveSpeed = 2f; // 적의 이동 속도
     [SerializeField]
-    public int enemyHealth = 100; // 적의 체력
+    private int enemyHealth = 100; // 적의 체력
+
+    private int playerDamage; // 플레이어가 적에게 가하는 데미지
     [SerializeField]
-    public int playerDamage = 10; // 플레이어가 적에게 가하는 데미지
+    private float attackDelay = 1f; // 공격 준비 시간
     [SerializeField]
-    public float attackDelay = 1f; // 공격 준비 시간
+    private float attackDuration = 0.5f; // 공격 애니메이션 시간
     [SerializeField]
-    public float attackDuration = 0.5f; // 공격 애니메이션 시간
+    private GameObject ProjectilePrefab; // 투사체 프리팹
     [SerializeField]
-    public GameObject ProjectilePrefab; // 투사체 프리팹
+    private Transform shootTransform; // 투사체 발사 위치
     [SerializeField]
-    public Transform shootTransform; // 투사체 발사 위치
+    private float projectileSpeed = 5f; // 투사체 속도
     [SerializeField]
-    public float projectileSpeed = 5f; // 투사체 속도
+    private int damage = 5; //투사체 맞았을 때 플레이어가 입는 데미지
     [SerializeField]
-    public bool isMeleeOrIsRange = true; //근거리인지 원거리인지
+    private float maxDistance = 5f; //투사체가 최대로 갈 수 있는 거리
+
+    [SerializeField]
+    public bool isMelee = true; //근거리인지 원거리인지
     [SerializeField]
     public bool isMoved = true;
 
@@ -98,7 +103,7 @@ public class EnemyController : MonoBehaviour
     }
 
     void AttackPlayer(){
-        if(isMeleeOrIsRange){
+        if(isMelee){
             if(attackDirection.x > 0){
                 Shoot(Vector2.right);
             }
@@ -113,14 +118,19 @@ public class EnemyController : MonoBehaviour
 
     void Shoot(Vector2 direction){
         GameObject projectile;
-        if(!isMeleeOrIsRange){
+        if(!isMelee){
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             projectile = Instantiate(ProjectilePrefab, shootTransform.position, rotation);
+            
         }
         else{
             projectile = Instantiate(ProjectilePrefab, shootTransform.position, Quaternion.identity);
         }
+        EnemyProjectileController enemyProjectileController = projectile.GetComponent<EnemyProjectileController>();
+        enemyProjectileController.SetDamage(damage);
+        enemyProjectileController.SetMaxDistance(maxDistance);
+        enemyProjectileController.SetIsMelee(isMelee);
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * projectileSpeed;
     }

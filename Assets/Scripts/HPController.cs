@@ -6,7 +6,7 @@ public class HPController : MonoBehaviour
 
     public Image HpImage;
 
-    public float maxHP = 100f; // ÀÓÀÇÀÇ °ª
+    public float maxHP = 100f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     private float currentHP;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,7 +26,7 @@ public class HPController : MonoBehaviour
     {
         Debug.Log("Hit");
         currentHP -= damage;
-        currentHP = Mathf.Clamp(currentHP, 0, maxHP); // HP°ªÀ» 0~max °íÁ¤
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP); // HPï¿½ï¿½ï¿½ï¿½ 0~max ï¿½ï¿½ï¿½ï¿½
         UpdateHPUI();
     }
 
