@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2420805113873135625}
   m_Layer: 0
   m_Name: SkeletonMeleeProjectile
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,5 +165,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f23655be7a4807f4ea2ecf6c5d7c8bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 5
   maxDistance: 1
