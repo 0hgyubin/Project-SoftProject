@@ -53,7 +53,7 @@ public class WeaponSwapController : MonoBehaviour
     }
 
     void SwapWeapon(){
-        WeaponController currentWeaponController = FindObjectOfType<WeaponController>();
+        WeaponController currentWeaponController = FindAnyObjectByType<WeaponController>();
         
         if(currentWeaponController != null){
             //기존 무기 제거

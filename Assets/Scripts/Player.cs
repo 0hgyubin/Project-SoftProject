@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     private int maxSpeed;
     private int CurJumpCnt = 0;
     private float damageTimer = 2f;
-    private float DashCoolTime = 5f;
+    private float DashCoolTime = 1f;
 
     public float damageInterval = 0.1f;
     public bool isDashed = false;
