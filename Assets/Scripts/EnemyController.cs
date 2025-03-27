@@ -29,7 +29,6 @@ public class EnemyController : MonoBehaviour
     private int damage = 5; //투사체 맞았을 때 플레이어가 입는 데미지
     [SerializeField]
     private float maxDistance = 5f; //투사체가 최대로 갈 수 있는 거리
-
     [SerializeField]
     public bool isMelee = true; //근거리인지 원거리인지
     [SerializeField]
@@ -139,6 +138,30 @@ public class EnemyController : MonoBehaviour
         enemyHealth -= damage;
         if(enemyHealth <= 0){
             Destroy(gameObject);
+        }
+    }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Player playerComponent = collision.gameObject.GetComponent<Player>();
+            if (playerComponent != null)
+            {
+                playerComponent.TakeDamage(damage); // 플레이어에게 데미지
+                StartCoroutine(MakeEnemyTriggerTrue());
+            }
+        }
+    }
+
+        IEnumerator MakeEnemyTriggerTrue()
+    {
+        Collider2D enemyCol = GetComponent<Collider2D>();
+        if (enemyCol != null)
+        {
+            enemyCol.isTrigger = true;
+            yield return new WaitForSeconds(2f);
+            enemyCol.isTrigger = false;
         }
     }
 

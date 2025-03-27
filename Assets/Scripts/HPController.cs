@@ -6,7 +6,7 @@ public class HPController : MonoBehaviour
 
     public Image HpImage;
 
-    public float maxHP = 100f; // ������ ��
+    public float maxHP = 100; // ������ ��
     private float currentHP;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

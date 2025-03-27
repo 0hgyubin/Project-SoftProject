@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyProjectileController : MonoBehaviour
 {
 
-    private int damage; // 투사체의 데미지
+    public float damage; // 투사체의 데미지
     private float maxDistance = 100000; // 투사체의 최대 이동 거리
     private bool isMelee;
 
@@ -27,7 +27,17 @@ public class EnemyProjectileController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log(damage);
+                        Player playerComponent = collision.GetComponent<Player>();
+            if (playerComponent.isDashed)
+            {
+                Invoke("DestroyProjectile", 3f);
+                return;
+            }
+            if (playerComponent != null)
+            {
+                playerComponent.TakeDamage(damage); // 'damage'는 이 투사체가 가하는 데미지의 양
+
+            }
             if(!isMelee){
                 Destroy(gameObject); // 몬스터가 원거리 공격일 때는 투사체 파괴 근거리는 파괴 안 하도록
             }

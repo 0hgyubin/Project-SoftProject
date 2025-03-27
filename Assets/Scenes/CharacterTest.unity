@@ -651,6 +651,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpUI: {fileID: 218459469}
+  maxSpeed: 0
+  CurJumpCnt: 0
+  damageTimer: 2
+  DashCoolTime: 3
   damageInterval: 2
   isDashed: 0
   isTouched: 0
@@ -662,7 +666,12 @@ MonoBehaviour:
   MaxJumpCnt: 2
   JumpForce: 10
   DashForce: 10
+  BlinkDuration: 1.6
   isGrounded: 0
+  hitSound: {fileID: 0}
+  jumpSound: {fileID: 0}
+  BattleBGM: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!58 &638909310
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -859,11 +868,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6610513988076843684, guid: d01f4e1dad97e1e409f74517fa1dcf30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.2
+      value: -6.95
       objectReference: {fileID: 0}
     - target: {fileID: 6610513988076843684, guid: d01f4e1dad97e1e409f74517fa1dcf30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.75
+      value: 2.21
       objectReference: {fileID: 0}
     - target: {fileID: 6610513988076843684, guid: d01f4e1dad97e1e409f74517fa1dcf30, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1261,11 +1270,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7011468731712552115, guid: 64c0d85f0cdc76f4b8e8711f671738b6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.63
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7011468731712552115, guid: 64c0d85f0cdc76f4b8e8711f671738b6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.66
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7011468731712552115, guid: 64c0d85f0cdc76f4b8e8711f671738b6, type: 3}
       propertyPath: m_LocalPosition.z

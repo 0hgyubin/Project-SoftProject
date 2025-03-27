@@ -3,14 +3,14 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public Collider2D enemyCollider;
-    public NewMonoBehaviourScript PlayerScript;
+    public Player PlayerScript;
 
     void Start()
     {
 
         if (PlayerScript == null)
         {
-            PlayerScript = FindObjectOfType<NewMonoBehaviourScript>();
+            PlayerScript = FindObjectOfType<Player>();
         }
     }
 
