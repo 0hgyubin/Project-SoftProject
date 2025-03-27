@@ -27,7 +27,7 @@ public class EnemyProjectileController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-                        Player playerComponent = collision.GetComponent<Player>();
+            Player playerComponent = collision.GetComponent<Player>();
             if (playerComponent.isDashed)
             {
                 Invoke("DestroyProjectile", 3f);

@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 2f; // 적의 이동 속도
     [SerializeField]
-    private int enemyHealth = 100; // 적의 체력
+    private float enemyHealth = 100f; // 적의 체력
 
     private int playerDamage; // 플레이어가 적에게 가하는 데미지
     [SerializeField]
@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform; // 태그가 "Player"인 오브젝트의 위치를 가져옴
+ 
         lastAttackTime = Time.time; // 현재 시간을 마지막 공격 시간으로 설정
 
     }
@@ -52,10 +52,21 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;        // 태그가 "Player"인 오브젝트의 위치를 가져옴
         float distanceToPlayer = Vector2.Distance(transform.position, player.position); // 적과 플레이어 사이의 거리 계산
+        
+        // 박정태 수정
+        if (!isPreparingAttack) //공격 준비 중이 아닐 때 각도 계산해서 업데이트
+        {
+            Vector3 direction = player.position - shootTransform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            shootTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 180));
+        }
+
 
         if (distanceToPlayer <= attackRadius)
         {
+
             isPlayerInAttackRange = true; // 플레이어가 공격 범위 내에 있음
             if (!isPreparingAttack)
             {
@@ -65,6 +76,9 @@ public class EnemyController : MonoBehaviour
         else if (distanceToPlayer <= detectionRadius)
         {
             isPlayerInRange = true; // 플레이어가 탐지 범위 내에 있음
+            Vector3 direction = player.position - shootTransform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            shootTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 180));
             if(isMoved){
                 FollowPlayer(); // 플레이어를 따라감
             }
@@ -134,7 +148,7 @@ public class EnemyController : MonoBehaviour
         rb.linearVelocity = direction * projectileSpeed;
     }
 
-    public void TakeDamage(int damage){
+    public void TakeDamage(float damage){
         enemyHealth -= damage;
         if(enemyHealth <= 0){
             Destroy(gameObject);
@@ -164,6 +178,8 @@ public class EnemyController : MonoBehaviour
             enemyCol.isTrigger = false;
         }
     }
+
+
 
 
 }

@@ -559,7 +559,7 @@ Transform:
   m_GameObject: {fileID: 638909303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.93, y: -0.5, z: 0}
+  m_LocalPosition: {x: -17.42, y: -0.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -655,6 +655,8 @@ MonoBehaviour:
   CurJumpCnt: 0
   damageTimer: 2
   DashCoolTime: 3
+  strength: 3
+  attackDamage: 0
   damageInterval: 2
   isDashed: 0
   isTouched: 0
@@ -868,11 +870,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6610513988076843684, guid: d01f4e1dad97e1e409f74517fa1dcf30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.95
+      value: -7.13
       objectReference: {fileID: 0}
     - target: {fileID: 6610513988076843684, guid: d01f4e1dad97e1e409f74517fa1dcf30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.21
+      value: -0.91
       objectReference: {fileID: 0}
     - target: {fileID: 6610513988076843684, guid: d01f4e1dad97e1e409f74517fa1dcf30, type: 3}
       propertyPath: m_LocalPosition.z
@@ -906,6 +908,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8248402550078094739, guid: d01f4e1dad97e1e409f74517fa1dcf30, type: 3}
+      propertyPath: detectionRadius
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8382300814983815857, guid: d01f4e1dad97e1e409f74517fa1dcf30, type: 3}
       propertyPath: m_Name
       value: SkeletonRange
@@ -926,6 +932,10 @@ PrefabInstance:
     - target: {fileID: 8290723906184841239, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
       propertyPath: m_Name
       value: sword_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8290723906184841239, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
+      propertyPath: m_TagString
+      value: Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 8888632843802675413, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
       propertyPath: m_LocalScale.x
@@ -1270,11 +1280,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7011468731712552115, guid: 64c0d85f0cdc76f4b8e8711f671738b6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.9
       objectReference: {fileID: 0}
     - target: {fileID: 7011468731712552115, guid: 64c0d85f0cdc76f4b8e8711f671738b6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 7011468731712552115, guid: 64c0d85f0cdc76f4b8e8711f671738b6, type: 3}
       propertyPath: m_LocalPosition.z

@@ -16,6 +16,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float DashCoolTime = 3f;
 
+    //박정태 수정
+    [SerializeField]
+    public float strength = 3f; //주인공이 가진 힘 스텟. 플레이어 공격력 = 무기 공격력 + 플레이어 힘 스탯
+    
+    
+    public float attackDamage; //플레이어 공격력.
+    private float weaponDamage; //무기 공격력
+
+    //데미지 연산은 ProjetcileController에서 진행할 예정
+
     public float damageInterval = 0.1f;
     public bool isDashed = false;
     public bool isTouched = false;
@@ -43,9 +53,19 @@ public class Player : MonoBehaviour
     void Start()
     {
         audioSource.PlayOneShot(BattleBGM);
+
+
     }
     void Update()
     {
+        //박정태 수정정
+        WeaponController weaponController = GameObject.FindGameObjectWithTag("Weapon").GetComponent<WeaponController>(); //무기 받아오기
+        weaponDamage = weaponController.attackPower;//무기에 있는 attackPower라는 값 가져오기.
+        attackDamage = strength + weaponDamage; //플레이어 공격력 = 힘 + 무기 공격력
+        //여기서 몇 데미지를 줄지 결정함.
+
+
+
         float moveInput = 0f;
 
         FlipSpriteByMouse();
