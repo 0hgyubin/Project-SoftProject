@@ -1215,6 +1215,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 833716353840767485, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
+      propertyPath: attackPower
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8290723906184841239, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
       propertyPath: m_Name
       value: sword_0
