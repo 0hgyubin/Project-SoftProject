@@ -1,9 +1,18 @@
 using UnityEngine;
-//ÀÛ¼ºÀÚ: ÀÌÅÂ°Ç
+//ï¿½Û¼ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½Â°ï¿½
 public class Enemy : MonoBehaviour
 {
     public Collider2D enemyCollider;
     public Player PlayerScript;
+
+    void Start()
+    {
+
+        if (PlayerScript == null)
+        {
+            PlayerScript = FindObjectOfType<Player>();
+        }
+    }
 
     void Update()
     {

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6144758721176870490}
   m_Layer: 0
   m_Name: SwordProjectile
-  m_TagString: Untagged
+  m_TagString: Projetcile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,8 +124,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.32
+  m_Offset: {x: 0.23574543, y: -0.0027979612}
+  m_Radius: 1.0768853
 --- !u!114 &8882031809581085147
 MonoBehaviour:
   m_ObjectHideFlags: 0
