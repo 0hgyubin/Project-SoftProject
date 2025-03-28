@@ -32,26 +32,11 @@ public class ProjectileController : MonoBehaviour
             Debug.Log("Enemy 피격 (1)!" + damage); //체력 줄은 거 확인하기 위해 +damage 추가
             //13 데미지 나와야 정상
             //monster.TakeDamage(공격력);
-            // Destroy(gameObject);
+            if(!isMelee) Destroy(gameObject);
         }
         else if(!isMelee && collision.gameObject.CompareTag("Ground")){
             // Debug.Log("바닥 충돌!");
-            // Destroy(gameObject);
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D collision){
-        
-        if(collision.gameObject.CompareTag("Enemy")){
-
-            //박정태 수정
-            EnemyController enemyController = collision.gameObject.GetComponent<EnemyController>();//충돌한 적 가져옴.
-            enemyController.TakeDamage(damage);//EnemyController의 TakeDamage함수 사용해서 적 체력 감소.
-            Debug.Log("Enemy 피격!  " + damage);
-            //monster.TakeDamage(공격력);
-            // Destroy(gameObject);
-        }
-        else if(collision.gameObject.CompareTag("Ground")){
-            // Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
     public void SetLifetime(float newLifetime){
