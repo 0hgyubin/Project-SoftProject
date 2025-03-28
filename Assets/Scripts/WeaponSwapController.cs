@@ -7,7 +7,6 @@ public class WeaponSwapController : MonoBehaviour
     public Image nextWeaponImage;
 
     public Sprite[] weaponSprites; 
-    // public GameObject[] weaponPrefab;
     public GameObject swordPrefab;
     public GameObject pistolPrefab;
     private int currentIndex = 0;
@@ -43,11 +42,11 @@ public class WeaponSwapController : MonoBehaviour
     {
         int nextIndex = (currentIndex + 1) % weaponSprites.Length;
 
-        // �̹��� ��ü
+        // 이미지 교체
         currentWeaponImage.sprite = weaponSprites[currentIndex];
         nextWeaponImage.sprite = weaponSprites[nextIndex];
 
-        // ũ�� ����
+        // 사이즈 교체
         currentWeaponImage.rectTransform.sizeDelta = currentSize;
         nextWeaponImage.rectTransform.sizeDelta = nextSize;
     }

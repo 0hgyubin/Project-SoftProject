@@ -43,16 +43,12 @@ public class WeaponController : MonoBehaviour
     }
 
     protected virtual void FireProjectile(){
-        // GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
-        // ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
-        // projectileController.SetLifetime(projectileLifetime);
+
     }
 
     protected void FollowPlayer(){
         if(player!=null){
             transform.position = player.position;
-            // transform.position = Vector3.Lerp(transform.position,player.position, movementSpeed * Time.deltaTime);
-            // Debug.Log("Player Position: " + player.position);  // 플레이어 위치 찍기
         }
     }
 
