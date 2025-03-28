@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 6610513988076843684}
   - component: {fileID: 5871494700223908774}
   - component: {fileID: 8248402550078094739}
+  - component: {fileID: 6758314915335292857}
   m_Layer: 0
   m_Name: SkeletonRange
   m_TagString: Enemy
@@ -192,11 +193,58 @@ MonoBehaviour:
   attackRadius: 5
   moveSpeed: 2
   enemyHealth: 100
-  playerDamage: 10
   attackDelay: 1
   attackDuration: 0.5
   ProjectilePrefab: {fileID: 6806752196399843684, guid: 6ce055d4c4a05244d962981cadc6a215, type: 3}
   shootTransform: {fileID: 6898099723626807143}
   projectileSpeed: 5
-  isMeleeOrIsRange: 0
+  maxDistance: 5
+  isMelee: 0
   isMoved: 0
+  damage: 10
+--- !u!61 &6758314915335292857
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8382300814983815857}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.8666667, y: 1.0666667}
+    newSize: {x: 0.8666667, y: 1.0666667}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.8666667, y: 1.0666667}
+  m_EdgeRadius: 0

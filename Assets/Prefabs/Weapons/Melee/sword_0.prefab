@@ -107,7 +107,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   rotationSpeed: 5
   projectileLifetime: 0.4
-  swordPrefab: {fileID: 0}
+  swordPrefab: {fileID: 8290723906184841239}
   pistolPrefab: {fileID: 0}
   swordProjectilePrefab: {fileID: 2791730120063512151, guid: 43dbea8657e6da746a511a71558d9b67, type: 3}
 --- !u!114 &833716353840767485
@@ -123,10 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponID: 0
-  attackPower: 0
+  attackPower: 10
   player: {fileID: 0}
   projectilePrefab: {fileID: 2791730120063512151, guid: 43dbea8657e6da746a511a71558d9b67, type: 3}
   rotationSpeed: 5
   projectileLifetime: 0.4
-  swordPrefab: {fileID: 8290723906184841239}
+  swordPrefab: {fileID: 0}
   pistolPrefab: {fileID: 0}
