@@ -39,6 +39,5 @@ public class PistolController : WeaponController
         float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg + 75f;  //degree 90도 빼줘야 '칼'이 정상적인 방향을 가르킴. '총'은 아님.
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0,0,angle), rotationSpeed * Time.deltaTime);
     }
-
     
 }

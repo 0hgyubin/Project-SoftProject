@@ -27,6 +27,7 @@ public class WeaponController : MonoBehaviour
         if(Input.GetMouseButtonDown(0)){    //마우스 좌클릭시 투사체 발사
             FireProjectile();
         }
+        FlipWeaponSpriteByMouse();
     }
 
     public void SwitchWeapon(){
@@ -59,6 +60,25 @@ public class WeaponController : MonoBehaviour
         Vector3 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg-90f;  //degree 90도 빼줘야 '칼'이 정상적인 방향을 가르킴. '총'은 아님.
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0,0,angle), rotationSpeed * Time.deltaTime);
+    }
+
+    private void FlipWeaponSpriteByMouse() {
+        // 마우스 월드 좌표 구하기
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float mouseX = mouseWorldPosition.x;
+        float weaponX = transform.position.x; // 무기의 현재 X 좌표
+
+        // 무기의 SpriteRenderer 가져오기
+        SpriteRenderer weaponSpriteRenderer = GetComponent<SpriteRenderer>();
+        if(weaponSpriteRenderer != null) {
+            // 마우스 위치에 따라 flipX 설정
+            if(mouseX > weaponX) {
+                weaponSpriteRenderer.flipX = true;
+            }
+            else {
+                weaponSpriteRenderer.flipX = false;
+            }
+        }
     }
 }
 
