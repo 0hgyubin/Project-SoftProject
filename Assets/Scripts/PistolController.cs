@@ -9,7 +9,6 @@ public class PistolController : WeaponController
         base.Start();
         weaponID = 1;
         attackPower = 10f;
-        // animator = GetComponent<Animator>();
     }
     protected override void FireProjectile(){
         GameObject bullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
@@ -23,12 +22,7 @@ public class PistolController : WeaponController
 
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if(rb != null){
-            // Debug.Log("Shot!!");
-            //  rb.velocity = fireDirection * bulletSpeed;
              rb.linearVelocity = fireDirection * bulletSpeed;
-            // rb.linearVelocityY = fireDirection * bulletSpeed;
-            // rb.linearVelocityX = fireDirection * bulletSpeed;
-            // transform.Translate(fireDirection*bulletSpeed*Time.deltaTime);
         }
         else{
             Debug.Log("rb 가 null임.");
