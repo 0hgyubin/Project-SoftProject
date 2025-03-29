@@ -32,7 +32,6 @@ public class SwordController: WeaponController
             
 
             Quaternion rotatedRotation = transform.rotation * Quaternion.Euler(0, 0, -90f-30f);
-            // currentProjectile = Instantiate(swordProjectilePrefab, transform.position, transform.rotation);//투사체 생성
             currentProjectile = Instantiate(swordProjectilePrefab, spawnPosition, rotatedRotation);//투사체 생성
             currentProjectile.transform.SetParent(transform);   //투사체의 부모를 검으로 설정
             currentProjectile.GetComponent<ProjectileController>().SetLifetime(0.4f);
