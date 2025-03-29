@@ -27,7 +27,7 @@ public class WeaponController : MonoBehaviour
         if(Input.GetMouseButtonDown(0)){    //마우스 좌클릭시 투사체 발사
             FireProjectile();
         }
-        FlipWeaponSpriteByMouse();
+        // FlipWeaponSpriteByMouse();
     }
 
     public void SwitchWeapon(){
@@ -59,7 +59,8 @@ public class WeaponController : MonoBehaviour
 
         Vector3 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg-90f;  //degree 90도 빼줘야 '칼'이 정상적인 방향을 가르킴. '총'은 아님.
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0,0,angle), rotationSpeed * Time.deltaTime);
+        // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0,0,angle), rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     private void FlipWeaponSpriteByMouse() {
