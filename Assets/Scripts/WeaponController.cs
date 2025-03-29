@@ -27,7 +27,7 @@ public class WeaponController : MonoBehaviour
         if(Input.GetMouseButtonDown(0)){    //마우스 좌클릭시 투사체 발사
             FireProjectile();
         }
-        // FlipWeaponSpriteByMouse();
+        FlipWeaponSpriteByMouse();
     }
 
     public void SwitchWeapon(){
@@ -74,10 +74,10 @@ public class WeaponController : MonoBehaviour
         if(weaponSpriteRenderer != null) {
             // 마우스 위치에 따라 flipX 설정
             if(mouseX > weaponX) {
-                weaponSpriteRenderer.flipX = true;
+                weaponSpriteRenderer.flipX = false;
             }
             else {
-                weaponSpriteRenderer.flipX = false;
+                weaponSpriteRenderer.flipX = true;
             }
         }
     }

@@ -27,31 +27,20 @@ public class PistolController : WeaponController
         else{
             Debug.Log("rb 가 null임.");
         }
-
-        // Debug.Log("Pistol fired bullet in direction: " + fireDirection);
     }
-
-    // protected override void FollowMouse(){
-    //     Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //     mousePosition.z = 0;
-
-    //     Vector3 direction = mousePosition - transform.position;
-    //     float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg + 75f;  //degree 90도 빼줘야 '칼'이 정상적인 방향을 가르킴. '총'은 아님.
-    //     transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0,0,angle), rotationSpeed * Time.deltaTime);
-    // }
 
     protected override void FollowMouse(){
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
         Vector3 direction = mousePosition - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;//+ 75f +180f;  // '칼'은 -90, '총'은 원하는 오프셋에 맞춰 조정
-        // Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;// '칼'은 -90, '총' -0도에 맞춰 조정
+
+        //마우스가 총보다 왼쪽에 있으면 180도 돌림. 총이 물구나무 서는 현상 방지.
+        if(mousePosition.x < transform.position.x) {
+            angle += 180f;
+        }
+
         transform.rotation = Quaternion.Euler(0, 0, angle);
-        
-        // rotationSpeed * Time.deltaTime 만큼 각도 차이를 줄여가며 회전
-        // transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
-    
-    
 }
