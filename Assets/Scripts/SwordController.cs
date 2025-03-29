@@ -21,17 +21,17 @@ public class SwordController: WeaponController
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
             
-            // 플레이어와 마우스 사이의 방향 계산
+            //플레이어 -> 마우스 벡터
             Vector3 direction = (mousePos - transform.position).normalized;
             
-            // 원하는 오프셋 거리 (예: 1.0f)
+            //플레이어로부터 떨어진 거리
             float offsetDistance = 0.5f;
             
             // 스폰 위치: 플레이어 위치에서 direction 방향으로 offsetDistance만큼 전진
             Vector3 spawnPosition = transform.position + direction * offsetDistance;
             
 
-            Quaternion rotatedRotation = transform.rotation * Quaternion.Euler(0, 0, -90f);
+            Quaternion rotatedRotation = transform.rotation * Quaternion.Euler(0, 0, -90f-30f);
             // currentProjectile = Instantiate(swordProjectilePrefab, transform.position, transform.rotation);//투사체 생성
             currentProjectile = Instantiate(swordProjectilePrefab, spawnPosition, rotatedRotation);//투사체 생성
             currentProjectile.transform.SetParent(transform);   //투사체의 부모를 검으로 설정
