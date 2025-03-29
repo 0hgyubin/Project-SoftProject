@@ -58,8 +58,13 @@ public class WeaponController : MonoBehaviour
         mousePosition.z = 0;
 
         Vector3 direction = mousePosition - transform.position;
-        float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg-90f;  //degree 90도 빼줘야 '칼'이 정상적인 방향을 가르킴. '총'은 아님.
-        // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0,0,angle), rotationSpeed * Time.deltaTime);
+
+        //angle 값 설명
+        //degree 90도 빼줘야 '칼'이 정상적인 방향을 가르킴. '총'은 아님.
+        //sword처럼 무기의 끝이 12시 방향을 보고 있다면 -90f 해줘야 함.
+        //pistol처럼 무기의 끝(총구)가 3시 방향을 보고 있다면 각도 조절 안해도 됨.
+        //다만 flipX 바뀌면 rotation+=180도 해주는 코드를 추가해줘야 함.
+        float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg-90f;  
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
