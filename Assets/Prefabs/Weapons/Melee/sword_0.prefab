@@ -107,9 +107,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   rotationSpeed: 5
   projectileLifetime: 0.4
-  swordPrefab: {fileID: 8290723906184841239}
+  swordPrefab: {fileID: 0}
   pistolPrefab: {fileID: 0}
-  swordProjectilePrefab: {fileID: 2791730120063512151, guid: 43dbea8657e6da746a511a71558d9b67, type: 3}
+  swordProjectilePrefab: {fileID: 1913748374859709423, guid: 2205a77c450bf354baa6d760c44eaece, type: 3}
 --- !u!114 &833716353840767485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8290723906184841239}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fc87ced5b67c5b46ba62f4b58e215cc, type: 3}
   m_Name: 
@@ -125,7 +125,7 @@ MonoBehaviour:
   weaponID: 0
   attackPower: 10
   player: {fileID: 0}
-  projectilePrefab: {fileID: 2791730120063512151, guid: 43dbea8657e6da746a511a71558d9b67, type: 3}
+  projectilePrefab: {fileID: 0}
   rotationSpeed: 5
   projectileLifetime: 0.4
   swordPrefab: {fileID: 0}

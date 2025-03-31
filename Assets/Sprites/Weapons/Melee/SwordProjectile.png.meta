@@ -135,12 +135,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MeleeAttack-Sheet_0
+      name: SwordProjectile_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 49
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -148,21 +148,21 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8ea73a7f20afb9380800000000000000
-      internalID: -8963295742699275544
+      spriteID: 911247915d8f53f47bf8ff656c3c13b0
+      internalID: 879953021
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MeleeAttack-Sheet_1
+      name: SwordProjectile_1
       rect:
         serializedVersion: 2
-        x: 63
+        x: 64
         y: 0
-        width: 46
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -170,54 +170,54 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 62b3fbc85c265d520800000000000000
-      internalID: 2726193750052125478
+      spriteID: b9ec4a6cd57d48f4aa623f1d26684b0c
+      internalID: -1779697518
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MeleeAttack-Sheet_2
+      name: SwordProjectile_2
       rect:
         serializedVersion: 2
-        x: 127
-        y: 1
-        width: 24
-        height: 62
+        x: 128
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5c3bce6e1bf54ee00800000000000000
-      internalID: 1073087828909142981
+      spriteID: dd9a0231fc311ae49a00f445368515c2
+      internalID: -536107896
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MeleeAttack-Sheet_3
+      name: SwordProjectile_3
       rect:
         serializedVersion: 2
-        x: 191
-        y: 5
-        width: 16
-        height: 54
+        x: 192
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1e32444eedae56610800000000000000
-      internalID: 1613954284515501025
+      spriteID: be70b40376c77e44eb64d5c23e706204
+      internalID: 77017917
       vertices: []
       indices: 
       edges: []
@@ -226,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c586f2eccf3857d4a80a7c1bb61a1de4
     internalID: 0
     vertices: []
     indices: 
@@ -236,10 +236,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MeleeAttack-Sheet_0: -8963295742699275544
-      MeleeAttack-Sheet_1: 2726193750052125478
-      MeleeAttack-Sheet_2: 1073087828909142981
-      MeleeAttack-Sheet_3: 1613954284515501025
+      SwordProjectile_0: 879953021
+      SwordProjectile_1: -1779697518
+      SwordProjectile_2: -536107896
+      SwordProjectile_3: 77017917
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

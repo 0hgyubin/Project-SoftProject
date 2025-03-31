@@ -64,11 +64,13 @@ public class WeaponController : MonoBehaviour
         //sword처럼 무기의 끝이 12시 방향을 보고 있다면 -90f 해줘야 함.
         //pistol처럼 무기의 끝(총구)가 3시 방향을 보고 있다면 각도 조절 안해도 됨.
         //다만 flipX 바뀌면 rotation+=180도 해주는 코드를 추가해줘야 함.
-        float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg-90f+30f;  
+        // float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg-90f+30f;  
+        float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;  
         transform.rotation = Quaternion.Euler(0, 0, angle);
+        Debug.Log("???");
     }
 
-    private void FlipWeaponSpriteByMouse() {
+    protected void FlipWeaponSpriteByMouse() {
         // 마우스 월드 좌표 구하기
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float mouseX = mouseWorldPosition.x;

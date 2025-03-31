@@ -13,6 +13,7 @@ public class ProjectileController : MonoBehaviour
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         damage = player.attackDamage;
         Destroy(gameObject,lifeTime);
+        Debug.Log("lifeTime:" + lifeTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
@@ -31,4 +32,6 @@ public class ProjectileController : MonoBehaviour
     public void SetLifetime(float newLifetime){
         lifeTime = newLifetime;//
     }
+
+    
 }

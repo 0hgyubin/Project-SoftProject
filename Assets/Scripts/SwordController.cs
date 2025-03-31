@@ -18,6 +18,11 @@ public class SwordController: WeaponController
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    protected override void Update(){
+        base.Update();
+        UpdateProjectileFlip();
+    }
+
     protected override void FireProjectile(){
         if(currentProjectile == null){
 
@@ -34,15 +39,40 @@ public class SwordController: WeaponController
             Vector3 spawnPosition = transform.position + direction * offsetDistance;
             
 
-            Quaternion rotatedRotation = transform.rotation * Quaternion.Euler(0, 0, -180f);
+            Quaternion rotatedRotation = transform.rotation * Quaternion.Euler(0, 0, 0);
             currentProjectile = Instantiate(swordProjectilePrefab, spawnPosition, rotatedRotation);//투사체 생성
             currentProjectile.transform.SetParent(transform);   //투사체의 부모를 검으로 설정
-            currentProjectile.GetComponent<ProjectileController>().SetLifetime(0.4f);
+            // currentProjectile.GetComponent<ProjectileController>().SetLifetime(0.4f);
+
+            // // 현재 생성된 투사체의 SpriteRenderer 가져오기
+            // SpriteRenderer projSpriteRenderer = currentProjectile.GetComponent<SpriteRenderer>();
+            // if(projSpriteRenderer != null){
+            //     // 마우스가 플레이어 왼쪽에 있으면 flipX true, 아니면 false
+            //     if(mousePos.x < transform.position.x){
+            //         projSpriteRenderer.flipX = true;
+            //     } else {
+            //         projSpriteRenderer.flipX = false;
+            //     }
+            // }
         }
     }
 
-    protected override void FollowMouse()
-    {
+    private void UpdateProjectileFlip(){
+        if(currentProjectile != null){
+            SpriteRenderer projSpriteRenderer = currentProjectile.GetComponent<SpriteRenderer>();
+            if(projSpriteRenderer != null){
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mousePos.z = 0;
+                if(mousePos.x < transform.position.x){
+                    projSpriteRenderer.flipX = true;
+                } else {
+                    projSpriteRenderer.flipX = false;
+                }
+            }
+        }
+    }
+
+    protected override void FollowMouse(){
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
@@ -50,19 +80,20 @@ public class SwordController: WeaponController
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         //마우스가 총보다 왼쪽에 있으면 180도 돌림. 총이 물구나무 서는 현상 방지.
-        if (mousePosition.x < transform.position.x - 90)
-        {
-            spriteRenderer.flipX = true;           
-        }
+        // if (mousePosition.x < transform.position.x - 90)
+        // {
+        //     spriteRenderer.flipX = true;           
+        // }
 
-        else
-        {
-            spriteRenderer.flipX = false;
-        }
+        // else
+        // {
+        //     spriteRenderer.flipX = false;
+        // }
         if (mousePosition.x < transform.position.x)
         {
             angle += 180f;
         }
+        Debug.Log("!!!");
 
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
