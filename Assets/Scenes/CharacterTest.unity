@@ -671,6 +671,7 @@ MonoBehaviour:
   DashForce: 10
   BlinkDuration: 1.6
   isGrounded: 0
+  canDamaged: 1
   hitSound: {fileID: 8300000, guid: 93bd9b4aa002a784d8d0fb8950400755, type: 3}
   jumpSound: {fileID: 8300000, guid: 607bc5bba89663f42bccb1e2de7aca03, type: 3}
   BattleBGM: {fileID: 8300000, guid: 51976b415cca311498cd3d0fa0592bf2, type: 3}
@@ -1143,7 +1144,7 @@ MonoBehaviour:
   currentWeaponImage: {fileID: 844609191}
   nextWeaponImage: {fileID: 649238715}
   weaponSprites:
-  - {fileID: -3753825769889500098, guid: 53609647f174d2d48ac4256006e83b64, type: 3}
+  - {fileID: 21300000, guid: 53609647f174d2d48ac4256006e83b64, type: 3}
   - {fileID: -3534485344967467138, guid: 5747a512d4626494fa83cd308c61f072, type: 3}
   swordPrefab: {fileID: 8290723906184841239, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
   pistolPrefab: {fileID: 1102845162993337033, guid: ef3bc557731cec1499fbd5a7f6fad7b9, type: 3}
@@ -1161,6 +1162,22 @@ PrefabInstance:
     - target: {fileID: 833716353840767485, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
       propertyPath: attackPower
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483372722429012060, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
+      propertyPath: m_Size.x
+      value: 1.0666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483372722429012060, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
+      propertyPath: m_Size.y
+      value: 1.0666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483372722429012060, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 53609647f174d2d48ac4256006e83b64, type: 3}
+    - target: {fileID: 4483372722429012060, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8290723906184841239, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
       propertyPath: m_Name

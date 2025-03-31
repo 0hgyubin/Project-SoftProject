@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     public float BlinkDuration = 1.6f;
     
     public bool isGrounded = true;
+    public bool canDamaged = true;
 
     public AudioClip hitSound;         // 플레이어 피격 시 재생할 사운드 파일
     public AudioClip jumpSound;
@@ -138,8 +139,7 @@ public class Player : MonoBehaviour
     {
         isDashed = true;
         canDash = false;
-
-        SetAllEnemyCollidersTrigger(true);
+        canDamaged = false;
 
         if (characterSpriteRender.flipX == false)
         {
@@ -152,20 +152,6 @@ public class Player : MonoBehaviour
 
         Invoke("EndDash", 0.5f);         // 대시 종료
         Invoke("ResetDash", DashCoolTime); // 대시 쿨타임 초기화
-    }
-
-    void SetAllEnemyCollidersTrigger(bool isTrigger)
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        foreach (GameObject enemy in enemies)
-        {
-            Collider2D col = enemy.GetComponent<Collider2D>();
-            if (col != null)
-            {
-                col.isTrigger = isTrigger;
-            }
-        }
     }
 
 
@@ -194,16 +180,19 @@ public class Player : MonoBehaviour
     public void TakeDamage(float damage) //데미지를 입었을때 호출될 함수
     {
         isTouched = true;
-        //Debug.Log("Hit in PlayerController");
-        hpUI.TakeDamaged(damage); // **데미지는 항상 올바르게 설정할 것
-        damageTimer = 0f;
-
-        if (hitSound != null && audioSource != null) // 피격음 재생
+        if (canDamaged == true)
         {
-            audioSource.PlayOneShot(hitSound);
-        }
+            //Debug.Log("Hit in PlayerController");
+            hpUI.TakeDamaged(damage); // **데미지는 항상 올바르게 설정할 것
+            damageTimer = 0f;
 
-        StartCoroutine(CharacterInvincible());
+            if (hitSound != null && audioSource != null) // 피격음 재생
+            {
+                audioSource.PlayOneShot(hitSound);
+            }
+
+            StartCoroutine(CharacterInvincible());
+        }
     }
 
     private void FlipSpriteByMouse() //마우스 위치에 따라 캐릭터의 flipX 유무 결정하는 함수
@@ -226,8 +215,7 @@ public class Player : MonoBehaviour
     void EndDash()
     {
         isDashed = false;
-        SetAllEnemyCollidersTrigger(false);
-
+        canDamaged = true;
     }
 
     void ResetDash()
