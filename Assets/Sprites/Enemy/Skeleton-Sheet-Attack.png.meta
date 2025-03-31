@@ -165,10 +165,10 @@ TextureImporter:
       name: Skeleton-Sheet-Attack_0
       rect:
         serializedVersion: 2
-        x: 149
-        y: 15
-        width: 26
-        height: 42
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,10 +187,10 @@ TextureImporter:
       name: Skeleton-Sheet-Attack_1
       rect:
         serializedVersion: 2
-        x: 220
-        y: 48
-        width: 10
-        height: 14
+        x: 64
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,10 +209,10 @@ TextureImporter:
       name: Skeleton-Sheet-Attack_2
       rect:
         serializedVersion: 2
-        x: 290
-        y: 47
-        width: 12
-        height: 13
+        x: 128
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,10 +231,10 @@ TextureImporter:
       name: Skeleton-Sheet-Attack_3
       rect:
         serializedVersion: 2
-        x: 6
-        y: 18
-        width: 14
-        height: 10
+        x: 192
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -253,10 +253,10 @@ TextureImporter:
       name: Skeleton-Sheet-Attack_4
       rect:
         serializedVersion: 2
-        x: 15
-        y: 15
-        width: 28
-        height: 32
+        x: 256
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -275,10 +275,10 @@ TextureImporter:
       name: Skeleton-Sheet-Attack_5
       rect:
         serializedVersion: 2
-        x: 73
-        y: 15
-        width: 36
-        height: 32
+        x: 320
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -297,10 +297,10 @@ TextureImporter:
       name: Skeleton-Sheet-Attack_6
       rect:
         serializedVersion: 2
-        x: 213
-        y: 15
-        width: 26
-        height: 32
+        x: 384
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -319,10 +319,10 @@ TextureImporter:
       name: Skeleton-Sheet-Attack_7
       rect:
         serializedVersion: 2
-        x: 277
-        y: 15
-        width: 26
-        height: 32
+        x: 448
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -337,121 +337,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Skeleton-Sheet-Attack_8
-      rect:
-        serializedVersion: 2
-        x: 329
-        y: 15
-        width: 36
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 34d56449dc06423f0800000000000000
-      internalID: -926509187259278013
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton-Sheet-Attack_9
-      rect:
-        serializedVersion: 2
-        x: 390
-        y: 18
-        width: 14
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c6df21f142e364ab0800000000000000
-      internalID: -5024260009424126612
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton-Sheet-Attack_10
-      rect:
-        serializedVersion: 2
-        x: 399
-        y: 15
-        width: 28
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 82e9c68560a868ab0800000000000000
-      internalID: -5006162175917777368
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton-Sheet-Attack_11
-      rect:
-        serializedVersion: 2
-        x: 454
-        y: 14
-        width: 14
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8be7f5d7683663550800000000000000
-      internalID: 6140204571246427832
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton-Sheet-Attack_12
-      rect:
-        serializedVersion: 2
-        x: 460
-        y: 15
-        width: 31
-        height: 29
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 46c4dc61507a30c30800000000000000
-      internalID: 4324483707505036388
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 36111788beba4eb46845e4ee63fe4217
     internalID: 0
     vertices: []
     indices: 
@@ -463,17 +353,12 @@ TextureImporter:
     nameFileIdTable:
       Skeleton-Sheet-Attack_0: -5451463846874148153
       Skeleton-Sheet-Attack_1: 5028523721226983603
-      Skeleton-Sheet-Attack_10: -5006162175917777368
-      Skeleton-Sheet-Attack_11: 6140204571246427832
-      Skeleton-Sheet-Attack_12: 4324483707505036388
       Skeleton-Sheet-Attack_2: -592031638388346466
       Skeleton-Sheet-Attack_3: 4218792933315375997
       Skeleton-Sheet-Attack_4: -1735902723036914321
       Skeleton-Sheet-Attack_5: 8560702966770761747
       Skeleton-Sheet-Attack_6: 1516456859833914918
       Skeleton-Sheet-Attack_7: 8725709091099073164
-      Skeleton-Sheet-Attack_8: -926509187259278013
-      Skeleton-Sheet-Attack_9: -5024260009424126612
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
