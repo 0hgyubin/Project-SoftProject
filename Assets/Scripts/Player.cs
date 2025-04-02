@@ -7,17 +7,12 @@ public class Player : MonoBehaviour
 {
     public HPController hpUI;
 
-    [SerializeField]
-    private int maxSpeed;
-    [SerializeField]
-    private int CurJumpCnt = 0;
-    [SerializeField]
-    private float damageTimer = 2f;
-    [SerializeField]
-    private float DashCoolTime = 3f;
+    public int maxSpeed;
+    public int CurJumpCnt = 0;
+    public float damageTimer = 2f;
+    public float DashCoolTime = 3f;
 
     //박정태 수정
-    [SerializeField]
     public float strength = 3f; //주인공이 가진 힘 스텟. 플레이어 공격력 = 무기 공격력 + 플레이어 힘 스탯
     
     
@@ -46,15 +41,10 @@ public class Player : MonoBehaviour
 
     public AudioClip hitSound;         // 플레이어 피격 시 재생할 사운드 파일
     public AudioClip jumpSound;
-    public AudioClip BattleBGM;
 
     public AudioSource audioSource; // 재생 도구
 
 
-    void Start()
-    {
-        audioSource.PlayOneShot(BattleBGM);
-    }
     void Update()
     {
         //박정태 수정정
