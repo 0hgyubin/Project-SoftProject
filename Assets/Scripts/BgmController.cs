@@ -1,12 +1,30 @@
 using UnityEngine;
+public class AudioManager : MonoBehaviour
+{
+    public static AudioManager Instance;
+    public AudioSource bgmSource;
 
-public class BgmController : MonoBehaviour { 
-    public AudioClip BattleBGM;
-    public AudioSource audioSource;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        audioSource.PlayOneShot(BattleBGM);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
+    void Start()
+    {
+        bgmSource = GetComponent<AudioSource> ();
+    }
+
+    public void PlayBGM(AudioClip clip)
+    {
+        bgmSource.clip = clip;
+        bgmSource.Play();
+    }
 }
