@@ -57,6 +57,7 @@ public class EnemyController : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position); // 적과 플레이어 사이의 거리 계산
 
+        //플레이어 위치에 따라 스프라이트 좌우 반전
         FlipSpriteTowardsPlayer();
 
         //공격 준비 아니면서, 탐지 범위 내라면,  발사 각도 업데이트
@@ -77,10 +78,7 @@ public class EnemyController : MonoBehaviour
         // 플레이어가 탐지 범위 내에 있음
         else if (distanceToPlayer <= detectionRadius)
         {
-            isPlayerInRange = true; 
-            // Vector3 direction = player.position - shootTransform.position;
-            // float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            // shootTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 180));
+            isPlayerInRange = true;
             if (isMoved)
             {
                 FollowPlayer(); // 플레이어를 따라감
@@ -100,9 +98,10 @@ public class EnemyController : MonoBehaviour
         shootTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 180));
     }
 
+    //플레이어 위치에 따라 스프라이트 좌우 반전
     private void FlipSpriteTowardsPlayer()
     {
-        if (player != null && spriteRenderer != null) //플레이어가 왼쪽에 있냐 오른쪽에 있냐에 따라 왼쪽 오른쪽으로 이동
+        if (player != null && spriteRenderer != null) 
         {
             spriteRenderer.flipX = player.position.x > transform.position.x;
         }
