@@ -65,8 +65,6 @@ public class EnemyController : MonoBehaviour
         }
         if (player == null) return;
 
-
-
         float distanceToPlayer = Vector2.Distance(transform.position, player.position); // 적과 플레이어 사이의 거리 계산
 
         //플레이어 위치에 따라 스프라이트 좌우 반전
@@ -152,7 +150,7 @@ public class EnemyController : MonoBehaviour
         isMoved = true;
         
         // 공격 후 플레이어가 탐지 범위 내에 있으면 다시 쫓아감
-         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer > attackRadius && distanceToPlayer <= detectionRadius){
             isPlayerInAttackRange = false;
             if(isMoved){
