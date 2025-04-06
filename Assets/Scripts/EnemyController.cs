@@ -50,37 +50,39 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;        // 태그가 "Player"인 오브젝트의 위치를 가져옴
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;        // 태그가 "Player"인 오브젝트의 위치를 가져옴
+        }
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position); // 적과 플레이어 사이의 거리 계산
-        if (player != null && spriteRenderer != null) //플레이어가 왼쪽에 있냐 오른쪽에 있냐에 따라 왼쪽 오른쪽으로 이동
+
+        FlipSpriteTowardsPlayer();
+
+        //공격 준비 아니면서, 탐지 범위 내라면,  발사 각도 업데이트
+        if (!isPreparingAttack && distanceToPlayer <= detectionRadius) 
         {
-            spriteRenderer.flipX = player.position.x > transform.position.x;
-        }
-        // 박정태 수정
-        if (!isPreparingAttack) //공격 준비 중이 아닐 때 각도 계산해서 업데이트
-        {
-            Vector3 direction = player.position - shootTransform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            shootTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 180));
+            UpdateShootRotation();
         }
 
-
+        // 플레이어가 공격 범위 내에 있음
         if (distanceToPlayer <= attackRadius)
         {
-
-            isPlayerInAttackRange = true; // 플레이어가 공격 범위 내에 있음
+            isPlayerInAttackRange = true; 
             if (!isPreparingAttack)
             {
                 StartCoroutine(PrepareAttack()); // 공격 준비 코루틴 시작
             }
         }
+        // 플레이어가 탐지 범위 내에 있음
         else if (distanceToPlayer <= detectionRadius)
         {
-            isPlayerInRange = true; // 플레이어가 탐지 범위 내에 있음
-            Vector3 direction = player.position - shootTransform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            shootTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 180));
-            if(isMoved){
+            isPlayerInRange = true; 
+            // Vector3 direction = player.position - shootTransform.position;
+            // float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            // shootTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 180));
+            if (isMoved)
+            {
                 FollowPlayer(); // 플레이어를 따라감
             }
         }
@@ -88,6 +90,21 @@ public class EnemyController : MonoBehaviour
         {
             isPlayerInRange = false; // 플레이어가 탐지 범위 밖에 있음
             isPlayerInAttackRange = false; // 플레이어가 공격 범위 밖에 있음
+        }
+    }
+
+    private void UpdateShootRotation()
+    {
+        Vector3 direction = player.position - shootTransform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        shootTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 180));
+    }
+
+    private void FlipSpriteTowardsPlayer()
+    {
+        if (player != null && spriteRenderer != null) //플레이어가 왼쪽에 있냐 오른쪽에 있냐에 따라 왼쪽 오른쪽으로 이동
+        {
+            spriteRenderer.flipX = player.position.x > transform.position.x;
         }
     }
 
@@ -132,7 +149,7 @@ public class EnemyController : MonoBehaviour
     }
 
     void AttackPlayer(){
-            Shoot(attackDirection);
+        Shoot(attackDirection);
     }
 
     void Shoot(Vector2 direction){
@@ -161,8 +178,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-        private void OnCollisionEnter2D(Collision2D collision)
-    {
+    private void OnCollisionEnter2D(Collision2D collision){
         if (collision.gameObject.CompareTag("Player"))
         {
             Player playerComponent = collision.gameObject.GetComponent<Player>();
