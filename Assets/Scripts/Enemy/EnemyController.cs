@@ -159,7 +159,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    protected void AttackPlayer(){
+    protected virtual void AttackPlayer(){
         Shoot(attackDirection);
     }
 
