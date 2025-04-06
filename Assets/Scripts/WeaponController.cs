@@ -1,9 +1,20 @@
 using UnityEngine;
 
+public enum WeaponGrade
+{
+    [InspectorName("일반")]    Common = 0,
+    [InspectorName("희귀")]    Rare   = 1,
+    [InspectorName("에픽")]    Epic   = 2,
+    [InspectorName("전설")]    Legendary = 3
+    //전설 = 3 이런 식으로 할당 가능하기도 함. enum 형이라 한글로도 선언 가능.
+}
+
 public class WeaponController : MonoBehaviour
 {
     // [SerializeField]
     public int weaponID;
+    [SerializeField] 
+    private WeaponGrade grade = WeaponGrade.Rare;
     public float attackPower;
     public Transform player;    //플레이어 위치
     public GameObject projectilePrefab; //투사체 프리팹
