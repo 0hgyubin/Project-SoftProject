@@ -116,7 +116,7 @@ public class MapController : MonoBehaviour
                         }
                         else
                         {
-                            Map[next.x, next.y] = 2;
+                            Map[next.x, next.y] = 0;
                         }
                         Q.Enqueue(next);
                     }

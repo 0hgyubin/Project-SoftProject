@@ -316,9 +316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aee323d0c6696f44b2dc17bd0269a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTilePrefab: {fileID: 3224606778625921576, guid: f36b6910461ec6846be1d97bc08712f7, type: 3}
+  EnemyTilePrefab: {fileID: 2568767364014737014, guid: f36b6910461ec6846be1d97bc08712f7, type: 3}
   FloorTilePrefab: {fileID: 3864549765205096508, guid: 630c2e174b25c4b418f140facc1cc485, type: 3}
-  NextTilePrefab: {fileID: 454591606557170591, guid: 56fc2f0f9dcf10d4ca9da2992efa19b3, type: 3}
+  NextTilePrefab: {fileID: 5574581459017759006, guid: 1ccc43fdeef5eb94baeeb9bd26fe9b6f, type: 3}
   WallTilePrefab: {fileID: 5484755237529703794, guid: ddc690077464a97429d5c687a53371e0, type: 3}
   PlayerPrefab: {fileID: 1608551756171708448, guid: 9e4633778e598ac46a35305476bc8ccf, type: 3}
   width: 10
