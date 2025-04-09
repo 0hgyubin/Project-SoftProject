@@ -321,8 +321,10 @@ MonoBehaviour:
   NextTilePrefab: {fileID: 5574581459017759006, guid: 1ccc43fdeef5eb94baeeb9bd26fe9b6f, type: 3}
   WallTilePrefab: {fileID: 5484755237529703794, guid: ddc690077464a97429d5c687a53371e0, type: 3}
   PlayerPrefab: {fileID: 1608551756171708448, guid: 9e4633778e598ac46a35305476bc8ccf, type: 3}
-  width: 10
-  height: 10
+  width: 25
+  height: 25
+  extraRoadCnt: 0
+  extraMaxCnt: 20
   tileSize: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
