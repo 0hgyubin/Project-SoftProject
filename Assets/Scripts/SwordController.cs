@@ -93,7 +93,7 @@ public class SwordController: WeaponController
         {
             angle += 180f;
         }
-        Debug.Log("!!!");
+        //Debug.Log("!!!");
 
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }

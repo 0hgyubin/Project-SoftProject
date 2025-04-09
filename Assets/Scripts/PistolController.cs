@@ -40,7 +40,7 @@ public class PistolController : WeaponController
         if(mousePosition.x < transform.position.x) {
             angle += 180f;
         }
-        Debug.Log("!!!");
+        //Debug.Log("!!!");
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }
