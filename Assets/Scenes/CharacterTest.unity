@@ -416,7 +416,7 @@ MonoBehaviour:
   epicWeapons: []
   legendaryWeapons: []
   gradeSelect:
-  - 10
+  - 0
   - 10
   - 0
   - 0
