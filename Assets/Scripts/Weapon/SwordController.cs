@@ -12,7 +12,7 @@ public class SwordController: WeaponController
     protected override void Start()
     {
         base.Start();
-        weaponID = 0;
+        weaponID = 2;
         attackPower = 10f;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
