@@ -282,7 +282,7 @@ public class MapController : MonoBehaviour
         {
             for (int y = 1; y <= height; y++)
             {
-                if (Map[x, y] != 2)
+                if (Map[x, y] != 2 && Map[x, y] != 3)
                 {
                     bool hasAdjacentFloor = false;
                     if (y + 1 <= height && Map[x, y + 1] == 2)
