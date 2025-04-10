@@ -24,10 +24,8 @@ public class EnemyController : MonoBehaviour
     public float maxDistance = 5f; //투사체가 최대로 갈 수 있는 거리
 
     [Header("bool")]
-    public bool isMelee = true; //근거리인지 원거리인지
+    public bool isMelee; //근거리인지 원거리인지
 
-
-    public int playerDamage; // 플레이어가 적에게 가하는 데미지
     protected SpriteRenderer spriteRenderer;
     public Animator weaponAnimator; //원거리 적 무기의 애니메이터(활 당기기 등의 모션 관련)
     protected Animator animator; //적 본인의 애니메이터
@@ -63,7 +61,9 @@ public class EnemyController : MonoBehaviour
         if (player == null){
             player = GameObject.FindGameObjectWithTag("Player").transform;        // 태그가 "Player"인 오브젝트의 위치를 가져옴
         }
-        if (player == null) return;
+        if (player == null){
+            Debug.Log("Error! Player를 찾을 수 없습니다.");
+        }
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position); // 적과 플레이어 사이의 거리 계산
 
