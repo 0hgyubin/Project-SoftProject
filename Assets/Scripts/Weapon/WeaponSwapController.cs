@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class WeaponSwapController : MonoBehaviour
 {
-    public Image currentWeaponImage;
-    public Image nextWeaponImage;
+    Image currentWeaponImage;
+    Image nextWeaponImage;
 
-    public Sprite[] weaponSprites; 
+    Sprite[] weaponSprites; 
     // public GameObject swordPrefab;
     // public GameObject pistolPrefab;
     public WeaponRepository weaponRepository;
@@ -14,10 +14,10 @@ public class WeaponSwapController : MonoBehaviour
 
     public int[] equippedWeaponIDs = new int[2] { 2, 1 };
 
-    public Vector2 currentSize = new Vector2(100, 100); //size1
-    public Vector2 nextSize = new Vector2(60, 60); // size2
+    Vector2 currentSize = new Vector2(100, 100); //size1
+    Vector2 nextSize = new Vector2(60, 60); // size2
 
-    public WeaponController currentWeaponController;
+    WeaponController currentWeaponController;
 
     void Start()
     {

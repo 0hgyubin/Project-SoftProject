@@ -17,6 +17,7 @@ public class WeaponController : MonoBehaviour
     
     public float attackPower;   //공격력. (기본 공격력에서 바뀔 수 있는 값)
     public Transform player;    //플레이어 위치
+    [HideInInspector] //헷갈림 방지
     public GameObject projectilePrefab; //투사체 프리팹
     // public float rotationSpeed = 5f;
     public float projectileLifetime = 0.4f; //무기마다 lifetime을 다르게 설정하기 위한 변수

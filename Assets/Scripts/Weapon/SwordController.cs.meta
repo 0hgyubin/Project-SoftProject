@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: 01aa6e723597ec34689210cdfe741306
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - player: {instanceID: 0}
+  - projectilePrefab: {instanceID: 0}
+  - weaponRepository: {fileID: 11400000, guid: eedb3638896cbd641b74a94cd01ae565, type: 2}
+  - swordProjectilePrefab: {fileID: 1913748374859709423, guid: 2205a77c450bf354baa6d760c44eaece, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
