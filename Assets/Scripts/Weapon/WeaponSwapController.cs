@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class WeaponSwapController : MonoBehaviour
 {
-    Image currentWeaponImage;
-    Image nextWeaponImage;
+    public Image currentWeaponImage;
+    public Image nextWeaponImage;
 
     Sprite[] weaponSprites; 
     // public GameObject swordPrefab;
@@ -54,8 +54,6 @@ public class WeaponSwapController : MonoBehaviour
             Sprite currentWeaponSprite = currentWeaponData.weaponPrefab.GetComponent<SpriteRenderer>().sprite;
             currentWeaponImage.sprite = currentWeaponSprite;
 
-            // 필요시 UI에서만 90도 회전 (스프라이트 회전)
-            currentWeaponImage.rectTransform.rotation = Quaternion.Euler(0f, 0f, 90f);
         } else {
             currentWeaponImage.sprite = null;  // 빈 슬롯 처리
         }
@@ -65,8 +63,6 @@ public class WeaponSwapController : MonoBehaviour
             Sprite nextWeaponSprite = nextWeaponData.weaponPrefab.GetComponent<SpriteRenderer>().sprite;
             nextWeaponImage.sprite = nextWeaponSprite;
 
-            // 필요시 UI에서만 90도 회전 (스프라이트 회전)
-            nextWeaponImage.rectTransform.rotation = Quaternion.Euler(0f, 0f, 90f);
         } else {
             nextWeaponImage.sprite = null;  // 빈 슬롯 처리
         }

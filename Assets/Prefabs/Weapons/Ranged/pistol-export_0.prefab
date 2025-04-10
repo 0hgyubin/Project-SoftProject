@@ -103,7 +103,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponID: 0
   attackPower: 10
-  player: {fileID: 0}
   projectilePrefab: {fileID: 0}
   projectileLifetime: 0.4
   weaponRepository: {fileID: 0}
@@ -121,8 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponID: 0
   attackPower: 0
-  player: {fileID: 0}
   projectilePrefab: {fileID: 1855994466192179425, guid: 93656e047c4ddae48b953dbb457d4833, type: 3}
   projectileLifetime: 0.4
-  weaponRepository: {fileID: 0}
+  weaponRepository: {fileID: 11400000, guid: eedb3638896cbd641b74a94cd01ae565, type: 2}
   bulletSpeed: 15
