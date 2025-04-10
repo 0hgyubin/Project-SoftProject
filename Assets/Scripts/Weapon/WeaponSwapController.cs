@@ -14,7 +14,6 @@ public class WeaponSwapController : MonoBehaviour
     Vector2 currentSize = new Vector2(100, 100); //size1
     Vector2 nextSize = new Vector2(60, 60); // size2
 
-    WeaponController currentWeaponController;
 
     void Start()
     {
