@@ -101,7 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01aa6e723597ec34689210cdfe741306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponID: 0
+  weaponID: 2
+  grade: 1
   attackPower: 10
   player: {fileID: 0}
   projectilePrefab: {fileID: 0}
@@ -123,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponID: 0
+  grade: 1
   attackPower: 10
   player: {fileID: 0}
   projectilePrefab: {fileID: 0}

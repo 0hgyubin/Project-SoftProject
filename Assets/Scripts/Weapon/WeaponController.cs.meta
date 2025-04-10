@@ -6,8 +6,7 @@ MonoImporter:
   defaultReferences:
   - player: {instanceID: 0}
   - projectilePrefab: {instanceID: 0}
-  - swordPrefab: {fileID: 8290723906184841239, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
-  - pistolPrefab: {fileID: 1102845162993337033, guid: ef3bc557731cec1499fbd5a7f6fad7b9, type: 3}
+  - weaponRepository: {fileID: 11400000, guid: eedb3638896cbd641b74a94cd01ae565, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -7,8 +7,9 @@ public class PistolController : WeaponController
     protected override void Start()
     {
         base.Start();
-        weaponID = 1;
-        attackPower = 10f;
+        // if(프리팹 없다면??){}
+
+        
     }
     protected override void FireProjectile(){
         GameObject bullet = Instantiate(projectilePrefab, transform.position, transform.rotation);

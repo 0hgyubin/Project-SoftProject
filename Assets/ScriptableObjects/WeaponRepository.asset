@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: WeaponRepository
   m_EditorClassIdentifier: 
   weapons:
-  - weaponID: 0
-    weaponPrefab: {fileID: 0}
-    projectilePrefab: {fileID: 0}
-    attackPower: 0
-    projectileLifetime: 0
-    grade: 0
+  - weaponID: 1
+    weaponPrefab: {fileID: 1102845162993337033, guid: ef3bc557731cec1499fbd5a7f6fad7b9, type: 3}
+    projectilePrefab: {fileID: 1855994466192179425, guid: 93656e047c4ddae48b953dbb457d4833, type: 3}
+    attackPower: 10
+    projectileLifetime: 15
+    grade: 1
+  - weaponID: 2
+    weaponPrefab: {fileID: 1102845162993337033, guid: ef3bc557731cec1499fbd5a7f6fad7b9, type: 3}
+    projectilePrefab: {fileID: 1913748374859709423, guid: 2205a77c450bf354baa6d760c44eaece, type: 3}
+    attackPower: 10
+    projectileLifetime: 0.4
+    grade: 1

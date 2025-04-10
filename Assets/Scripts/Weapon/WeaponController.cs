@@ -11,25 +11,47 @@ public enum WeaponGrade
 
 public class WeaponController : MonoBehaviour
 {
-    // [SerializeField]
-    public int weaponID;
-    [SerializeField] 
-    private WeaponGrade grade = WeaponGrade.Rare;
-    public float attackPower;
+    
+    [HideInInspector] //public 유지해줘야 함
+    public int weaponID;    
+    
+    public float attackPower;   //공격력. (기본 공격력에서 바뀔 수 있는 값)
     public Transform player;    //플레이어 위치
     public GameObject projectilePrefab; //투사체 프리팹
-    public float rotationSpeed = 5f;
+    // public float rotationSpeed = 5f;
     public float projectileLifetime = 0.4f; //무기마다 lifetime을 다르게 설정하기 위한 변수
 
-    public GameObject swordPrefab;
-    public GameObject pistolPrefab;
-    private GameObject currentWeapon;
+    // public GameObject swordPrefab;
+    // public GameObject pistolPrefab;
+    public WeaponRepository weaponRepository;
+
+    protected void Awake()
+    {
+        // WeaponRepository 싱글톤을 사용
+        weaponRepository = WeaponRepository.Instance;
+
+        if (weaponRepository != null) {
+            Debug.Log("WeaponRepository 참조 성공");
+        } else {
+            Debug.LogError("WeaponRepository가 초기화되지 않았습니다.");
+        }
+    }
 
     protected virtual void Start(){
+        WeaponData weaponData = weaponRepository.GetWeaponDataByID(weaponID);
         if(player == null){
             player = GameObject.FindWithTag("Player").transform;
         }
-        // SwitchWeapon();
+
+        if (weaponData != null) {
+            attackPower = weaponData.attackPower;  // WeaponRepository에서 기본 공격력 할당, 
+            //WeaponSwapController.cs에서 최초 생성될때 덮어씌어질 수도 있음.
+
+            projectilePrefab = weaponData.projectilePrefab;
+        }
+        else {
+            Debug.LogError("WeaponData not found for ID: " + weaponID);
+        }
     }
 
     protected virtual void Update(){
@@ -41,18 +63,18 @@ public class WeaponController : MonoBehaviour
         FlipWeaponSpriteByMouse();
     }
 
-    public void SwitchWeapon(){
-        if(currentWeapon != null){
-            Destroy(currentWeapon);
-        }
+    // public void SwitchWeapon(){
+    //     if(currentWeapon != null){
+    //         Destroy(currentWeapon);
+    //     }
 
-        if(weaponID == 0){
-            currentWeapon = Instantiate(swordPrefab, transform.position, Quaternion.identity);
-        }
-        else if(weaponID == 1){
-            currentWeapon = Instantiate(pistolPrefab, transform.position, Quaternion.identity);
-        }
-    }
+    //     if(weaponID == 2){
+    //         currentWeapon = Instantiate(swordPrefab, transform.position, Quaternion.identity);
+    //     }
+    //     else if(weaponID == 1){
+    //         currentWeapon = Instantiate(pistolPrefab, transform.position, Quaternion.identity);
+    //     }
+    // }
 
     protected virtual void FireProjectile(){
 

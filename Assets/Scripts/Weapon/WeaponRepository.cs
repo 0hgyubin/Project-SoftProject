@@ -14,6 +14,7 @@ public class WeaponData {
 [CreateAssetMenu(fileName = "WeaponRepository", menuName = "Game/Weapon Repository")]
 public class WeaponRepository : ScriptableObject {
     public List<WeaponData> weapons;
+    public static WeaponRepository Instance;
 
     public GameObject GetWeaponPrefabByID(int id) {
         foreach (var weapon in weapons) {
@@ -24,9 +25,20 @@ public class WeaponRepository : ScriptableObject {
         Debug.LogError("Weapon with ID " + id + " not found!");
         return null;
     }
+
+    // void Awake()
+    // {
+    //     if (Instance == null){
+    //         Instance = this;
+    //         DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 삭제되지 않도록 설정
+    //     }
+    //     else
+    //         Destroy(gameObject);
+    // }
     
     public WeaponData GetWeaponDataByID(int id) {
         foreach (var weapon in weapons) {
+            Debug.Log("weapon.weaponID:" + weapon.weaponID);
             if (weapon.weaponID == id) {
                 return weapon;
             }

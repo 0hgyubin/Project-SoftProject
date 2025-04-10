@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: 6dde428a77a4ff74695f3840733bb2cc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - currentWeaponImage: {instanceID: 0}
+  - nextWeaponImage: {instanceID: 0}
+  - weaponRepository: {fileID: 11400000, guid: eedb3638896cbd641b74a94cd01ae565, type: 2}
+  - currentWeaponController: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

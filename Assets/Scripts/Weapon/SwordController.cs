@@ -6,16 +6,16 @@ public class SwordController: WeaponController
 {
     public GameObject swordProjectilePrefab;    //근접 범위 내에서 생성되는 투사체(궤적)
     private GameObject currentProjectile; // 궤적 오브젝트
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
+    // private Animator animator;
+    // private SpriteRenderer spriteRenderer;
 
     protected override void Start()
     {
         base.Start();
-        weaponID = 2;
-        attackPower = 10f;
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        // weaponID = 2;
+        // attackPower = 10f;
+        // animator = GetComponent<Animator>();
+        // spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     protected override void Update(){
