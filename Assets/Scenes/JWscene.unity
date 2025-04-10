@@ -1327,7 +1327,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1181552969}
-  - component: {fileID: 1181552970}
   - component: {fileID: 1181552971}
   m_Layer: 5
   m_Name: WeaponManager
@@ -1355,28 +1354,6 @@ RectTransform:
   m_AnchoredPosition: {x: 883, y: 460}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1181552970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1181552968}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dde428a77a4ff74695f3840733bb2cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentWeaponImage: {fileID: 844609191}
-  nextWeaponImage: {fileID: 649238715}
-  weaponSprites:
-  - {fileID: 21300000, guid: 53609647f174d2d48ac4256006e83b64, type: 3}
-  - {fileID: -3534485344967467138, guid: 5747a512d4626494fa83cd308c61f072, type: 3}
-  weaponRepository: {fileID: 0}
-  equippedWeaponIDs: 0200000001000000
-  currentSize: {x: 100, y: 100}
-  nextSize: {x: 60, y: 60}
-  currentWeaponController: {fileID: 0}
 --- !u!114 &1181552971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1389,14 +1366,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dde428a77a4ff74695f3840733bb2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeaponImage: {fileID: 0}
-  nextWeaponImage: {fileID: 0}
-  weaponSprites: []
+  currentWeaponImage: {fileID: 844609191}
+  nextWeaponImage: {fileID: 649238715}
   weaponRepository: {fileID: 11400000, guid: eedb3638896cbd641b74a94cd01ae565, type: 2}
   equippedWeaponIDs: 0200000001000000
-  currentSize: {x: 100, y: 100}
-  nextSize: {x: 60, y: 60}
-  currentWeaponController: {fileID: 0}
 --- !u!1 &1300635290
 GameObject:
   m_ObjectHideFlags: 0

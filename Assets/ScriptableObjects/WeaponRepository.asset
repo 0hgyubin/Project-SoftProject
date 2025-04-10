@@ -20,7 +20,7 @@ MonoBehaviour:
     projectileLifetime: 15
     grade: 1
   - weaponID: 2
-    weaponPrefab: {fileID: 1102845162993337033, guid: ef3bc557731cec1499fbd5a7f6fad7b9, type: 3}
+    weaponPrefab: {fileID: 8290723906184841239, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
     projectilePrefab: {fileID: 1913748374859709423, guid: 2205a77c450bf354baa6d760c44eaece, type: 3}
     attackPower: 10
     projectileLifetime: 0.4

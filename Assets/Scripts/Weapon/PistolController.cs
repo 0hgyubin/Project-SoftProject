@@ -6,6 +6,7 @@ public class PistolController : WeaponController
     
     protected override void Start()
     {
+        weaponID = 1;
         base.Start();
         // if(프리팹 없다면??){}
 

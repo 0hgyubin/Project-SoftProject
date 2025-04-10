@@ -27,7 +27,15 @@ public class WeaponController : MonoBehaviour
     public WeaponRepository weaponRepository;
 
     protected virtual void Start(){
+        //weaponID는 자식 클래스의 Start(), WeaponRepository 두 곳에서 미리 입력해줘야 함.
+
         WeaponData weaponData = weaponRepository.GetWeaponDataByID(weaponID);
+        //WeaponRepository에 수작업으로 입력한 weaponID 값과, 
+        //무기 자식 클래스에서 start()에서 입력한 weaponID 값을 비교.
+        if(weaponID != weaponData.weaponID){ 
+            Debug.LogError("weaponID != weaponData.weaponID!!! weaponID를 제대로 입력했는지 확인해주세요.");
+        }
+
         if(player == null){
             player = GameObject.FindWithTag("Player").transform;
         }
