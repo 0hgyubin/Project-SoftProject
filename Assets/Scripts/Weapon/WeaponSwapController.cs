@@ -6,9 +6,6 @@ public class WeaponSwapController : MonoBehaviour
     public Image currentWeaponImage;
     public Image nextWeaponImage;
 
-    Sprite[] weaponSprites; 
-    // public GameObject swordPrefab;
-    // public GameObject pistolPrefab;
     public WeaponRepository weaponRepository;
     private int currentSlotIndex = 0;   //0또는 1
 
@@ -71,42 +68,6 @@ public class WeaponSwapController : MonoBehaviour
         currentWeaponImage.rectTransform.sizeDelta = currentSize;
         nextWeaponImage.rectTransform.sizeDelta = nextSize;
     }
-    // void UpdateWeaponUI()
-    // {
-    //     int nextSlotIndex = (currentSlotIndex + 1) % equippedWeaponIDs.Length;
-        
-    //     // 이미지 교체
-    //     currentWeaponImage.sprite = weaponSprites[currentSlotIndex];
-    //     nextWeaponImage.sprite = weaponSprites[nextSlotIndex];
-
-    //     // 사이즈 교체
-    //     currentWeaponImage.rectTransform.sizeDelta = currentSize;
-    //     nextWeaponImage.rectTransform.sizeDelta = nextSize;
-    // }
-
-    // void SwapWeapon(){
-    //     WeaponController currentWeaponController = FindAnyObjectByType<WeaponController>();
-        
-    //     if(currentWeaponController != null){
-    //         //기존 무기 제거
-    //         Destroy(currentWeaponController.gameObject);
-
-    //         //무기 ID에 맞는 새로운 WeaponController 생성
-    //         WeaponController newWeaponController = null;
-
-    //         if(currentIndex == 0){
-    //             newWeaponController = Instantiate(swordPrefab, transform.position, Quaternion.identity).GetComponent<WeaponController>();
-    //         }
-    //         else if(currentIndex == 1){
-    //             newWeaponController = Instantiate(pistolPrefab, transform.position, Quaternion.identity).GetComponent<WeaponController>();
-    //         }
-
-    //         if(newWeaponController != null){
-    //             currentWeaponController.weaponID = currentIndex;
-    //             Debug.Log("Weapon swapped to: " + currentWeaponController.weaponID);
-    //         }
-    //     }
-    // }
 
     void SwapWeapon(){
         WeaponController currentWeaponController = FindAnyObjectByType<WeaponController>();
@@ -130,7 +91,7 @@ public class WeaponSwapController : MonoBehaviour
             Debug.LogError("WeaponData not found for ID: " + selectedWeaponID);
             return;
         }
-        
+
         Instantiate(newWeaponData.weaponPrefab, transform.position, Quaternion.identity);
     }
 }
