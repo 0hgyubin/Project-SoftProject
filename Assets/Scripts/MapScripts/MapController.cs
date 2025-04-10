@@ -74,6 +74,8 @@ public class MapController : MonoBehaviour
                 }
             }
         }
+        Debug.Log("sPos: " + sPos);
+        Debug.Log("farthest: " + farthest);
         return farthest;
     }
 
