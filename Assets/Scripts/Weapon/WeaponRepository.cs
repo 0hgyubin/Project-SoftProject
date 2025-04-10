@@ -27,7 +27,6 @@ public class WeaponRepository : ScriptableObject {
     
     public WeaponData GetWeaponDataByID(int id) {
         foreach (var weapon in weapons) {
-            Debug.Log("weapon.weaponID:" + weapon.weaponID);
             if (weapon.weaponID == id) {
                 return weapon;
             }

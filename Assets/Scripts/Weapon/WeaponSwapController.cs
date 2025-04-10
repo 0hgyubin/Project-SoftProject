@@ -83,8 +83,6 @@ public class WeaponSwapController : MonoBehaviour
             Debug.Log("현재 슬롯(" + currentSlotIndex + ")은 빈 슬롯입니다.");
             return;  // 빈 슬롯이면 더 이상 진행하지 않음.
         }
-        Debug.Log("currentSlotIndex:" + currentSlotIndex);
-        Debug.Log("selectedWeaponID:" + selectedWeaponID);
         // WeaponRepository에서 무기 데이터 획득
         WeaponData newWeaponData = weaponRepository.GetWeaponDataByID(selectedWeaponID);
         if (newWeaponData == null) {
