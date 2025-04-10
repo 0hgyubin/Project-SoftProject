@@ -25,18 +25,6 @@ public class WeaponController : MonoBehaviour
     // public GameObject pistolPrefab;
     public WeaponRepository weaponRepository;
 
-    protected void Awake()
-    {
-        // WeaponRepository 싱글톤을 사용
-        weaponRepository = WeaponRepository.Instance;
-
-        if (weaponRepository != null) {
-            Debug.Log("WeaponRepository 참조 성공");
-        } else {
-            Debug.LogError("WeaponRepository가 초기화되지 않았습니다.");
-        }
-    }
-
     protected virtual void Start(){
         WeaponData weaponData = weaponRepository.GetWeaponDataByID(weaponID);
         if(player == null){
