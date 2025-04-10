@@ -130,5 +130,7 @@ public class WeaponSwapController : MonoBehaviour
             Debug.LogError("WeaponData not found for ID: " + selectedWeaponID);
             return;
         }
+        
+        Instantiate(newWeaponData.weaponPrefab, transform.position, Quaternion.identity);
     }
 }
