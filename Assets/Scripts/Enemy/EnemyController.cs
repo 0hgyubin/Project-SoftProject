@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("bool")]
     public bool isMelee = true; //근거리인지 원거리인지
-    public bool isMoved = true; 
+
 
     public int playerDamage; // 플레이어가 적에게 가하는 데미지
     protected SpriteRenderer spriteRenderer;
@@ -86,7 +86,7 @@ public class EnemyController : MonoBehaviour
         else if (distanceToPlayer <= detectionRadius)
         {
             isPlayerInRange = true;
-            if (isMoved){
+            if (!isPreparingAttack){
                 FollowPlayer(); // 플레이어를 따라감
             }
         }
@@ -125,7 +125,6 @@ public class EnemyController : MonoBehaviour
 
     protected IEnumerator PrepareAttack(){
         isPreparingAttack = true;
-        isMoved = false;
 
         if (!isMelee) //원거리 적의 무기 애니메이션 관련 코드
         {
@@ -147,13 +146,12 @@ public class EnemyController : MonoBehaviour
             animator.SetBool("isAttack", false);
         }
         isPreparingAttack = false;
-        isMoved = true;
         
         // 공격 후 플레이어가 탐지 범위 내에 있으면 다시 쫓아감
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer > attackRadius && distanceToPlayer <= detectionRadius){
             isPlayerInAttackRange = false;
-            if(isMoved){
+            if(!isPreparingAttack){
                 FollowPlayer();
             }
         }
