@@ -224,7 +224,7 @@ public class MapController : MonoBehaviour
         {
             for (int y = 1; y <= height; y++)
             {
-                if (extraRoadCnt< extraMaxCnt) // 경로 20개까지 만듦
+                if (extraRoadCnt< extraMaxCnt/2) // 경로 max/2개까지 만듦, 지금은 20/2
                 {
                     // 새로운 경로 시작 조건: 적이 아닌 타일(즉, 1이 아닌 타일)에서 시작하 && 8% 확률
                     if (Map[x, y] != 1 && Random.value < 0.08f)
@@ -244,10 +244,37 @@ public class MapController : MonoBehaviour
                 }
             }
         }
+
+
+        for (int x = width; x >= 1; x--)
+        {
+            for (int y = height; y >= 1; y--)
+            {
+                if (extraRoadCnt < extraMaxCnt) // 경로이번에는 오른쪽 아래부터 시작해서 만들기
+                {
+                    // 새로운 경로 시작 조건: 적이 아닌 타일(즉, 1이 아닌 타일)에서 시작하 && 8% 확률
+                    if (Map[x, y] != 1 && Random.value < 0.08f)
+                    {
+                        extraRoadCnt++;
+                        Vector2Int secondStartPos = new Vector2Int(x, y);
+                        List<Vector2Int> path = BFS(secondStartPos, startPos);
+                        if (path != null && path.Count > 1)
+                        {
+                            foreach (Vector2Int pos in path)
+                            {
+                                if (Map[pos.x, pos.y] != 3) // 혹시나 목적지가 오염되지 않게 예외 처리
+                                    Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         RenderMap();
     }
 
-    void LastCheck()
+    void LastCheck() //이상한 곳에 생성된 벽 외 타일 제거
     {
         for (int x = 1; x <= width; x++)
         {
