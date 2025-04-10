@@ -130,15 +130,5 @@ public class WeaponSwapController : MonoBehaviour
             Debug.LogError("WeaponData not found for ID: " + selectedWeaponID);
             return;
         }
-
-        // Repository에 저장된 무기 프리팹을 Instantiate 하여 장착
-        GameObject newWeaponObj = Instantiate(newWeaponData.weaponPrefab, transform.position, Quaternion.identity);
-        WeaponController newWeaponController = newWeaponObj.GetComponent<WeaponController>();
-        if (newWeaponController != null) {
-            newWeaponController.weaponID = newWeaponData.weaponID;
-            newWeaponController.attackPower = newWeaponData.attackPower;
-            // 필요하면 projectilePrefab, projectileLifetime 등 추가 설정
-            Debug.Log("슬롯 " + currentSlotIndex + "의 무기로 교체됨 (WeaponID: " + newWeaponData.weaponID + ")");
-        }
     }
 }
