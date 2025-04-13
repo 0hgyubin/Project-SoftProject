@@ -5,6 +5,12 @@ public class TreasuerChestController : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField]
+    private GameObject coin;
+    [SerializeField]
+    private int floor;
+    
+
     [SerializeField] private GameObject[] commonWeapons;
     [SerializeField] private GameObject[] rareWeapons;
     [SerializeField] private GameObject[] epicWeapons;
@@ -31,6 +37,10 @@ public class TreasuerChestController : MonoBehaviour
                 float distance = Vector3.Distance(transform.position, player.transform.position);
                 if (distance <= 1.0f && Input.GetKeyDown(KeyCode.W))
                 {
+                    int randomCoin = floor * Random.Range(7, 10);
+                    for(int i = 0 ; i < randomCoin; i++){
+                        Instantiate(coin, transform.position, Quaternion.identity);
+                    }
                     GenerateWeapon();
                     Destroy(gameObject);
                 }
