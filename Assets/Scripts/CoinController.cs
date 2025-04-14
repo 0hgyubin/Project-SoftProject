@@ -12,7 +12,7 @@ public class CoinController : MonoBehaviour
         Debug.Log("Coin");
         Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
 
-        float randomJumpForce = Random.Range(1f, 2f);
+        float randomJumpForce = Random.Range(3f, 10f);
         Vector2 jumpVelocity = Vector2.up * randomJumpForce;
         jumpVelocity.x = Random.Range(-1f, 1f);
 
