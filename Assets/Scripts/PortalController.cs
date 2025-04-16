@@ -21,7 +21,7 @@ public class PortalController : MonoBehaviour
         if (enemies.Length == 0)
         {
             spriteRenderer.enabled = true; // 적이 모두 제거되면 SpriteRenderer를 켭니다.
-                        GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
                 float distance = Vector3.Distance(transform.position, player.transform.position);
