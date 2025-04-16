@@ -69,12 +69,7 @@ public class WeaponSwapController : MonoBehaviour
     }
 
     void SwapWeapon(){
-        WeaponController currentWeaponController = FindAnyObjectByType<WeaponController>();
-        
-        if (currentWeaponController != null) {
-            //기존 무기 제거
-            Destroy(currentWeaponController.gameObject);
-        }
+        RemoveWeaponFromHand();
 
         // 현재 슬롯에서 무기 ID 가져오기
         int selectedWeaponID = equippedWeaponIDs[currentSlotIndex];
@@ -125,11 +120,13 @@ public class WeaponSwapController : MonoBehaviour
     }
 
     //UI에서 무기 삭제, 삭제된 weaponID를 return;
-    public int RemoveWeaponFromUI(){
+    private int RemoveWeaponFromUI()
+    {
         //빈 슬롯일 경우 오류 코드(-1) return
-        if(equippedWeaponIDs[currentSlotIndex]<=0) {
+        if (equippedWeaponIDs[currentSlotIndex] <= 0)
+        {
             Debug.Log("No weapons equipped to remove.");
-            return -1;  
+            return -1;
         }
 
         int removedWeaponID = equippedWeaponIDs[currentSlotIndex];
@@ -137,13 +134,22 @@ public class WeaponSwapController : MonoBehaviour
         Debug.Log("Weapon removed from UI: ID " + removedWeaponID);
         UpdateWeaponUI();  //UI 업데이트
 
+        return removedWeaponID;  //삭제된 weaponID 반환
+    }
+
+    private void RemoveWeaponFromHand()
+    {
         WeaponController currentWeaponController = FindAnyObjectByType<WeaponController>();
-        
-        if (currentWeaponController != null) {
+
+        if (currentWeaponController != null)
+        {
             //기존 무기 제거
             Destroy(currentWeaponController.gameObject);
         }
+    }
 
-        return removedWeaponID;  //삭제된 weaponID 반환
+    public int RemoveWeapon(){
+        RemoveWeaponFromHand();
+        return RemoveWeaponFromUI();
     }
 }
