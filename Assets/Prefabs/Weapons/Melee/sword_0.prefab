@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8888632843802675413}
   - component: {fileID: 4483372722429012060}
   - component: {fileID: 1827005366555843693}
-  - component: {fileID: 833716353840767485}
   m_Layer: 0
   m_Name: sword_0
   m_TagString: Weapon
@@ -101,32 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01aa6e723597ec34689210cdfe741306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponID: 0
+  weaponID: 2
   attackPower: 10
   player: {fileID: 0}
   projectilePrefab: {fileID: 0}
-  rotationSpeed: 5
   projectileLifetime: 0.4
-  swordPrefab: {fileID: 0}
-  pistolPrefab: {fileID: 0}
+  weaponRepository: {fileID: 11400000, guid: eedb3638896cbd641b74a94cd01ae565, type: 2}
   swordProjectilePrefab: {fileID: 1913748374859709423, guid: 2205a77c450bf354baa6d760c44eaece, type: 3}
---- !u!114 &833716353840767485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8290723906184841239}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fc87ced5b67c5b46ba62f4b58e215cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponID: 0
-  attackPower: 10
-  player: {fileID: 0}
-  projectilePrefab: {fileID: 0}
-  rotationSpeed: 5
-  projectileLifetime: 0.4
-  swordPrefab: {fileID: 0}
-  pistolPrefab: {fileID: 0}
