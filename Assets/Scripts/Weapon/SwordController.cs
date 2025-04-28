@@ -6,6 +6,7 @@ public class SwordController: WeaponController
 {
     public GameObject swordProjectilePrefab;    //근접 범위 내에서 생성되는 투사체(궤적)
     private GameObject currentProjectile; // 궤적 오브젝트
+    private bool isRotating = false;      // 현재 회전 중인지 체크 //오규빈) 검 공격 애니메이션 추가 위해서 넣은 코드
     // private Animator animator;
     // private SpriteRenderer spriteRenderer;
 
@@ -54,6 +55,10 @@ public class SwordController: WeaponController
             //         projSpriteRenderer.flipX = false;
             //     }
             // }
+
+            //오규빈) 검 공격 애니메이션 추가 위해서 넣은 코드
+            float rotationAngle = 180f;
+            StartCoroutine(RotateSword(rotationAngle, 0.1f)); // 0.3초 동안 회전
         }
     }
 
@@ -96,5 +101,25 @@ public class SwordController: WeaponController
         //Debug.Log("!!!");
 
         transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    private IEnumerator RotateSword(float angle, float duration)//오규빈) 검 공격 애니메이션 추가 위해서 넣은 코드
+    {
+        if (isRotating) yield break;   // 이미 회전 중이면 중복 실행 금지
+        isRotating = true;
+
+        Quaternion startRotation = transform.rotation;
+        Quaternion endRotation = startRotation * Quaternion.Euler(0, 0, angle);
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(startRotation, endRotation, elapsed / duration);
+            yield return null;
+        }
+
+        transform.rotation = endRotation; // 마지막에 정확히 고정
+        isRotating = false;
     }
 }
