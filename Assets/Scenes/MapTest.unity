@@ -325,7 +325,7 @@ MonoBehaviour:
   height: 25
   extraRoadCnt: 0
   extraMaxCnt: 20
-  tileSize: 1
+  tileSize: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
