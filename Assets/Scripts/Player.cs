@@ -44,15 +44,20 @@ public class Player : MonoBehaviour
 
     public AudioSource audioSource; // 재생 도구
 
-
+    public bool isTouchingWall = false;
+    private float wallSlideSpeed = -0.8f;
+    // 벽 붙기 관련 함수
+    public GameObject dashEffectPrefab;
     void Update()
     {
+        WallSlide(); //벽 매달리기 기능 추가
+
+
         //박정태 수정정
         WeaponController weaponController = GameObject.FindGameObjectWithTag("Weapon").GetComponent<WeaponController>(); //무기 받아오기
         weaponDamage = weaponController.attackPower;//무기에 있는 attackPower라는 값 가져오기.
         attackDamage = strength + weaponDamage; //플레이어 공격력 = 힘 + 무기 공격력
         //여기서 몇 데미지를 줄지 결정함.
-
 
 
         float moveInput = 0f;
@@ -106,12 +111,30 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && CurJumpCnt < MaxJumpCnt)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            audioSource.PlayOneShot(jumpSound);
-            isGrounded = false;
-            PlayerRigidBody.AddForceY(JumpForce, ForceMode2D.Impulse);
-            CurJumpCnt++;
+            if (isTouchingWall && !isGrounded)
+            {
+                // 기존 속도 초기화
+                PlayerRigidBody.linearVelocity = Vector2.zero;
+
+                // 수평+수직 방향으로 힘 가하기
+                PlayerRigidBody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
+
+                // 점프 후 벽 상태 초기화
+                isTouchingWall = false;
+                isGrounded = false;
+                CurJumpCnt++;
+
+                audioSource.PlayOneShot(jumpSound);
+            }
+            else if (CurJumpCnt < MaxJumpCnt)
+            {
+                audioSource.PlayOneShot(jumpSound);
+                isGrounded = false;
+                PlayerRigidBody.AddForceY(JumpForce, ForceMode2D.Impulse);
+                CurJumpCnt++;
+            }
         }
     }
 
@@ -122,7 +145,19 @@ public class Player : MonoBehaviour
             CurJumpCnt = 0;
             isGrounded = true;
         }
-        
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isTouchingWall = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision) //벽에서 떨어지는 판정
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isTouchingWall = false;
+        }
     }
 
     void Dash()
@@ -131,6 +166,20 @@ public class Player : MonoBehaviour
         canDash = false;
         canDamaged = false;
 
+        // 🎇 이펙트 생성
+        if (dashEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(dashEffectPrefab, transform.position, Quaternion.identity);
+
+            // flipX 반영
+            SpriteRenderer effectSR = effect.GetComponent<SpriteRenderer>();
+            if (effectSR != null)
+            {
+                effectSR.flipX = characterSpriteRender.flipX;
+            }
+        }
+
+        // 대시 힘 적용
         if (characterSpriteRender.flipX == false)
         {
             PlayerRigidBody.AddForceX(-DashForce, ForceMode2D.Impulse);
@@ -211,5 +260,13 @@ public class Player : MonoBehaviour
     void ResetDash()
     {
         canDash = true;
+    }
+
+    void WallSlide()
+    {
+        if (isTouchingWall && !isGrounded && PlayerRigidBody.linearVelocity.y < 0)
+        {
+            PlayerRigidBody.linearVelocity = new Vector2(PlayerRigidBody.linearVelocity.x, Mathf.Max(PlayerRigidBody.linearVelocity.y, wallSlideSpeed));
+        }
     }
 }

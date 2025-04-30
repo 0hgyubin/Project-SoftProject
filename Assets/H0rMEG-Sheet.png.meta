@@ -1,0 +1,727 @@
+fileFormatVersion: 2
+guid: fca31c34f48036e4bbebc22583923ad5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6901036930553073370
+    second: H0rMEG-Sheet_0
+  - first:
+      213: -6759363583834434427
+    second: H0rMEG-Sheet_1
+  - first:
+      213: 667804380802396078
+    second: H0rMEG-Sheet_2
+  - first:
+      213: -7605321652131920051
+    second: H0rMEG-Sheet_3
+  - first:
+      213: -2523628433904590693
+    second: H0rMEG-Sheet_4
+  - first:
+      213: 7152666814036516897
+    second: H0rMEG-Sheet_5
+  - first:
+      213: 8758122477825442135
+    second: H0rMEG-Sheet_6
+  - first:
+      213: -7548008775632675674
+    second: H0rMEG-Sheet_7
+  - first:
+      213: 8049926627812918645
+    second: H0rMEG-Sheet_8
+  - first:
+      213: 4856445292222118717
+    second: H0rMEG-Sheet_9
+  - first:
+      213: 1040613558569616025
+    second: H0rMEG-Sheet_10
+  - first:
+      213: -4714215832779933065
+    second: H0rMEG-Sheet_11
+  - first:
+      213: 2665904657342481610
+    second: H0rMEG-Sheet_12
+  - first:
+      213: 443028748664680108
+    second: H0rMEG-Sheet_13
+  - first:
+      213: 7197669480419506331
+    second: H0rMEG-Sheet_14
+  - first:
+      213: 3618393260853001659
+    second: H0rMEG-Sheet_15
+  - first:
+      213: 8334113548973594519
+    second: H0rMEG-Sheet_16
+  - first:
+      213: 5183604101718157165
+    second: H0rMEG-Sheet_17
+  - first:
+      213: 4208341687217231216
+    second: H0rMEG-Sheet_18
+  - first:
+      213: 731880862042676761
+    second: H0rMEG-Sheet_19
+  - first:
+      213: -2170531300001198853
+    second: H0rMEG-Sheet_20
+  - first:
+      213: -7876114916140830416
+    second: H0rMEG-Sheet_21
+  - first:
+      213: -7694087616743397487
+    second: H0rMEG-Sheet_22
+  - first:
+      213: 7147606315880254325
+    second: H0rMEG-Sheet_23
+  - first:
+      213: -6444845890771236496
+    second: H0rMEG-Sheet_24
+  - first:
+      213: -2088286106695218854
+    second: H0rMEG-Sheet_25
+  - first:
+      213: 623605486263695745
+    second: H0rMEG-Sheet_26
+  - first:
+      213: 6364317239888336621
+    second: H0rMEG-Sheet_27
+  - first:
+      213: -3638146537497721098
+    second: H0rMEG-Sheet_28
+  - first:
+      213: 6995820231578924529
+    second: H0rMEG-Sheet_29
+  - first:
+      213: -8455001416875661305
+    second: H0rMEG-Sheet_30
+  - first:
+      213: -7502836908876896675
+    second: H0rMEG-Sheet_31
+  - first:
+      213: 5488568774195787409
+    second: H0rMEG-Sheet_32
+  - first:
+      213: 4185836235333256415
+    second: H0rMEG-Sheet_33
+  - first:
+      213: 3974849668478671782
+    second: H0rMEG-Sheet_34
+  - first:
+      213: -6384469679243939596
+    second: H0rMEG-Sheet_35
+  - first:
+      213: -1049767244708487972
+    second: H0rMEG-Sheet_36
+  - first:
+      213: -5043930915495495733
+    second: H0rMEG-Sheet_37
+  - first:
+      213: 3531571119067870739
+    second: H0rMEG-Sheet_38
+  - first:
+      213: -4855174632044785505
+    second: H0rMEG-Sheet_39
+  - first:
+      213: -1826850675786994632
+    second: H0rMEG-Sheet_40
+  - first:
+      213: -3303054326557961288
+    second: H0rMEG-Sheet_41
+  - first:
+      213: -3040038239587697015
+    second: H0rMEG-Sheet_42
+  - first:
+      213: 8920339521958556534
+    second: H0rMEG-Sheet_43
+  - first:
+      213: 2454181873121898860
+    second: H0rMEG-Sheet_44
+  - first:
+      213: 3113663954058664139
+    second: H0rMEG-Sheet_45
+  - first:
+      213: -1113218748554525080
+    second: H0rMEG-Sheet_46
+  - first:
+      213: -8926342361403187945
+    second: H0rMEG-Sheet_47
+  - first:
+      213: 2485760521244005741
+    second: H0rMEG-Sheet_48
+  - first:
+      213: -606900282937785112
+    second: H0rMEG-Sheet_49
+  - first:
+      213: -1701901545436239957
+    second: H0rMEG-Sheet_50
+  - first:
+      213: -7999969320925944461
+    second: H0rMEG-Sheet_51
+  - first:
+      213: 896439905261025991
+    second: H0rMEG-Sheet_52
+  - first:
+      213: -5364553457809946278
+    second: H0rMEG-Sheet_53
+  - first:
+      213: -2814099651673930821
+    second: H0rMEG-Sheet_54
+  - first:
+      213: 1225600446014462470
+    second: H0rMEG-Sheet_55
+  - first:
+      213: 5394077511818895821
+    second: H0rMEG-Sheet_56
+  - first:
+      213: 2074798853743545881
+    second: H0rMEG-Sheet_57
+  - first:
+      213: 3723261052377282860
+    second: H0rMEG-Sheet_58
+  - first:
+      213: -7909761977690002699
+    second: H0rMEG-Sheet_59
+  - first:
+      213: 8695540609916318530
+    second: H0rMEG-Sheet_60
+  - first:
+      213: 5685686520783651565
+    second: H0rMEG-Sheet_61
+  - first:
+      213: -2499662539430721174
+    second: H0rMEG-Sheet_62
+  - first:
+      213: -3373851993118295638
+    second: H0rMEG-Sheet_63
+  - first:
+      213: -6042286632384449997
+    second: H0rMEG-Sheet_64
+  - first:
+      213: 5161953698000788633
+    second: H0rMEG-Sheet_65
+  - first:
+      213: -8292075799152444878
+    second: H0rMEG-Sheet_66
+  - first:
+      213: 2146940015808027592
+    second: H0rMEG-Sheet_67
+  - first:
+      213: -8031604779771632148
+    second: H0rMEG-Sheet_68
+  - first:
+      213: -5552556559783901918
+    second: H0rMEG-Sheet_69
+  - first:
+      213: 7473155346389868269
+    second: H0rMEG-Sheet_70
+  - first:
+      213: 9219558272929148750
+    second: H0rMEG-Sheet_71
+  - first:
+      213: 1121904185933319931
+    second: H0rMEG-Sheet_72
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b2bfd1c1593442469364052e9cf6bf1
+      internalID: -487767148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d61b0231e407172469671ec82849d28c
+      internalID: 1072355371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caa767367607c1d449d7e9f457d4231f
+      internalID: -12159366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a170ca05dd1d3646a0f3d262ddf7af1
+      internalID: 769966039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c7458cebb387c649af5baccc6c3e62c
+      internalID: 1091962794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79b7840a2a3acb649b8597249689d49a
+      internalID: 196700725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50ea4e6f0b45db443a7e4df4b51801fe
+      internalID: 72408413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 2800
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 772df917f36ac8040acd4e643be58ecb
+      internalID: -199988985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09c1d2b99a0238a4996da3a734eeba24
+      internalID: -2143489841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7d3a51ac3fad824ca80b43bdd27f14d
+      internalID: -926568197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a4d2a9671ca3e547b7a85034304196b
+      internalID: 1715923581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 4400
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aea78f720e53d346b28e923305ef827
+      internalID: -1947669355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a3b9ab9730a2c94a80bf8ffb8072d3c
+      internalID: 161142869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 5200
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fadc5e794e2efb045a3fd1857d96c2f4
+      internalID: 2078568497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 8400
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c03b45c8c3ab4c14c8567798df0fe9e9
+      internalID: -705790911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 8800
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f36163bc5f36e747b5d4891dce417e9
+      internalID: 1461548843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H0rMEG-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 9200
+        y: 1
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c534c3a62f68c2a4fb8eb7871914fc28
+      internalID: 1913027124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 48ee9c8b6761cec42900f5348eb08f47
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      H0rMEG-Sheet_0: -487767148
+      H0rMEG-Sheet_1: 1072355371
+      H0rMEG-Sheet_10: 1715923581
+      H0rMEG-Sheet_11: -1947669355
+      H0rMEG-Sheet_12: 161142869
+      H0rMEG-Sheet_13: 2078568497
+      H0rMEG-Sheet_14: -705790911
+      H0rMEG-Sheet_15: 1461548843
+      H0rMEG-Sheet_16: 1913027124
+      H0rMEG-Sheet_2: -12159366
+      H0rMEG-Sheet_3: 769966039
+      H0rMEG-Sheet_4: 1091962794
+      H0rMEG-Sheet_5: 196700725
+      H0rMEG-Sheet_6: 72408413
+      H0rMEG-Sheet_7: -199988985
+      H0rMEG-Sheet_8: -2143489841
+      H0rMEG-Sheet_9: -926568197
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

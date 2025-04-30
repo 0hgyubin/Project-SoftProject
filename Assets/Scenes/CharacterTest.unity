@@ -1326,6 +1326,8 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 93bd9b4aa002a784d8d0fb8950400755, type: 3}
   jumpSound: {fileID: 8300000, guid: 607bc5bba89663f42bccb1e2de7aca03, type: 3}
   audioSource: {fileID: 638909311}
+  isTouchingWall: 0
+  dashEffectPrefab: {fileID: 5305428818100442843, guid: 4fca9d1d59478b245b17a5653e2f3164, type: 3}
 --- !u!58 &638909310
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1709,7 +1711,7 @@ GameObject:
   - component: {fileID: 854415367}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1818,7 +1820,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0062262416, y: 0.023021042}
+  m_Offset: {x: 0.0031459816, y: 0.023020983}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1828,7 +1830,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.25087833, y: 4.0234156}
+  m_Size: {x: 0.16913125, y: 4.0234156}
   m_EdgeRadius: 0
 --- !u!1 &872775635
 GameObject:
@@ -2287,8 +2289,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 51976b415cca311498cd3d0fa0592bf2, type: 3}
+  m_Resource: {fileID: 8300000, guid: 51976b415cca311498cd3d0fa0592bf2, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
