@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class MapController : MonoBehaviour
 {
@@ -9,12 +10,11 @@ public class MapController : MonoBehaviour
     public GameObject WallTilePrefab;  // 벽 타일 (곤색)
     public GameObject PlayerPrefab;    // 플레이어
 
-    public int width = 25;
-    public int height = 25;
-    public int extraRoadCnt = 0;
-    public int extraMaxCnt = 20;
+    public int width = 40;
+    public int height = 40;
+    public int extraMaxCnt = 30;
     public float tileSize = 1f;
-
+    public int maxExtraPathCnt = 10; // 10번 함수에 사용
 
     private int[,] Map;
     private Vector2Int startPos;      // 시작 지점 (1~width, 1~height)
@@ -27,15 +27,21 @@ public class MapController : MonoBehaviour
     {
         GenerateEmptyMap();      // 1. 모든 맵을 벽으로 초기화
         SetStartAndGoal();       // 2. 시작점과 목적지 정하기
-        MakePathToDes();         // 3. 경로 강제 연결 + 주변 랜덤 확장
+
+        MakePathToDes();         // 3. 경로 하나는 강제 연결
         RenderMap();             // 4. 전체 타일 렌더링
         SpawnPlayer();           // 5. 플레이어 생성 및 카메라 연결
         MakeExtraPath();         // 6. 추가 경로 생성
-        LastCheck();             // 7. 의미없는 타일 모두 벽 타일로 교체하는 함수
-        MakeBoundWall();         // 8. 마지막으로 플레이어 밖으로 못나가게 벽 타일로 두루는 함수
+        MakeVariablePath();      // 7. 벽으로부터 새로운 길을 만들어 미로를 다채롭게 바꾸는 함수
+
+        ChangeLongFloor();       // 8. 바닥 타일의 길이가 너무 길 경우 수정해주는 함수   
+        CheckWhiteHole();        // 9. 바닥의 두께가 3칸 이상으로 두껍게 생성된 것을 수정하는 함수
+        CheckUseless();          // 10. 의미없는 타일 모두 벽 타일로 교체하는 함수
+        
+        MakeBoundWall();         // 11. 마지막으로 플레이어 밖으로 못나가게 벽 타일로 두루는 함수
     }
 
-    // 0 : Wall, 1 : Enemy, 2 : Floor, 3 : des
+    // 0 : Wall, 1 : Enemy, 2 : Floor, 3 : des, 
     void GenerateEmptyMap()
     {
         Map = new int[width + 2, height + 2];
@@ -50,36 +56,33 @@ public class MapController : MonoBehaviour
 
     void SetStartAndGoal()
     {
-        // 내부 영역 (플레이어 이동 가능 영역): 인덱스 1~width, 1~height
-        startPos = new Vector2Int(Random.Range(1, width + 1), Random.Range(1, height + 1));
-        Map[startPos.x, startPos.y] = 2; // 시작은 Floor(2)
-
-        desPos = GetFarthestFrom(startPos);
+        // 내부 영역 (플레이어 이동 가능 영역)
+        startPos = new Vector2Int(Random.Range(width/4, width/4 * 3), Random.Range(height/4, height/4 * 3)); // 시작지점은 랜덤 좌표
+        Map[startPos.x, startPos.y] = 2; // 시작 지점 Floor 타일로 설정.
+        Debug.Log("startPos: " + startPos);
+        desPos = GetDes();
         Map[desPos.x, desPos.y] = 3; // 목적지는 3
     }
 
-    Vector2Int GetFarthestFrom(Vector2Int sPos)
+    Vector2Int GetDes()
     {
-        Vector2Int farthest = sPos;
-        float maxDist = 0f;
-        for (int x = 1; x <= width; x++)
+        Vector2Int[] corners = new Vector2Int[]
         {
-            for (int y = 1; y <= height; y++)
-            {
-                float dist = Vector2Int.Distance(sPos, new Vector2Int(x, y));
-                if (dist > maxDist)
-                {
-                    maxDist = dist;
-                    farthest = new Vector2Int(x, y);
-                }
-            }
-        }
-        Debug.Log("sPos: " + sPos);
-        Debug.Log("farthest: " + farthest);
-        return farthest;
+        new Vector2Int(1, 1),
+        new Vector2Int(1, height - 1),
+        new Vector2Int(width - 1, 1),
+        new Vector2Int(width - 1, height - 1)
+        };
+
+        int idx = Random.Range(0, corners.Length);
+        Vector2Int des = corners[idx];
+
+        Debug.Log("desPos: " + des);
+        return des;
     }
 
-    void MakePathToDes()
+    // MakePathToDes() : 최소 1개의 확정 경로를 만드는 함수.
+    void MakePathToDes() 
     {
         List<Vector2Int> path = BFS(startPos, desPos);
         if (path == null || path.Count == 0)
@@ -92,34 +95,10 @@ public class MapController : MonoBehaviour
         for (int i = 1; i < path.Count - 1; i++)
         {
             Vector2Int pos = path[i];
-            if (Random.value < 0.1f)
-                Map[pos.x, pos.y] = 1;
+            if (Random.value < 0.1f && pos != startPos)
+                Map[pos.x, pos.y] = 1; // 적
             else
-                Map[pos.x, pos.y] = 2;
-        }
-
-        Queue<Vector2Int> Q = new Queue<Vector2Int>();
-        bool[,] visited = new bool[width + 2, height + 2];
-        Vector2Int[] dirs = new Vector2Int[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
-        Q.Enqueue(startPos);
-        visited[startPos.x, startPos.y] = true;
-
-        while (Q.Count > 0)
-        {
-            Vector2Int current = Q.Dequeue();
-            foreach (Vector2Int dir in dirs)
-            {
-                Vector2Int next = current + dir;
-                if (IsInBounds(next) && !visited[next.x, next.y] && Map[next.x, next.y] == 0)
-                {
-                    visited[next.x, next.y] = true;
-                    if (next != desPos)
-                    {
-                        Map[next.x, next.y] = (Random.value < 0.1f) ? 1 : 0;
-                        Q.Enqueue(next);
-                    }
-                }
-            }
+                Map[pos.x, pos.y] = 2; // 벽
         }
     }
 
@@ -198,18 +177,6 @@ public class MapController : MonoBehaviour
         }
     }
 
-    float manageZ(int type)
-    {
-        switch (type)
-        {
-            case 0: return -0.5f; // Wall
-            case 1: return -0.6f; // Enemy
-            case 2: return -1.0f; // Floor:
-            case 3: return -0.8f; // NextLevelTile
-            default: return 0f;
-        }
-    }
-
     void SpawnPlayer()
     {
         Vector3 pos = new Vector3((startPos.x - 1) * tileSize + tileSize * 0.5f, (startPos.y - 1) * tileSize + tileSize * 0.5f, -0.2f);
@@ -222,23 +189,24 @@ public class MapController : MonoBehaviour
     // 기존 로직을 그대로 사용 /(10% 확률로 적, 90% 확률로 바닥)으로 변경
     void MakeExtraPath()
     {
+        int extraRoadCnt = 0;
         for (int x = 1; x <= width; x++)
         {
             for (int y = 1; y <= height; y++)
             {
-                if (extraRoadCnt< extraMaxCnt/2) // 경로 max/2개까지 만듦, 지금은 20/2
+                if (extraRoadCnt < extraMaxCnt / 4) // 경로 max/2개까지 만듦,
                 {
-                    // 새로운 경로 시작 조건: 적이 아닌 타일(즉, 1이 아닌 타일)에서 시작하 && 8% 확률
-                    if (Map[x, y] != 1 && Random.value < 0.08f)
+                    // 새로운 경로 시작 조건: 적이 아닌 타일(즉, 1이 아닌 타일)에서 시작하며 && 8% 확률
+                    if (Map[x, y] != 1 && !(x == startPos.x && y==startPos.y) && Random.value < 0.08f)
                     {
                         extraRoadCnt++;
                         Vector2Int secondStartPos = new Vector2Int(x, y);
                         List<Vector2Int> path = BFS(secondStartPos, desPos);
-                        if (path != null && path.Count > 1)
+                        if (path != null && path.Count > 1) // 경로 리스트에 적절한 값이 들어있다면
                         {
                             foreach (Vector2Int pos in path)
                             {
-                                if (Map[pos.x, pos.y] != 3) // 혹시나 목적지가 오염되지 않게 예외 처리
+                                if (Map[pos.x, pos.y] != 3 && !(x == startPos.x && y == startPos.y)) // 혹시나 목적지가 오염되지 않게 예외 처리
                                     Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
                             }
                         }
@@ -252,10 +220,10 @@ public class MapController : MonoBehaviour
         {
             for (int y = height; y >= 1; y--)
             {
-                if (extraRoadCnt < extraMaxCnt) // 경로이번에는 오른쪽 아래부터 시작해서 만들기
+                if (extraRoadCnt < extraMaxCnt / 4 * 2) // 경로이번에는 오른쪽 아래부터 시작해서 만들기
                 {
                     // 새로운 경로 시작 조건: 적이 아닌 타일(즉, 1이 아닌 타일)에서 시작하 && 8% 확률
-                    if (Map[x, y] != 1 && Random.value < 0.08f)
+                    if (Map[x, y] != 1 && !(x == startPos.x && y == startPos.y) && Random.value < 0.08f)
                     {
                         extraRoadCnt++;
                         Vector2Int secondStartPos = new Vector2Int(x, y);
@@ -264,7 +232,7 @@ public class MapController : MonoBehaviour
                         {
                             foreach (Vector2Int pos in path)
                             {
-                                if (Map[pos.x, pos.y] != 3) // 혹시나 목적지가 오염되지 않게 예외 처리
+                                if (Map[pos.x, pos.y] != 3 && !(x == startPos.x && y == startPos.y)) // 혹시나 목적지가 오염되지 않게 예외 처리
                                     Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
                             }
                         }
@@ -273,10 +241,36 @@ public class MapController : MonoBehaviour
             }
         }
 
+        for (int x = width / 2; x >= 1; x--)
+        {
+            for (int y = height / 2; y >= 1; y--)
+            {
+                if (extraRoadCnt < extraMaxCnt / 4 * 4) // 경로이번에는 가운데 시작
+                {
+                    // 새로운 경로 시작 조건: 적이 아닌 타일(즉, 1이 아닌 타일)에서 시작하 && 8% 확률
+                    if (Map[x, y] != 1 && !(x == startPos.x && y == startPos.y) && Random.value < 0.12f) // 약간 높음
+                    {
+                        extraRoadCnt++;
+                        Vector2Int secondStartPos = new Vector2Int(x, y);
+                        List<Vector2Int> path = BFS(secondStartPos, startPos);
+                        if (path != null && path.Count > 1)
+                        {
+                            foreach (Vector2Int pos in path)
+                            {
+                                if (Map[pos.x, pos.y] !=3 && !(x == startPos.x && y == startPos.y))
+                                    Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
         RenderMap();
     }
 
-    void LastCheck() //이상한 곳에 생성된 벽 외 타일 제거
+    void CheckUseless()
     {
         for (int x = 1; x <= width; x++)
         {
@@ -284,17 +278,18 @@ public class MapController : MonoBehaviour
             {
                 if (Map[x, y] != 2 && Map[x, y] != 3)
                 {
+                    if ((x == startPos.x && y == startPos.y) ||
+                        (x == desPos.x && y == desPos.y))
+                        continue;
+
                     bool hasAdjacentFloor = false;
-                    if (y + 1 <= height && Map[x, y + 1] == 2)
+                    if (IsInBounds(new Vector2Int(x, y + 1)) && Map[x, y + 1] == 2)
                         hasAdjacentFloor = true;
-
-                    if (y - 1 >= 1 && Map[x, y - 1] == 2)
+                    if (IsInBounds(new Vector2Int(x, y - 1)) && Map[x, y - 1] == 2)
                         hasAdjacentFloor = true;
-
-                    if (x + 1 <= width && Map[x + 1, y] == 2)
+                    if (IsInBounds(new Vector2Int(x + 1, y)) && Map[x + 1, y] == 2)
                         hasAdjacentFloor = true;
-
-                    if (x - 1 >= 1 && Map[x - 1, y] == 2)
+                    if (IsInBounds(new Vector2Int(x - 1, y)) && Map[x - 1, y] == 2)
                         hasAdjacentFloor = true;
 
                     if (!hasAdjacentFloor)
@@ -303,6 +298,210 @@ public class MapController : MonoBehaviour
             }
         }
         RenderMap();
+    }
+
+    void CheckWhiteHole()
+    {
+        for (int x = 1; x <= width; x++)
+        {
+            for (int y = 1; y <= height; y++)
+            {
+                if (Map[x, y] != 2)
+                    continue;
+
+                if (Map[x + 1, y] == 2 && Map[x, y - 1] == 2 && Map[x - 1, y] == 2 && Map[x + 1, y + 1] != 0 && Map[x + 1, y - 1] != 0 && Map[x - 1, y + 1] != 0 && Map[x - 1, y - 1] != 0) //2=floor
+                {
+                    Map[x, y] = 0;
+                }
+            }
+        }
+
+        for (int x = 1; x <= width; x++)
+        {
+            for (int y = 1; y <= height; y++)
+            {
+                if (Map[x, y] != 2)
+                    continue;
+
+                if (Map[x, y + 1] == 0 && Map[x, y - 1] == 0 && Map[x - 1, y] == 0 && Map[x + 1, y] == 0)
+                {
+                    Map[x, y] = 0;
+                }
+            }
+        }
+    }
+
+    void ChangeLongFloor()
+    {
+        for (int x = 1; x <= width - 3; x++)
+        {
+            for (int y = 1; y <= height - 3; y++)
+            {
+                // 범위 이탈이면 스킵
+                if (x - 3 < 1 || x + 3 > width || y - 3 < 1 || y + 3 > height)
+                    continue;
+                // 바닥이 아니라면 스킵
+                if (Map[x, y] != 2) continue;
+
+                //시작지점 (플레이어 위) 라면 스킵
+                if (x == startPos.x && y == startPos.y) continue;
+
+                // 1+6칸 연속이면 수정함.  추후 수정 가능! (랜덤칸 및 적으로)
+
+                if (Map[x + 1, y] == 2 && Map[x + 2, y] == 2 && Map[x + 3, y] == 2 &&
+                    Map[x - 1, y] == 2 && Map[x - 2, y] == 2 && Map[x - 3, y] == 2)
+                {
+                    Map[x, y] = 1;
+                }
+
+                if (Map[x, y + 1] == 2 && Map[x, y + 2] == 2 && Map[x, y + 3] == 2 &&
+                    Map[x, y - 1] == 2 && Map[x, y - 2] == 2 && Map[x, y - 3] == 2)
+                {
+                    Map[x, y] = 1;
+                }
+            }
+        }
+        // 범위에서 벗어나는 width-1 ~ width행 추가 검사
+        for (int x = width - 1; x <= width; x++)
+        {
+            for (int y = 3; y <= height - 3; y++)
+            {
+                if (Map[x, y] != 2) continue;
+
+                if (x == startPos.x && y == startPos.y) continue;
+
+                if (Map[x, y + 1] == 2 && Map[x, y + 2] == 2 && Map[x, y + 3] == 2 &&
+                    Map[x, y - 1] == 2 && Map[x, y - 2] == 2 && Map[x, y - 3] == 2)
+                {
+                    Map[x, y] = 1;
+                }
+            }
+        }
+
+        //범위에서 벗어나는 1 ~ 2 행 추가 검사
+        for (int x = 1; x <= 2; x++)
+        {
+            for (int y = 3; y <= height - 3; y++)
+            {
+                if (Map[x, y] != 2) continue;
+
+                if (x == startPos.x && y == startPos.y) continue;
+
+                if (Map[x, y + 1] == 2 && Map[x, y + 2] == 2 && Map[x, y + 3] == 2 &&
+                    Map[x, y - 1] == 2 && Map[x, y - 2] == 2 && Map[x, y - 3] == 2)
+                {
+                    Map[x, y] = 1;
+                }
+            }
+        }
+
+        //범위에서 벗어나는 1 ~ 2 열 추가 검사
+        for (int y = 1; y <= 2; y++)
+        {
+            for (int x = 3; x <= width - 3; x++)
+            {
+                if (Map[x, y] != 2) continue;
+                if (x == startPos.x && y == startPos.y) continue;
+
+                if (Map[x + 1, y] == 2 && Map[x + 2, y] == 2 && Map[x + 3, y] == 2 &&
+                    Map[x - 1, y] == 2 && Map[x - 2, y] == 2 && Map[x - 3, y] == 2)
+                {
+                    Map[x, y] = 1;
+                }
+            }
+        }
+
+        //범위에서 벗어나는 height-1 ~ height 열 추가 검사
+        for (int y = height - 1; y <= height; y++)
+        {
+            for (int x = 3; x <= width - 3; x++)
+            {
+                if (Map[x, y] != 2) continue;
+                if (x == startPos.x && y == startPos.y) continue;
+
+                if (Map[x + 1, y] == 2 && Map[x + 2, y] == 2 && Map[x + 3, y] == 2 &&
+                    Map[x - 1, y] == 2 && Map[x - 2, y] == 2 && Map[x - 3, y] == 2)
+                {
+                    Map[x, y] = 1;
+                }
+            }
+        }
+    }
+
+
+        void MakeVariablePath()
+    {
+        int curExtraCnt = 0;
+       
+        for (int x = 2; x <= width - 2; x++)
+        {
+            for (int y = 2; y <= height - 2; y++)
+            {
+                if (Map[x, y] != 0)
+                    continue;
+                // 추가 경로 개수 제한.많으면 많을 수록 연결된 길이 수없이 많아져서 미로로서의 기능은 상실 우려 그러나 유저의 순식간의 도착 방지 가능
+                if (curExtraCnt > maxExtraPathCnt) 
+                    continue;
+
+                // 왼쪽만 floor, 나머지 3방향이 벽
+                if (Map[x - 1, y] == 2 && Map[x + 1, y] == 0 &&
+                    Map[x + 2, y] == 0 && Map[x, y - 1] == 0 && Map[x, y + 1] == 0)
+                {
+                    Map[x, y] = 2;
+                    Map[x + 1, y] = 2;
+                    Map[x + 2, y] = 2;
+
+                    CarveFrom(new Vector2Int(x + 2, y));
+                    curExtraCnt++;
+                }
+                // 오른쪽만 floor, 나머지 3방향이 벽
+                else if (Map[x + 1, y] == 2 && Map[x - 1, y] == 0 &&
+                         Map[x - 2, y] == 0 && Map[x, y - 1] == 0 && Map[x, y + 1] == 0)
+                {
+                    Map[x, y] = 2;
+                    Map[x - 1, y] = 2;
+                    Map[x - 2, y] = 2;
+
+                    CarveFrom(new Vector2Int(x - 2, y));
+                    curExtraCnt++;
+                }
+                // 상단만 floor, 나머지 3방향이 벽
+                else if (Map[x, y + 1] == 2 && Map[x, y - 1] == 0 &&
+                         Map[x, y - 2] == 0 && Map[x - 1, y] == 0 && Map[x + 1, y] == 0)
+                {
+                    Map[x, y] = 2;
+                    Map[x, y - 1] = 2;
+                    Map[x, y - 2] = 2;
+
+                    CarveFrom(new Vector2Int(x, y - 2));
+                }
+                // 하단만 floor, 나머지 3방향이 벽
+                else if (Map[x, y - 1] == 2 && Map[x, y + 1] == 0 && 
+                         Map[x, y + 2] == 0 && Map[x - 1, y] == 0 && Map[x + 1, y] == 0)
+                {
+                    Map[x, y] = 2;
+                    Map[x, y + 1] = 2;
+                    Map[x, y + 2] = 2;
+
+                    CarveFrom(new Vector2Int(x, y + 2));
+                    curExtraCnt++;
+                }
+            }
+        }
+    }
+
+    // 공통 BFS 경로 생성 부분
+    void CarveFrom(Vector2Int variableStart)
+    {
+        List<Vector2Int> path = BFS(variableStart, desPos);
+        if (path == null || path.Count < 2)
+            return;
+
+        for (int i = 1; i < path.Count - 1; i++)
+        {
+            Vector2Int pos = path[i];
+            Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
+        }
     }
 
     // 플레이어 벽 못나가게 막기
@@ -321,6 +520,17 @@ public class MapController : MonoBehaviour
         RenderMap();
     }
 
+    float manageZ(int type)
+    {
+        switch (type)
+        {
+            case 0: return -0.5f; // Wall
+            case 1: return -0.6f; // Enemy
+            case 2: return -1.0f; // Floor:
+            case 3: return -0.8f; // NextLevelTile
+            default: return 0f;
+        }
+    }
     bool IsInBounds(Vector2Int pos)
     {
         return pos.x >= 1 && pos.x <= width && pos.y >= 1 && pos.y <= height; // == 벽 태투리 제외 범위

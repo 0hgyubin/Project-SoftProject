@@ -14,19 +14,19 @@ public class MapCharacterController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            moveDir += Vector3.left;
+            moveDir += Vector3.left*3;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            moveDir += Vector3.right;
+            moveDir += Vector3.right*3;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            moveDir += Vector3.up;
+            moveDir += Vector3.up * 3;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            moveDir += Vector3.down;
+            moveDir += Vector3.down * 3;
         }
         moveDir = moveDir.normalized; // 대각선 이동 시 속도 보정
     }
