@@ -10,6 +10,7 @@ TagManager:
   - Weapon
   - Projectile
   - Coin
+  - EventNPC
   layers:
   - Default
   - TransparentFX

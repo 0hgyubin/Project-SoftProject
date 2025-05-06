@@ -44,6 +44,9 @@ public class Player : MonoBehaviour
 
     public AudioSource audioSource; // 재생 도구
 
+    public DialogManager dialogManager; //대화를 위한 객체
+    public bool isDialoging = false;
+
 
     void Update()
     {
@@ -53,7 +56,11 @@ public class Player : MonoBehaviour
         attackDamage = strength + weaponDamage; //플레이어 공격력 = 힘 + 무기 공격력
         //여기서 몇 데미지를 줄지 결정함.
 
-
+        if(isDialoging && Input.GetKeyDown(KeyCode.W))
+        {
+            GameObject eventNPC = GameObject.FindGameObjectWithTag("EventNPC");
+            dialogManager.Action(eventNPC);
+        }
 
         float moveInput = 0f;
 
@@ -70,7 +77,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             Moving(moveInput);
 
-        if (Input.GetMouseButtonDown(1) && canDash)
+        if (Input.GetMouseButtonDown(1) && canDash && !dialogManager.isAction) //대화 중 대쉬 불가가
         {
             Dash();
         }
@@ -89,7 +96,7 @@ public class Player : MonoBehaviour
 
     private void Moving(float moveInput)
     {
-        if (!isDashed)
+        if (!isDashed && !dialogManager.isAction) //대화 중 좌우이동 불가가
         {
             if (Input.GetKey(KeyCode.A))
             {
@@ -106,7 +113,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && CurJumpCnt < MaxJumpCnt)
+        if (Input.GetKeyDown(KeyCode.Space) && CurJumpCnt < MaxJumpCnt && !dialogManager.isAction) //대화 중 점프 방지용용
         {
             audioSource.PlayOneShot(jumpSound);
             isGrounded = false;
@@ -122,8 +129,26 @@ public class Player : MonoBehaviour
             CurJumpCnt = 0;
             isGrounded = true;
         }
-        
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("EventNPC"))
+        {
+            isDialoging = true;
+            Debug.Log("EventNPC");
+        }
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("EventNPC"))
+        {
+            isDialoging = false;
+            Debug.Log("빠져나옴");
+        }
+    }
+
+
 
     void Dash()
     {
