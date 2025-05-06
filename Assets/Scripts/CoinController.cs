@@ -37,7 +37,8 @@ public class CoinController : MonoBehaviour
         }
     }
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.CompareTag("Ground")){
+        if(other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("OneWayGround"))
+        {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
                 rb.linearVelocity = Vector2.zero;
                 rb.angularVelocity = 0f;
