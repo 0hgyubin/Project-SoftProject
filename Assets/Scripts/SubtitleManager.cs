@@ -35,4 +35,9 @@ public class SubtitleManager : MonoBehaviour
         yield return new WaitForSeconds(t);
         subtitleText.gameObject.SetActive(false);
     }
+
+    // void OnDestroy()
+    // {
+    //     subtitleText.gameObject.SetActive(false);
+    // }
 }

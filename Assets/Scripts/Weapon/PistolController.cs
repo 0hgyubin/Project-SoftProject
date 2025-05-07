@@ -7,7 +7,7 @@ public class PistolController : WeaponController
 {
     [Header("Magazine Settings")]
     public int magazineSize = 12;
-    public float reloadTime = 1.5f;
+    public float reloadTime = 1.0f;
 
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI ammoText; // Canvas/AmmoText
@@ -23,18 +23,29 @@ public class PistolController : WeaponController
         weaponID = 1;
         base.Start();
         // if(프리팹 없다면??){}
+        currentAmmo = 0;
+        // currentAmmo = magazineSize;
         if(ammoText == null){
             ammoText = GameObject.Find("Canvas/AmmoText").GetComponent<TextMeshProUGUI>();
         }
-        currentAmmo = magazineSize;
+        ammoText.enabled = true;
         UpdateAmmoUI();
-        ammoText.gameObject.SetActive(true);
+        StartCoroutine(Reload());
+    }
+
+    protected override void Update(){
+        base.Update();
+
+        //R키 누르면 재장전.
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading)
+        {
+            StartCoroutine(Reload());
+        }
     }
 
     protected override void FireProjectile(){
         if(isReloading) return;
 
-        
 
         GameObject bullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
 
@@ -99,7 +110,7 @@ public class PistolController : WeaponController
     }
 
     void OnDisable(){
-        ammoText.gameObject.SetActive(false);
-        
+        // ammoText.gameObject.SetActive(false);
+        ammoText.enabled = false;
     }
 }
