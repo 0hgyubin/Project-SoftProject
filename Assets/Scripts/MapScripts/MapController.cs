@@ -5,16 +5,20 @@ using Unity.VisualScripting;
 public class MapController : MonoBehaviour
 {
     public GameObject EnemyTilePrefab; // 적 타일 (빨간 색)
+    public GameObject RandomTilePrefab; // 랜덤 이벤트 타일(보라 색)
     public GameObject FloorTilePrefab; // 바닥 타일 (흰 색)
     public GameObject NextTilePrefab;  // 다음 층으로 올라가는 타일 (노란 색)
     public GameObject WallTilePrefab;  // 벽 타일 (곤색)
     public GameObject PlayerPrefab;    // 플레이어
+    public GameObject StorePrefab; // 상점 프리팹(파란색)
 
     public int width = 40;
     public int height = 40;
     public int extraMaxCnt = 30;
     public float tileSize = 1f;
-    public int maxExtraPathCnt = 10; // 10번 함수에 사용
+    public int maxExtraPathCnt = 10; // 7번 함수에 사용
+    public int randomCycle = 180; // 적 타일을 랜덤 이벤트 타일로 변경 후 잠시 변환하지 않는 주기. 수정 가능
+    int totalRandomMapCnt = 5; // 이벤트 타일의 총 개수
 
     private int[,] Map;
     private Vector2Int startPos;      // 시작 지점 (1~width, 1~height)
@@ -29,19 +33,23 @@ public class MapController : MonoBehaviour
         SetStartAndGoal();       // 2. 시작점과 목적지 정하기
 
         MakePathToDes();         // 3. 경로 하나는 강제 연결
-        RenderMap();             // 4. 전체 타일 렌더링
-        SpawnPlayer();           // 5. 플레이어 생성 및 카메라 연결
         MakeExtraPath();         // 6. 추가 경로 생성
         MakeVariablePath();      // 7. 벽으로부터 새로운 길을 만들어 미로를 다채롭게 바꾸는 함수
 
-        ChangeLongFloor();       // 8. 바닥 타일의 길이가 너무 길 경우 수정해주는 함수   
-        CheckWhiteHole();        // 9. 바닥의 두께가 3칸 이상으로 두껍게 생성된 것을 수정하는 함수
+        ChangeLongFloor();       // 8. 바닥 타일의 길이가 너무 길 경우 수정해주는 함수                   // 9. 바닥의 두께가 3칸 이상으로 두껍게 생성된 것을 수정하는 함수
         CheckUseless();          // 10. 의미없는 타일 모두 벽 타일로 교체하는 함수
+        CheckWhiteHole();
+        MakeRandomTile();       //  11. 랜덤 이벤트 타일을 생성하는 함수
+
         
-        MakeBoundWall();         // 11. 마지막으로 플레이어 밖으로 못나가게 벽 타일로 두루는 함수
+        MakeStoreNextToDes();
+        MakeBoundWall();         // 12. 마지막으로 플레이어 밖으로 못나가게 벽 타일로 두루는 함수
+        
+        RenderMap();             // 4. 전체 타일 렌더링
+        SpawnPlayer();           // 5. 플레이어 생성 및 카메라 연결
     }
 
-    // 0 : Wall, 1 : Enemy, 2 : Floor, 3 : des, 
+    // 0 : Wall, 1 : Enemy, 2 : Floor, 3 : des, 4: EventMap
     void GenerateEmptyMap()
     {
         Map = new int[width + 2, height + 2];
@@ -69,9 +77,9 @@ public class MapController : MonoBehaviour
         Vector2Int[] corners = new Vector2Int[]
         {
         new Vector2Int(1, 1),
-        new Vector2Int(1, height - 1),
-        new Vector2Int(width - 1, 1),
-        new Vector2Int(width - 1, height - 1)
+        new Vector2Int(1, height),
+        new Vector2Int(width , 1),
+        new Vector2Int(width, height)
         };
 
         int idx = Random.Range(0, corners.Length);
@@ -144,6 +152,50 @@ public class MapController : MonoBehaviour
         return path;
     }
 
+    void MakeStoreNextToDes()
+    {
+        // 0 : Wall, 1 : Enemy, 2 : Floor, 3 : des, 4: EventMap
+        if (desPos.x == 1 && desPos.y == 1)
+        {
+            if (Map[2, 1] != 0 && Map[1, 2] == 0)
+                Map[2, 1] = 5;
+            if (Map[1, 2] != 0 && Map[2, 1] == 0)
+                Map[1, 2] = 5;
+            if (Map[2, 1] != 0 && Map[1, 2] != 0)
+                Map[2, 1] = 5;
+        }
+
+        if (desPos.x == 1 && desPos.y == height)
+        {
+            if (Map[2, height] != 0 && Map[1, height - 1] == 0)
+                Map[2, height] = 5;
+            if (Map[1, height - 1] != 0 && Map[2, height] == 0)
+                Map[1, height - 1] = 5;
+            if (Map[1, height - 1] != 0 && Map[2, height] != 0)
+                Map[1, height - 1] = 5;
+        }
+
+        if (desPos.x == width && desPos.y == 1) //!
+        {
+            if (Map[width - 1, 1] != 0 && Map[width, 2] == 0)
+                Map[width - 1, 1] = 5;
+            if (Map[width, 2] != 0 && Map[width - 1, 1] == 0)
+                Map[width, 2] = 5;
+            if (Map[width, 2] != 0 && Map[width - 1, 1] != 0)
+                Map[width - 1, 1] = 5;
+        }
+
+        if (desPos.x == width && desPos.y == height)
+        {
+            if (Map[width - 1, height] != 0 && Map[width, height - 1] == 0)
+                Map[width - 1, height] = 5;
+            if (Map[width - 1, height] != 0 && Map[width, height - 1] == 2)
+                Map[width, height - 1] = 5;
+            if (Map[width - 1, height] != 0 && Map[width, height - 1] != 0)
+                Map[width - 1, height] = 5;
+        }
+    }
+
     // 타일 배치. 배열 그냥 전부 읽음 O(n^2)  
     // 플레이어 이동 가능 좌표는 (x-1)*tileSize, (y-1)*tileSize로 변환하여, 플레이 영역이 (0,0)부터 시작하는 것처럼 보임.
     void RenderMap()
@@ -165,6 +217,8 @@ public class MapController : MonoBehaviour
                     case 1: prefab = EnemyTilePrefab; break;
                     case 2: prefab = FloorTilePrefab; break;
                     case 3: prefab = NextTilePrefab; break;
+                    case 4: prefab = RandomTilePrefab; break;
+                    case 5: prefab = StorePrefab; break;
                 }
                 if (prefab != null)
                 {
@@ -179,7 +233,7 @@ public class MapController : MonoBehaviour
 
     void SpawnPlayer()
     {
-        Vector3 pos = new Vector3((startPos.x - 1) * tileSize + tileSize * 0.5f, (startPos.y - 1) * tileSize + tileSize * 0.5f, -0.2f);
+        Vector3 pos = new Vector3((startPos.x - 1) * tileSize + tileSize * 0.5f, (startPos.y - 1) * tileSize + tileSize * 0.5f, -2f);
         GameObject player = Instantiate(PlayerPrefab, pos, Quaternion.identity);
         CameraController camera = Camera.main.GetComponent<CameraController>();
         if (camera != null)
@@ -265,9 +319,6 @@ public class MapController : MonoBehaviour
                 }
             }
         }
-
-
-        RenderMap();
     }
 
     void CheckUseless()
@@ -297,7 +348,6 @@ public class MapController : MonoBehaviour
                 }
             }
         }
-        RenderMap();
     }
 
     void CheckWhiteHole()
@@ -428,8 +478,42 @@ public class MapController : MonoBehaviour
         }
     }
 
+    void MakeRandomTile()
+    {
+        int curRandomMapCnt = 0;
+        int curRandomCycle = 0;
+        int lastX = 0;
+        int lastY = 0;
 
-        void MakeVariablePath()
+        while (curRandomMapCnt < totalRandomMapCnt)
+        {
+            lastX = 0;
+            lastY = 0;
+            for (int x = lastX; x <= width; x++)
+            {
+                for (int y = lastY; y <= height; y++)
+                {
+                    curRandomCycle++;
+                    if (curRandomCycle > randomCycle && curRandomMapCnt < totalRandomMapCnt)
+                    {
+                        // 현재 검사 타일이 적 타일 이면서, 10퍼센트의 확률이라면
+                        if (Map[x, y] == 1 && Random.value < 0.1f)
+                        {
+                            Map[x, y] = 4;
+                            curRandomMapCnt++;
+                            curRandomCycle = 0;
+                            lastX = x;
+                            lastY = y;
+                        }
+                    }
+                }
+            }
+        }
+        Debug.Log("curRandomMapCnt: " + curRandomMapCnt);
+
+    }
+
+    void MakeVariablePath()
     {
         int curExtraCnt = 0;
        
@@ -517,17 +601,19 @@ public class MapController : MonoBehaviour
             Map[0, y] = 0;
             Map[width + 1, y] = 0;
         }
-        RenderMap();
     }
 
     float manageZ(int type)
     {
         switch (type)
         {
+            //Z가 작을 수록 앞으로 나온다.
             case 0: return -0.5f; // Wall
             case 1: return -0.6f; // Enemy
             case 2: return -1.0f; // Floor:
             case 3: return -0.8f; // NextLevelTile
+            case 4: return -0.9f; // EventTile
+            case 5: return -0.7f; //StorePrefab
             default: return 0f;
         }
     }
