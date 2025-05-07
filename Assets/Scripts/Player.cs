@@ -48,6 +48,12 @@ public class Player : MonoBehaviour
     private float wallSlideSpeed = -0.8f;
     // 벽 붙기 관련 함수
     public GameObject dashEffectPrefab;
+
+    private Animator animator;
+
+    void Awake(){
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
         WallSlide(); //벽 매달리기 기능 추가
@@ -66,14 +72,20 @@ public class Player : MonoBehaviour
 
         // Jump and Down
         Jump();
-        if (isGrounded  == false) // falling
+        if (isGrounded == false) // falling
         {
             PlayerRigidBody.gravityScale = 3f;
         }
 
         // Move Left and Right
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) { 
             Moving(moveInput);
+            animator.SetBool("Move", true); 
+        }
+        else
+        {
+            animator.SetBool("Move", false);
+        }
 
         if (Input.GetMouseButtonDown(1) && canDash)
         {
@@ -94,18 +106,19 @@ public class Player : MonoBehaviour
 
     private void Moving(float moveInput)
     {
+        animator.SetBool("Move", false);
         if (!isDashed)
         {
             if (Input.GetKey(KeyCode.A))
             {
                 PlayerRigidBody.linearVelocityX = -MoveSpeed;
             }
-            if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D))
             {
+                animator.SetBool("Move", true);
                 moveInput = 0.1f;
                 PlayerRigidBody.linearVelocityX = MoveSpeed;
             }
-
         }
     }
 
@@ -166,7 +179,6 @@ public class Player : MonoBehaviour
         canDash = false;
         canDamaged = false;
 
-        // 🎇 이펙트 생성
         if (dashEffectPrefab != null)
         {
             GameObject effect = Instantiate(dashEffectPrefab, transform.position, Quaternion.identity);
