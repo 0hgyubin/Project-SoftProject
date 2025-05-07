@@ -4,13 +4,14 @@ using Unity.VisualScripting;
 
 public class MapController : MonoBehaviour
 {
-    public GameObject EnemyTilePrefab; // 적 타일 (빨간 색)
-    public GameObject RandomTilePrefab; // 랜덤 이벤트 타일(보라 색)
-    public GameObject FloorTilePrefab; // 바닥 타일 (흰 색)
-    public GameObject NextTilePrefab;  // 다음 층으로 올라가는 타일 (노란 색)
-    public GameObject WallTilePrefab;  // 벽 타일 (곤색)
+    public GameObject EnemyTilePrefab; // 적 타일 
+    public GameObject RandomTilePrefab; // 랜덤 이벤트 타일
+    public GameObject FloorTilePrefab; // 바닥 타일 
+    public GameObject NextTilePrefab;  // 다음 층으로 올라가는 타일 
+    public GameObject WallTilePrefab;  // 벽 타일 
     public GameObject PlayerPrefab;    // 플레이어
-    public GameObject StorePrefab; // 상점 프리팹(파란색)
+    public GameObject StorePrefab; // 상점 프리팹
+    public GameObject StonePillarPrefab; //석조 기둥 프리팹
 
     public int width = 40;
     public int height = 40;
@@ -33,23 +34,25 @@ public class MapController : MonoBehaviour
         SetStartAndGoal();       // 2. 시작점과 목적지 정하기
 
         MakePathToDes();         // 3. 경로 하나는 강제 연결
-        MakeExtraPath();         // 6. 추가 경로 생성
-        MakeVariablePath();      // 7. 벽으로부터 새로운 길을 만들어 미로를 다채롭게 바꾸는 함수
+        MakeExtraPath();         // 4. 추가 경로 생성
+        MakeVariablePath();      // 5. 벽으로부터 새로운 길을 만들어 미로를 다채롭게 바꾸는 함수
 
-        ChangeLongFloor();       // 8. 바닥 타일의 길이가 너무 길 경우 수정해주는 함수                   // 9. 바닥의 두께가 3칸 이상으로 두껍게 생성된 것을 수정하는 함수
-        CheckUseless();          // 10. 의미없는 타일 모두 벽 타일로 교체하는 함수
-        CheckWhiteHole();
-        MakeRandomTile();       //  11. 랜덤 이벤트 타일을 생성하는 함수
+        ChangeLongFloor();       // 6. 바닥 타일의 길이가 너무 길 경우 수정해주는 함수                   
+        CheckUseless();          // 7. 의미없는 타일 모두 벽 타일로 교체하는 함수
+        CheckWhiteHole();       //  8.바닥의 두께가 3칸 이상으로 두껍게 생성된 것을 수정하는 함수
+        MakeRandomTile();       //  9. 랜덤 이벤트 타일을 생성하는 함수
 
         
         MakeStoreNextToDes();
-        MakeBoundWall();         // 12. 마지막으로 플레이어 밖으로 못나가게 벽 타일로 두루는 함수
-        
-        RenderMap();             // 4. 전체 타일 렌더링
-        SpawnPlayer();           // 5. 플레이어 생성 및 카메라 연결
+        MakeStonePillar();
+        MakeBoundWall();         // 10. 플레이어를 범위 밖으로 못나가게 벽 타일로 두루는 함수
+
+        LastCheck();
+        RenderMap();             // 11. 전체 타일 렌더링하는 함수
+        SpawnPlayer();           // 12. 플레이어 생성 및 카메라 연결
     }
 
-    // 0 : Wall, 1 : Enemy, 2 : Floor, 3 : des, 4: EventMap
+    // 0: Wall, 1 : Enemy, 2: Floor, 3: Des, 4: EventMap, 5: Store, 6: Pillar
     void GenerateEmptyMap()
     {
         Map = new int[width + 2, height + 2];
@@ -103,7 +106,7 @@ public class MapController : MonoBehaviour
         for (int i = 1; i < path.Count - 1; i++)
         {
             Vector2Int pos = path[i];
-            if (Random.value < 0.1f && pos != startPos)
+            if (pos != startPos && Random.value < 0.1f)
                 Map[pos.x, pos.y] = 1; // 적
             else
                 Map[pos.x, pos.y] = 2; // 벽
@@ -219,6 +222,7 @@ public class MapController : MonoBehaviour
                     case 3: prefab = NextTilePrefab; break;
                     case 4: prefab = RandomTilePrefab; break;
                     case 5: prefab = StorePrefab; break;
+                    case 6: prefab = StonePillarPrefab; break;
                 }
                 if (prefab != null)
                 {
@@ -260,7 +264,7 @@ public class MapController : MonoBehaviour
                         {
                             foreach (Vector2Int pos in path)
                             {
-                                if (Map[pos.x, pos.y] != 3 && !(x == startPos.x && y == startPos.y)) // 혹시나 목적지가 오염되지 않게 예외 처리
+                                if (pos != startPos && Map[pos.x, pos.y] != 3)
                                     Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
                             }
                         }
@@ -401,12 +405,14 @@ public class MapController : MonoBehaviour
                 if (Map[x + 1, y] == 2 && Map[x + 2, y] == 2 && Map[x + 3, y] == 2 &&
                     Map[x - 1, y] == 2 && Map[x - 2, y] == 2 && Map[x - 3, y] == 2)
                 {
+                    if (x == startPos.x && y == startPos.y) continue;
                     Map[x, y] = 1;
                 }
 
                 if (Map[x, y + 1] == 2 && Map[x, y + 2] == 2 && Map[x, y + 3] == 2 &&
                     Map[x, y - 1] == 2 && Map[x, y - 2] == 2 && Map[x, y - 3] == 2)
                 {
+                    if (x == startPos.x && y == startPos.y) continue;
                     Map[x, y] = 1;
                 }
             }
@@ -423,6 +429,7 @@ public class MapController : MonoBehaviour
                 if (Map[x, y + 1] == 2 && Map[x, y + 2] == 2 && Map[x, y + 3] == 2 &&
                     Map[x, y - 1] == 2 && Map[x, y - 2] == 2 && Map[x, y - 3] == 2)
                 {
+                    if (x == startPos.x && y == startPos.y) continue;
                     Map[x, y] = 1;
                 }
             }
@@ -440,6 +447,7 @@ public class MapController : MonoBehaviour
                 if (Map[x, y + 1] == 2 && Map[x, y + 2] == 2 && Map[x, y + 3] == 2 &&
                     Map[x, y - 1] == 2 && Map[x, y - 2] == 2 && Map[x, y - 3] == 2)
                 {
+                    if (x == startPos.x && y == startPos.y) continue;
                     Map[x, y] = 1;
                 }
             }
@@ -456,6 +464,7 @@ public class MapController : MonoBehaviour
                 if (Map[x + 1, y] == 2 && Map[x + 2, y] == 2 && Map[x + 3, y] == 2 &&
                     Map[x - 1, y] == 2 && Map[x - 2, y] == 2 && Map[x - 3, y] == 2)
                 {
+                    if (x == startPos.x && y == startPos.y) continue;
                     Map[x, y] = 1;
                 }
             }
@@ -472,6 +481,7 @@ public class MapController : MonoBehaviour
                 if (Map[x + 1, y] == 2 && Map[x + 2, y] == 2 && Map[x + 3, y] == 2 &&
                     Map[x - 1, y] == 2 && Map[x - 2, y] == 2 && Map[x - 3, y] == 2)
                 {
+                    if (x == startPos.x && y == startPos.y) continue;
                     Map[x, y] = 1;
                 }
             }
@@ -499,6 +509,7 @@ public class MapController : MonoBehaviour
                         // 현재 검사 타일이 적 타일 이면서, 10퍼센트의 확률이라면
                         if (Map[x, y] == 1 && Random.value < 0.1f)
                         {
+                            if (x == startPos.x && y == startPos.y) continue;
                             Map[x, y] = 4;
                             curRandomMapCnt++;
                             curRandomCycle = 0;
@@ -574,6 +585,21 @@ public class MapController : MonoBehaviour
         }
     }
 
+    void MakeStonePillar()
+    {
+        // 상하좌우가 모두 FloorTile일때, 그 타일을 기둥 장식타일로
+        for (int x = 1; x <= width - 3; x++)
+        {
+            for (int y = 1; y <= height - 3; y++)
+            {
+                if (Map[x, y + 1] == 2 && Map[x, y - 1] == 2 && Map[x - 1, y] == 2 && Map[x + 1, y] == 2)
+                {
+                    Map[x, y] = 6;
+                }
+            }
+        }
+    }
+
     // 공통 BFS 경로 생성 부분
     void CarveFrom(Vector2Int variableStart)
     {
@@ -584,7 +610,8 @@ public class MapController : MonoBehaviour
         for (int i = 1; i < path.Count - 1; i++)
         {
             Vector2Int pos = path[i];
-            Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
+            if (pos != startPos)
+                Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
         }
     }
 
@@ -603,17 +630,28 @@ public class MapController : MonoBehaviour
         }
     }
 
-    float manageZ(int type)
+    //마지막 디버깅 함수
+    void LastCheck()
+    {
+        if (Map[startPos.x, startPos.y] != 2)
+        {
+            startPos.x++;
+            LastCheck();
+        }
+    }
+
+        float manageZ(int type)
     {
         switch (type)
         {
             //Z가 작을 수록 앞으로 나온다.
-            case 0: return -0.5f; // Wall
-            case 1: return -0.6f; // Enemy
-            case 2: return -1.0f; // Floor:
-            case 3: return -0.8f; // NextLevelTile
+            case 0: return -0.5f; // WallTile
+            case 1: return -0.6f; // EnemyTile
+            case 2: return -1.0f; // FloorTile:
+            case 3: return -0.8f; // DesTile
             case 4: return -0.9f; // EventTile
-            case 5: return -0.7f; //StorePrefab
+            case 5: return -0.7f; //StoreTile
+            case 6: return -1.1f; //StonePillar
             default: return 0f;
         }
     }
