@@ -319,7 +319,7 @@ MonoBehaviour:
   EnemyTilePrefab: {fileID: 6359263696454893281, guid: e8a61c784de5387488491671d4b244e5, type: 3}
   RandomTilePrefab: {fileID: 1430572838071308573, guid: 594575be87a16b14485685d6ceefd8cb, type: 3}
   FloorTilePrefab: {fileID: 2246223052416389728, guid: d6a3155196cc4654abd9d9320e460ec2, type: 3}
-  NextTilePrefab: {fileID: 4419123485403726461, guid: 2c732ff2506eea642b81e84f46cc255c, type: 3}
+  NextTilePrefab: {fileID: 699792339873918883, guid: 0cfca28cfc1e36f44b308e142916058d, type: 3}
   WallTilePrefab: {fileID: 8660163772426389618, guid: 1bfac34ab1ff1174c8d89965c51be243, type: 3}
   PlayerPrefab: {fileID: 1608551756171708448, guid: 9e4633778e598ac46a35305476bc8ccf, type: 3}
   StorePrefab: {fileID: 9061450670116901311, guid: 1fbaf4c854cfa7c4fa30fe100ff1a0f2, type: 3}

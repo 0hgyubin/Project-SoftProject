@@ -4,6 +4,13 @@ using Unity.VisualScripting;
 
 public class MapController : MonoBehaviour
 {
+
+    // MapController 스크립트에 접근할 수 있게 만들어 줆. CharacterController Script에서의 접근 때문에 필수 
+    public static MapController Instance {
+        get; // 읽기용
+        private set; //쓰기용
+    }
+
     public GameObject EnemyTilePrefab; // 적 타일 
     public GameObject RandomTilePrefab; // 랜덤 이벤트 타일
     public GameObject FloorTilePrefab; // 바닥 타일 
@@ -21,12 +28,83 @@ public class MapController : MonoBehaviour
     public int randomCycle = 180; // 적 타일을 랜덤 이벤트 타일로 변경 후 잠시 변환하지 않는 주기. 수정 가능
     int totalRandomMapCnt = 5; // 이벤트 타일의 총 개수
 
-    private int[,] Map;
+    public int[,] Map;
     private Vector2Int startPos;      // 시작 지점 (1~width, 1~height)
     private Vector2Int desPos;        // 도착 지점
 
-    // 생성된 타일 오브젝트를 관리용 dic
+    // 생성된 타일 오브젝트를 관리용 dic //ReplaceTileAt 함수에 사용
     private Dictionary<Vector2Int, GameObject> tileObjects = new Dictionary<Vector2Int, GameObject>();
+
+
+    private GameObject mapParent;
+
+
+    //현위치 타일의 상태 반환
+    public int GetTileType(int x, int y)
+    {
+        return Map[x, y];
+    }
+
+    // 타일 교체 코드. (CharacterController 스크립트에서 참조중)
+    public void ReplaceTile(int x, int y, int newTile) //현재 newTile은 2, 즉 Floor
+    {
+        Vector2Int ChangePos = new Vector2Int(x, y);
+
+        // 기존 타일 삭제
+        if (tileObjects.ContainsKey(ChangePos)) //해당 좌표에 타일 있다면
+        {
+            GameObject toDeleteTile = tileObjects[ChangePos];
+            Destroy(toDeleteTile);
+            tileObjects.Remove(ChangePos);
+        }
+
+        Map[x, y] = newTile; // 2 
+
+        // 새 타일 생성
+        GameObject prefab = GetNewTile(newTile);
+        if (prefab == null) return;
+
+        Vector3 pos = new Vector3(
+            (x - 1) * tileSize + tileSize * 0.5f,
+            (y - 1) * tileSize + tileSize * 0.5f,
+            manageZ(newTile)
+        );
+
+        GameObject newTileObject = Instantiate(prefab, pos, Quaternion.identity, mapParent.transform); // 참조 반환
+        tileObjects[ChangePos] = newTileObject;
+    }
+
+    // t값에 맞는 타일 반환 함수
+    GameObject GetNewTile(int t)
+    {
+        switch (t)
+        {
+            case 0: return WallTilePrefab;
+            case 1: return EnemyTilePrefab;
+            case 2: return FloorTilePrefab;
+            case 3: return NextTilePrefab;
+            case 4: return RandomTilePrefab;
+            case 5: return StorePrefab;
+            case 6: return StonePillarPrefab;
+            default: return null;
+        }
+    }
+
+    //    이 안에서 Instance 를 자신(this)으로 세팅하고,
+    //    DontDestroyOnLoad 로 씬 전환 후에도 맵 데이터를 유지시키죠.
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // 씬 바뀌어도 유지
+        }
+        else
+        {
+            // 이미 다른 씬에 MapController가 존재한다면, 중복제거를 위해 GameObject (=자기자신) 삭제
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -201,14 +279,14 @@ public class MapController : MonoBehaviour
 
     // 타일 배치. 배열 그냥 전부 읽음 O(n^2)  
     // 플레이어 이동 가능 좌표는 (x-1)*tileSize, (y-1)*tileSize로 변환하여, 플레이 영역이 (0,0)부터 시작하는 것처럼 보임.
-    void RenderMap()
+    public void RenderMap()
     {
         // 기존 타일 파괴
         foreach (var tile in tileObjects.Values)
             Destroy(tile);
         tileObjects.Clear();
 
-        GameObject mapParent = new GameObject("Map");
+        mapParent = new GameObject("Map");
         for (int x = 0; x < width + 2; x++)
         {
             for (int y = 0; y < height + 2; y++)
@@ -633,9 +711,18 @@ public class MapController : MonoBehaviour
     //마지막 디버깅 함수
     void LastCheck()
     {
+        // 시작지점이 적 타일
         if (Map[startPos.x, startPos.y] != 2)
         {
             startPos.x++;
+            LastCheck();
+        }
+
+        //시작 지점이 싹 다 가로막힘
+        if (Map[startPos.x - 1, startPos.y] != 2 && Map[startPos.x + 1, startPos.y] != 2 &&
+            Map[startPos.x, startPos.y + 1] != 2 && Map[startPos.x, startPos.y - 1] != 2)
+        {
+            startPos.y++;
             LastCheck();
         }
     }
