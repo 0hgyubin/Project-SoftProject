@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 36377744}
   m_Layer: 0
   m_Name: Portal
-  m_TagString: Portal
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1989,6 +1989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1518611838}
+  coin: 60
 --- !u!1 &1119021294
 GameObject:
   m_ObjectHideFlags: 0
@@ -2210,7 +2211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1123387164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e212a4ace42c4f74db73b89c8d45247c, type: 3}
+  m_Script: {fileID: 11500000, guid: a3797f98df6fb414ba029fa33952cd7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 638909309}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -44,8 +45,8 @@ public class Player : MonoBehaviour
 
     public AudioSource audioSource; // 재생 도구
 
-    public DialogManager dialogManager; //대화를 위한 객체
-    public bool isDialoging = false;
+    public bool isDialoging = false; //대화 중인지 확인
+    public bool canDialoging = false; //대화 가능한지 확인
 
 
     void Update()
@@ -56,11 +57,6 @@ public class Player : MonoBehaviour
         attackDamage = strength + weaponDamage; //플레이어 공격력 = 힘 + 무기 공격력
         //여기서 몇 데미지를 줄지 결정함.
 
-        if(isDialoging && Input.GetKeyDown(KeyCode.W))
-        {
-            GameObject eventNPC = GameObject.FindGameObjectWithTag("EventNPC");
-            dialogManager.Action(eventNPC);
-        }
 
         float moveInput = 0f;
 
@@ -77,7 +73,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             Moving(moveInput);
 
-        if (Input.GetMouseButtonDown(1) && canDash && !dialogManager.isAction) //대화 중 대쉬 불가가
+        if (Input.GetMouseButtonDown(1) && canDash && !isDialoging) //대화 중 대쉬 불가
         {
             Dash();
         }
@@ -96,7 +92,7 @@ public class Player : MonoBehaviour
 
     private void Moving(float moveInput)
     {
-        if (!isDashed && !dialogManager.isAction) //대화 중 좌우이동 불가가
+        if (!isDashed && !isDialoging) //대화 중 좌우이동 불가
         {
             if (Input.GetKey(KeyCode.A))
             {
@@ -113,7 +109,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && CurJumpCnt < MaxJumpCnt && !dialogManager.isAction) //대화 중 점프 방지용용
+        if (Input.GetKeyDown(KeyCode.Space) && CurJumpCnt < MaxJumpCnt && !isDialoging) //대화 중 점프 방지용
         {
             audioSource.PlayOneShot(jumpSound);
             isGrounded = false;
@@ -135,7 +131,7 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("EventNPC"))
         {
-            isDialoging = true;
+            canDialoging = true;
             Debug.Log("EventNPC");
         }
     }
@@ -143,7 +139,7 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("EventNPC"))
         {
-            isDialoging = false;
+            canDialoging = false;
             Debug.Log("빠져나옴");
         }
     }
@@ -236,5 +232,10 @@ public class Player : MonoBehaviour
     void ResetDash()
     {
         canDash = true;
+    }
+
+    public static implicit operator Player(GameObject v)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -11,6 +11,7 @@ TagManager:
   - Projectile
   - Coin
   - EventNPC
+  - Portal
   layers:
   - Default
   - TransparentFX
