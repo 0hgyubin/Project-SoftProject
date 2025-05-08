@@ -42,7 +42,7 @@ public class MapController : MonoBehaviour
         CheckWhiteHole();       //  8.바닥의 두께가 3칸 이상으로 두껍게 생성된 것을 수정하는 함수
         MakeRandomTile();       //  9. 랜덤 이벤트 타일을 생성하는 함수
 
-        
+
         MakeStoreNextToDes();
         MakeStonePillar();
         MakeBoundWall();         // 10. 플레이어를 범위 밖으로 못나가게 벽 타일로 두루는 함수
@@ -68,7 +68,7 @@ public class MapController : MonoBehaviour
     void SetStartAndGoal()
     {
         // 내부 영역 (플레이어 이동 가능 영역)
-        startPos = new Vector2Int(Random.Range(width/4, width/4 * 3), Random.Range(height/4, height/4 * 3)); // 시작지점은 랜덤 좌표
+        startPos = new Vector2Int(Random.Range(width / 4, width / 4 * 3), Random.Range(height / 4, height / 4 * 3)); // 시작지점은 랜덤 좌표
         Map[startPos.x, startPos.y] = 2; // 시작 지점 Floor 타일로 설정.
         Debug.Log("startPos: " + startPos);
         desPos = GetDes();
@@ -93,7 +93,7 @@ public class MapController : MonoBehaviour
     }
 
     // MakePathToDes() : 최소 1개의 확정 경로를 만드는 함수.
-    void MakePathToDes() 
+    void MakePathToDes()
     {
         List<Vector2Int> path = BFS(startPos, desPos);
         if (path == null || path.Count == 0)
@@ -255,7 +255,7 @@ public class MapController : MonoBehaviour
                 if (extraRoadCnt < extraMaxCnt / 4) // 경로 max/2개까지 만듦,
                 {
                     // 새로운 경로 시작 조건: 적이 아닌 타일(즉, 1이 아닌 타일)에서 시작하며 && 8% 확률
-                    if (Map[x, y] != 1 && !(x == startPos.x && y==startPos.y) && Random.value < 0.08f)
+                    if (Map[x, y] != 1 && !(x == startPos.x && y == startPos.y) && Random.value < 0.08f)
                     {
                         extraRoadCnt++;
                         Vector2Int secondStartPos = new Vector2Int(x, y);
@@ -315,7 +315,7 @@ public class MapController : MonoBehaviour
                         {
                             foreach (Vector2Int pos in path)
                             {
-                                if (Map[pos.x, pos.y] !=3 && !(x == startPos.x && y == startPos.y))
+                                if (Map[pos.x, pos.y] != 3 && !(x == startPos.x && y == startPos.y))
                                     Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
                             }
                         }
@@ -527,7 +527,7 @@ public class MapController : MonoBehaviour
     void MakeVariablePath()
     {
         int curExtraCnt = 0;
-       
+
         for (int x = 2; x <= width - 2; x++)
         {
             for (int y = 2; y <= height - 2; y++)
@@ -535,7 +535,7 @@ public class MapController : MonoBehaviour
                 if (Map[x, y] != 0)
                     continue;
                 // 추가 경로 개수 제한.많으면 많을 수록 연결된 길이 수없이 많아져서 미로로서의 기능은 상실 우려 그러나 유저의 순식간의 도착 방지 가능
-                if (curExtraCnt > maxExtraPathCnt) 
+                if (curExtraCnt > maxExtraPathCnt)
                     continue;
 
                 // 왼쪽만 floor, 나머지 3방향이 벽
@@ -571,7 +571,7 @@ public class MapController : MonoBehaviour
                     CarveFrom(new Vector2Int(x, y - 2));
                 }
                 // 하단만 floor, 나머지 3방향이 벽
-                else if (Map[x, y - 1] == 2 && Map[x, y + 1] == 0 && 
+                else if (Map[x, y - 1] == 2 && Map[x, y + 1] == 0 &&
                          Map[x, y + 2] == 0 && Map[x - 1, y] == 0 && Map[x + 1, y] == 0)
                 {
                     Map[x, y] = 2;
@@ -640,7 +640,7 @@ public class MapController : MonoBehaviour
         }
     }
 
-        float manageZ(int type)
+    float manageZ(int type)
     {
         switch (type)
         {

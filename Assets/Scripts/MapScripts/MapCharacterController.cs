@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class MapCharacterController : MonoBehaviour
@@ -14,11 +15,11 @@ public class MapCharacterController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            moveDir += Vector3.left*3;
+            moveDir += Vector3.left * 3;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            moveDir += Vector3.right*3;
+            moveDir += Vector3.right * 3;
         }
         if (Input.GetKey(KeyCode.W))
         {
