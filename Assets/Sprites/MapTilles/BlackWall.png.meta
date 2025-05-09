@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f3fa3cb75deca69408c606d2cc1f9232
+guid: 8c933be9da51e784092db9279aaa0f5f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1884241755380423597
-    second: EnemyTile_0
+      213: 2307290820852324873
+    second: BlackWall_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EnemyTile_0
+      name: BlackWall_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 102
+        height: 87
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 354679b4b14d9d5e0800000000000000
-      internalID: -1884241755380423597
+      spriteID: 90a1c6ae6c4250020800000000000000
+      internalID: 2307290820852324873
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      EnemyTile_0: -1884241755380423597
+      BlackWall_0: 2307290820852324873
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

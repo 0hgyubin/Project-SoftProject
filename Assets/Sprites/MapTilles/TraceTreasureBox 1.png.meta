@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f3fa3cb75deca69408c606d2cc1f9232
+guid: 616dd6cafdd9aad4e98cf175c9280ae7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1884241755380423597
-    second: EnemyTile_0
+      213: -3883184597502303693
+    second: TraceTreasureBox 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EnemyTile_0
+      name: TraceTreasureBox 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 354679b4b14d9d5e0800000000000000
-      internalID: -1884241755380423597
+      spriteID: 3326b9cbe282c1ac0800000000000000
+      internalID: -3883184597502303693
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      EnemyTile_0: -1884241755380423597
+      TraceTreasureBox 1_0: -3883184597502303693
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
