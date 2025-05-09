@@ -3,24 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags:
-  - Ground
-  - Enemy
-  - EnemyProjectile
-  - Weapon
-  - Projectile
-  - Coin
-  - Wall
-  - OneWayGround
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Enemy
-  - Coin
+  - 
+  - 
   - 
   - 
   - 

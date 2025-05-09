@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI text;
     public static GameManager insatnce = null;
-    private int coin = 0;
+    public int coin = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
