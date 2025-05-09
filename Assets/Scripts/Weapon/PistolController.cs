@@ -1,7 +1,21 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class PistolController : WeaponController
 {
+    [Header("Magazine Settings")]
+    public int magazineSize = 12;
+    public float reloadTime = 1.0f;
+
+    [Header("UI References")]
+    [SerializeField] private TextMeshProUGUI ammoText; // Canvas/AmmoText
+
+    private int currentAmmo;
+    private bool isReloading = false;
+
+
     public float bulletSpeed = 15f;
     
     protected override void Start()
@@ -9,10 +23,30 @@ public class PistolController : WeaponController
         weaponID = 1;
         base.Start();
         // if(프리팹 없다면??){}
-
-        
+        currentAmmo = 0;
+        // currentAmmo = magazineSize;
+        if(ammoText == null){
+            ammoText = GameObject.Find("Canvas/AmmoText").GetComponent<TextMeshProUGUI>();
+        }
+        ammoText.enabled = true;
+        UpdateAmmoUI();
+        StartCoroutine(Reload());
     }
+
+    protected override void Update(){
+        base.Update();
+
+        //R키 누르면 재장전.
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading)
+        {
+            StartCoroutine(Reload());
+        }
+    }
+
     protected override void FireProjectile(){
+        if(isReloading) return;
+
+
         GameObject bullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -29,6 +63,17 @@ public class PistolController : WeaponController
         else{
             Debug.Log("rb 가 null임.");
         }
+
+        currentAmmo--;
+        UpdateAmmoUI();
+
+        if(currentAmmo <= 0){
+            if(!isReloading){
+                StartCoroutine(Reload());
+            }
+            return ;
+        }
+        
     }
 
     protected override void FollowMouse(){
@@ -44,5 +89,28 @@ public class PistolController : WeaponController
         }
         //Debug.Log("!!!");
         transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    private void UpdateAmmoUI(){
+        ammoText.text = $"{currentAmmo}/{magazineSize}";
+    }
+
+    private IEnumerator Reload(){
+        isReloading = true;
+
+        //재장전 자막 출력
+        // SubtitleManager.Instance.ShowSubtitle("재 장전 중...", reloadTime);
+        SubtitleManager.Instance.ShowSubtitle("Ammo Remaining....", reloadTime);
+
+        yield return new WaitForSeconds(reloadTime);
+
+        currentAmmo = magazineSize;
+        UpdateAmmoUI();
+        isReloading = false;
+    }
+
+    void OnDisable(){
+        // ammoText.gameObject.SetActive(false);
+        ammoText.enabled = false;
     }
 }
