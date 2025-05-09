@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -51,6 +52,8 @@ public class Player : MonoBehaviour
 
     private Animator animator;
 
+    public bool isDialoging = false; //대화 중인지 확인
+    public bool canDialoging = false; //대화 가능한지 확인
     void Awake(){
         animator = GetComponent<Animator>();
     }
@@ -106,8 +109,7 @@ public class Player : MonoBehaviour
 
     private void Moving(float moveInput)
     {
-        animator.SetBool("Move", false);
-        if (!isDashed)
+        if (!isDashed && !isDialoging)
         {
             if (Input.GetKey(KeyCode.A))
             {
@@ -115,7 +117,6 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                animator.SetBool("Move", true);
                 moveInput = 0.1f;
                 PlayerRigidBody.linearVelocityX = MoveSpeed;
             }
@@ -124,7 +125,8 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isDialoging) //대화 중 점프 방지용
+
         {
             if (isTouchingWall && !isGrounded)
             {
@@ -148,6 +150,14 @@ public class Player : MonoBehaviour
                 PlayerRigidBody.AddForceY(JumpForce, ForceMode2D.Impulse);
                 CurJumpCnt++;
             }
+        }
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("EventNPC"))
+        {
+            canDialoging = true;
+            Debug.Log("EventNPC");
         }
     }
 
@@ -281,4 +291,10 @@ public class Player : MonoBehaviour
             PlayerRigidBody.linearVelocity = new Vector2(PlayerRigidBody.linearVelocity.x, Mathf.Max(PlayerRigidBody.linearVelocity.y, wallSlideSpeed));
         }
     }
+
+    public static implicit operator Player(GameObject v)
+    {
+        throw new NotImplementedException();
+    }
+
 }

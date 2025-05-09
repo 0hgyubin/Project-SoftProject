@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - EventNPC
+  - Portal
+  - Ground
+  - Weapon
+  - Projectile
+  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
