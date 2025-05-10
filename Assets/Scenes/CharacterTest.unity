@@ -314,6 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8aefaa136a36c4082a55f92935f51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEventRoom: 0
 --- !u!4 &36377746
 Transform:
   m_ObjectHideFlags: 0
@@ -1636,7 +1637,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.93, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1702,17 +1703,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.089425564, y: 0.00000011920929}
+  m_Offset: {x: -0.0019099712, y: 0.010745466}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8666667, y: 1.0666667}
+    oldSize: {x: 0.40625, y: 0.5}
     newSize: {x: 2.6, y: 3.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.0324163, y: 1.137944}
+  m_Size: {x: 0.40918684, y: 0.54695}
   m_EdgeRadius: 0
 --- !u!114 &638909309
 MonoBehaviour:
@@ -1752,6 +1753,8 @@ MonoBehaviour:
   audioSource: {fileID: 638909311}
   isTouchingWall: 0
   dashEffectPrefab: {fileID: 5305428818100442843, guid: 4fca9d1d59478b245b17a5653e2f3164, type: 3}
+  isDialoging: 0
+  canDialoging: 0
 --- !u!82 &638909311
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2519,6 +2522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1518611838}
+  coin: 0
 --- !u!1 &1119021294
 GameObject:
   m_ObjectHideFlags: 0
