@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -25,8 +26,10 @@ public class EnemyController : MonoBehaviour
 
     [Header("bool")]
     public bool isMelee; //근거리인지 원거리인지
+    public bool bowIsSymmetry = true;
 
     protected SpriteRenderer spriteRenderer;
+    public SpriteRenderer weaponRenderer; //적 무기의 스프라이트 렌더러(스나이퍼 Flipx를 위해 구현)
     public Animator weaponAnimator; //원거리 적 무기의 애니메이터(활 당기기 등의 모션 관련)
     protected Animator animator; //적 본인의 애니메이터
     protected Transform player; // 플레이어의 위치를 저장하는 변수
@@ -43,11 +46,14 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         if (!isMelee)//원거리 공격 적이면 활, 총 등의 애니메이터를 받아옴.
         {
+            weaponRenderer = GetComponentsInChildren<SpriteRenderer>()
+                    .FirstOrDefault(r => r.gameObject != this.gameObject);
             weaponAnimator = GetComponentInChildren<Animator>();
             if (weaponAnimator != null)
             {
                 weaponAnimator.enabled = false;//있다면 해당 활, 총등의 애니메이터를 가져옴
             }
+            
         }
         //만약 활, 총 등에 애니메이션 없는 적인데 원거리 적이라면 말 해주세요 내용 더 추가해야 합니다
         // lastAttackTime = Time.time; // 현재 시간을 마지막 공격 시간으로 설정
@@ -110,10 +116,15 @@ public class EnemyController : MonoBehaviour
     //발사 위치 회전 업데이트    
     protected void UpdateShootRotation()
     {
-        // if(shootTransform == null) return; 이 코드 없어도 문제 안생기면 삭제해도 됨.
         Vector3 direction = player.position - shootTransform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         shootTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 180f));
+
+        if (!bowIsSymmetry && weaponRenderer != null) // 비대칭 활이 아니라면 flip 처리
+        {
+            // 플레이어가 오른쪽에 있을 경우에는 flipY를 true로
+            weaponRenderer.flipY = player.position.x > transform.position.x;
+        }
     }
 
     protected void FollowPlayer(){
@@ -126,7 +137,7 @@ public class EnemyController : MonoBehaviour
     protected IEnumerator PrepareAttack(){
         isPreparingAttack = true;
 
-        if (!isMelee) //원거리 적의 무기 애니메이션 관련 코드
+        if (!isMelee && weaponAnimator != null) //원거리 적의 무기 애니메이션 관련 코드
         {
             weaponAnimator.enabled = true;
             weaponAnimator.Play(weaponAnimator.GetCurrentAnimatorStateInfo(0).shortNameHash, -1, 0f);
