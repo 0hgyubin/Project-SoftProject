@@ -29,6 +29,7 @@ public class MapController : MonoBehaviour
     public GameObject StorePrefab; // 상점 프리팹
     public GameObject StonePillarPrefab; //석조 기둥 프리팹
 
+    const int INF = 0x3f3f3f3f; //약 10.5억
     public int width = 40;
     public int height = 40;
     public int extraMaxCnt = 30;
@@ -118,29 +119,32 @@ public class MapController : MonoBehaviour
 
     void Start()
     {
-        GenerateEmptyMap();      // 1. 모든 맵을 벽으로 초기화
-        SetStartAndGoal();       // 2. 시작점과 목적지 정하기
+        while(true){
+            GenerateEmptyMap();      // 1. 모든 맵을 벽으로 초기화
+            SetStartAndGoal();       // 2. 시작점과 목적지 정하기
 
-        MakePathToDes();         // 3. 경로 하나는 강제 연결
-        MakeExtraPath();         // 4. 추가 경로 생성
-        MakeVariablePath();      // 5. 벽으로부터 새로운 길을 만들어 미로를 다채롭게 바꾸는 함수
+            MakePathToDes();         // 3. 경로 하나는 강제 연결
+            MakeExtraPath();         // 4. 추가 경로 생성
+            MakeVariablePath();      // 5. 벽으로부터 새로운 길을 만들어 미로를 다채롭게 바꾸는 함수
 
-        ChangeLongFloor();       // 6. 바닥 타일의 길이가 너무 길 경우 수정해주는 함수                   
-        CheckUseless();          // 7. 의미없는 타일 모두 벽 타일로 교체하는 함수
-        CheckWhiteHole();       //  8. 바닥의 두께가 3칸 이상으로 두껍게 생성된 것을 수정하는 함수
-        MakeRandomTile();       //  9. 랜덤 이벤트 타일을 생성하는 함수
-
-
-        MakeStoreNextToDes();
-        MakeStonePillar();
-        MakeBoundWall();         // 10. 플레이어를 범위 밖으로 못나가게 벽 타일로 두루는 함수
+            ChangeLongFloor();       // 6. 바닥 타일의 길이가 너무 길 경우 수정해주는 함수                   
+            CheckUseless();          // 7. 의미없는 타일 모두 벽 타일로 교체하는 함수
+            CheckWhiteHole();       //  8. 바닥의 두께가 3칸 이상으로 두껍게 생성된 것을 수정하는 함수
+            MakeRandomTile();       //  9. 랜덤 이벤트 타일을 생성하는 함수
 
 
-        // LastCheck();
-        if(GetDistance()==0);
+            MakeStoreNextToDes();
+            MakeStonePillar();
+            MakeBoundWall();         // 10. 플레이어를 범위 밖으로 못나가게 벽 타일로 두루는 함수
 
-        RenderMap();             // 11. 전체 타일 렌더링하는 함수
-        SpawnPlayer();           // 12. 플레이어 생성 및 카메라 연결
+
+            
+
+            RenderMap();             // 11. 전체 타일 렌더링하는 함수
+            SpawnPlayer();           // 12. 플레이어 생성 및 카메라 연결
+            if(GetDistance()<INF) break; // INF는 미방문을 의미. 10억.
+            // LastCheck();
+        }
     }
 
     // 0: Wall, 1 : Enemy, 2: Floor, 3: Des, 4: EventMap, 5: Store, 6: Pillar
@@ -746,12 +750,18 @@ public class MapController : MonoBehaviour
         return pos.x >= 1 && pos.x <= width && pos.y >= 1 && pos.y <= height; // == 벽 태투리 제외 범위
     }
 
+    //목적지에 도달하기 위해 밟아야 하는 최소한의 MAP_ENEMY의 수.
     int GetDistance(){
         Queue<Vector2Int> que = new Queue<Vector2Int>();
         int [,] dist = new int[width + 2, height + 2];
+        for(int i=0;i<width+2;i++){
+            for(int j=0;j<height+2;j++){
+                dist[i,j] = INF;
+            }
+        }
 
         que.Enqueue(startPos);
-        dist[startPos.x, startPos.y] = 1;
+        dist[startPos.x, startPos.y] = 0;
         Vector2Int[] dirs = new Vector2Int[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
 
         while(que.Count > 0){
@@ -761,8 +771,13 @@ public class MapController : MonoBehaviour
             foreach(Vector2Int dir in dirs){
                 Vector2Int next = cur + dir;
                 if(!IsInBounds(next)) continue;
-                if(dist[next.x,next.y] > 0) continue; //0은 미방문
-                dist[next.x, next.y] = dist[cur.x, cur.y] + 1;
+                if(Map[next.x,next.y] == MAP_WALL) continue;
+                if(Map[next.x,next.y] == MAP_PILLAR) continue;
+
+                int ndist = dist[cur.x, cur.y];
+                if(Map[next.x,next.y]==MAP_ENEMY) ndist++;
+                if(ndist >= dist[next.x,next.y]) continue;
+                dist[next.x,next.y] = ndist;
                 que.Enqueue(next);
             }
         }
