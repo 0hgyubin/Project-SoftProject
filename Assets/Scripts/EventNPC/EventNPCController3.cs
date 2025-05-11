@@ -193,6 +193,7 @@ public class EventNPCController3 : MonoBehaviour
                         onGamble = isOnGamble.notPushed;
                         gambleResult = gamble.notPushed;
                         isGambleOver = false;
+                        isCoinOver50 = false;
                         if(!isCoinOver50)
                         {
                             gameObject.SetActive(false);

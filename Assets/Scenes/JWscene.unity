@@ -582,8 +582,8 @@ MonoBehaviour:
   damage: 5
   maxDistance: 5
   isMelee: 0
-  isMoved: 0
-  playerDamage: 0
+  bowIsSymmetry: 1
+  weaponRenderer: {fileID: 0}
   weaponAnimator: {fileID: 0}
 --- !u!1 &638909303
 GameObject:
@@ -765,7 +765,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8666667, y: 1.0666667}
+    oldSize: {x: 0.40625, y: 0.5}
     newSize: {x: 2.6, y: 3.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -809,6 +809,10 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 93bd9b4aa002a784d8d0fb8950400755, type: 3}
   jumpSound: {fileID: 8300000, guid: 607bc5bba89663f42bccb1e2de7aca03, type: 3}
   audioSource: {fileID: 638909311}
+  isTouchingWall: 0
+  dashEffectPrefab: {fileID: 0}
+  isDialoging: 0
+  canDialoging: 0
 --- !u!58 &638909310
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1526,6 +1530,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1827005366555843693, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
+      propertyPath: canMove
+      value: 
+      objectReference: {fileID: 638909309}
     - target: {fileID: 8290723906184841239, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
       propertyPath: m_Name
       value: sword_0
@@ -1972,8 +1980,8 @@ MonoBehaviour:
   damage: 5
   maxDistance: 5
   isMelee: 1
-  isMoved: 1
-  playerDamage: 0
+  bowIsSymmetry: 1
+  weaponRenderer: {fileID: 0}
   weaponAnimator: {fileID: 0}
 --- !u!1001 &1952012543
 PrefabInstance:
