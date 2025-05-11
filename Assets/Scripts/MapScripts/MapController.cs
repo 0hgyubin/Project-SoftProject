@@ -170,7 +170,7 @@ public class MapController : MonoBehaviour
         return des;
     }
 
-    // MakePathToDes() : 최소 1개의 확정 경로를 만드는 함수.
+    // MakePathToDes() : 최소 1개의 확정 경로를 만드는 함수.B
     void MakePathToDes()
     {
         List<Vector2Int> path = BFS(startPos, desPos);
@@ -442,20 +442,6 @@ public class MapController : MonoBehaviour
                     continue;
 
                 if (Map[x + 1, y] == 2 && Map[x, y - 1] == 2 && Map[x - 1, y] == 2 && Map[x + 1, y + 1] != 0 && Map[x + 1, y - 1] != 0 && Map[x - 1, y + 1] != 0 && Map[x - 1, y - 1] != 0) //2=floor
-                {
-                    Map[x, y] = 0;
-                }
-            }
-        }
-
-        for (int x = 1; x <= width; x++)
-        {
-            for (int y = 1; y <= height; y++)
-            {
-                if (Map[x, y] != 2)
-                    continue;
-
-                if (Map[x, y + 1] == 0 && Map[x, y - 1] == 0 && Map[x - 1, y] == 0 && Map[x + 1, y] == 0)
                 {
                     Map[x, y] = 0;
                 }

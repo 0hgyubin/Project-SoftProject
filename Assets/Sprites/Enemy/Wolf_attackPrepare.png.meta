@@ -133,6 +133,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -347,7 +360,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Wolf_attackPrepare_0: -6010820431990136769
+      Wolf_attackPrepare_1: 4501031456707457748
+      Wolf_attackPrepare_2: 3057183576941789813
+      Wolf_attackPrepare_3: -8932247094659773547
+      Wolf_attackPrepare_4: -7070287750536075021
+      Wolf_attackPrepare_5: -8821718167392167814
+      Wolf_attackPrepare_6: 6323742994614821428
+      Wolf_attackPrepare_7: 4912486022707153999
+      Wolf_attackPrepare_8: 8306306025224783256
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
