@@ -11,6 +11,9 @@ TagManager:
   - Projectile
   - Wall
   - Enemy
+  - OneWayGround
+  - Coin
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX
