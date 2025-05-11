@@ -135,7 +135,10 @@ public class MapController : MonoBehaviour
         MakeStonePillar();
         MakeBoundWall();         // 10. 플레이어를 범위 밖으로 못나가게 벽 타일로 두루는 함수
 
-        LastCheck();
+
+        // LastCheck();
+        if(GetDistance()==0);
+
         RenderMap();             // 11. 전체 타일 렌더링하는 함수
         SpawnPlayer();           // 12. 플레이어 생성 및 카메라 연결
     }
@@ -741,5 +744,29 @@ public class MapController : MonoBehaviour
     bool IsInBounds(Vector2Int pos)
     {
         return pos.x >= 1 && pos.x <= width && pos.y >= 1 && pos.y <= height; // == 벽 태투리 제외 범위
+    }
+
+    int GetDistance(){
+        Queue<Vector2Int> que = new Queue<Vector2Int>();
+        int [,] dist = new int[width + 2, height + 2];
+
+        que.Enqueue(startPos);
+        dist[startPos.x, startPos.y] = 1;
+        Vector2Int[] dirs = new Vector2Int[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+
+        while(que.Count > 0){
+            Vector2Int cur = que.Dequeue();
+            if (cur == desPos) break;
+
+            foreach(Vector2Int dir in dirs){
+                Vector2Int next = cur + dir;
+                if(!IsInBounds(next)) continue;
+                if(dist[next.x,next.y] > 0) continue; //0은 미방문
+                dist[next.x, next.y] = dist[cur.x, cur.y] + 1;
+                que.Enqueue(next);
+            }
+        }
+
+        return dist[desPos.x,desPos.y];
     }
 }
