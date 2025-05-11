@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bat-bullet_0: 7070646071748959735
+      bat-bullet_1: 7022059812689715313
+      bat-bullet_2: -5813537036095160285
+      bat-bullet_3: -5917350058508626922
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

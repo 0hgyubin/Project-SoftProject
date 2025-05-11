@@ -347,7 +347,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Wolf_attackPrepare_0: -6010820431990136769
+      Wolf_attackPrepare_1: 4501031456707457748
+      Wolf_attackPrepare_2: 3057183576941789813
+      Wolf_attackPrepare_3: -8932247094659773547
+      Wolf_attackPrepare_4: -7070287750536075021
+      Wolf_attackPrepare_5: -8821718167392167814
+      Wolf_attackPrepare_6: 6323742994614821428
+      Wolf_attackPrepare_7: 4912486022707153999
+      Wolf_attackPrepare_8: 8306306025224783256
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

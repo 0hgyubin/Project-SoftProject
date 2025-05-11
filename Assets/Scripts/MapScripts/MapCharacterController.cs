@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SoftProject.Enums;
+using static SoftProject.Enums.MAP_TILE;
 
 public class MapCharacterController : MonoBehaviour
 {
-    public float moveSpeed = 50f;   // ÀÌµ¿¼Óµµ
+    public float moveSpeed = 50f;   // ï¿½Ìµï¿½ï¿½Óµï¿½
     Vector3 moveDir = Vector3.zero;
 
     void Start()
@@ -33,36 +35,36 @@ public class MapCharacterController : MonoBehaviour
         ChangeTile();
     }
 
-    // Å¸ÀÏ ±³Ã¼ ÇÔ¼ö
+    // Å¸ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½Ô¼ï¿½
     void ChangeTile()
     {
         MapController myMapController = MapController.Instance;
         float tileSize = myMapController.tileSize;
 
-        // ÇÃ·¹ÀÌ¾î°¡ Áö±Ý ¹â°í ÀÖ´Â Å¸ÀÏÀÇ {X,Y} (=À§Ä¡) °è»êÇÏ¿© ¹ÝÈ¯
-        int cellX = Mathf.FloorToInt(transform.position.x / tileSize) + 1; //FloorToInt ¼Ò¼ö¸é Á¤¼ö·Î º¯È¯. Á¤È®ÇÑ À§Ä¡ °è»ê¿ë
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ {X,Y} (=ï¿½ï¿½Ä¡) ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½È¯
+        int cellX = Mathf.FloorToInt(transform.position.x / tileSize) + 1; //FloorToInt ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯. ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         int cellY = Mathf.FloorToInt(transform.position.y / tileSize) + 1;
 
-        // ÇÃ·¹ÀÌ¾î°¡ ¹üÀ§¸¦ ÀÌÅ» Çß´Ù¸é (½ÇÁ¦·Î´Â ¹ß»ý X)
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å» ï¿½ß´Ù¸ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ ï¿½ß»ï¿½ X)
         if (cellX < 1 || cellX > myMapController.width ||
             cellY < 1 || cellY > myMapController.height)
             return;
 
-        int tile = myMapController.GetTileType(cellX, cellY);
+        MAP_TILE tile = myMapController.GetTileType(cellX, cellY);
 
-        // ¹âÀº°Ô Àû Å¸ÀÏÀÌ¶ó¸é..
-        if (tile == 1)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½..
+        if (tile == MAP_ENEMY)
         {   
-            //ÀÏ´Ü Å¸ÀÏ ±³Ã¼
-            myMapController.ReplaceTile(cellX, cellY, 2);
+            //ï¿½Ï´ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½Ã¼
+            myMapController.ReplaceTile(cellX, cellY, MAP_FLOOR);
             
-            // ÀüÅõ¾À ÀüÈ¯
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
             SceneManager.LoadScene("CharacterTest");
         }
-        // ÀÌº¥Æ®(4), »óÁ¡(5)Àº ±×³É ¹Ù´ÚÀ¸·Î ¹Ù²Ù±â¸¸
-        else if (tile == 4 || tile == 5)
+        // ï¿½Ìºï¿½Æ®(4), ï¿½ï¿½ï¿½ï¿½(5)ï¿½ï¿½ ï¿½×³ï¿½ ï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù±â¸¸
+        else if (tile == MAP_EVENT || tile == MAP_SHOP)
         {
-            myMapController.ReplaceTile(cellX, cellY, 2);
+            myMapController.ReplaceTile(cellX, cellY, MAP_FLOOR);
         }
     }
 }

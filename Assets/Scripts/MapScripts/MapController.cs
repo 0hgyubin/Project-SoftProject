@@ -1,6 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using SoftProject.Enums;
+using static SoftProject.Enums.MAP_TILE;
+
+/*
+MAP_FLOOR는 2 이니까,
+MAP_FLOOR로 쓰거나,
+(MAP_TILE)2로 캐스팅해서 사용하기.
+
+*/
 
 public class MapController : MonoBehaviour
 {
@@ -28,7 +37,7 @@ public class MapController : MonoBehaviour
     public int randomCycle = 180; // 적 타일을 랜덤 이벤트 타일로 변경 후 잠시 변환하지 않는 주기. 수정 가능
     int totalRandomMapCnt = 5; // 이벤트 타일의 총 개수
 
-    public int[,] Map;
+    public MAP_TILE[,] Map;
     private Vector2Int startPos;      // 시작 지점 (1~width, 1~height)
     private Vector2Int desPos;        // 도착 지점
 
@@ -40,13 +49,13 @@ public class MapController : MonoBehaviour
 
 
     //현위치 타일의 상태 반환
-    public int GetTileType(int x, int y)
+    public MAP_TILE GetTileType(int x, int y)
     {
         return Map[x, y];
     }
 
     // 타일 교체 코드. (CharacterController 스크립트에서 참조중)
-    public void ReplaceTile(int x, int y, int newTile) //현재 newTile은 2, 즉 Floor
+    public void ReplaceTile(int x, int y, MAP_TILE newTile) //현재 newTile은 2, 즉 Floor
     {
         Vector2Int ChangePos = new Vector2Int(x, y);
 
@@ -75,17 +84,17 @@ public class MapController : MonoBehaviour
     }
 
     // t값에 맞는 타일 반환 함수
-    GameObject GetNewTile(int t)
+    GameObject GetNewTile(MAP_TILE t)
     {
         switch (t)
         {
-            case 0: return WallTilePrefab;
-            case 1: return EnemyTilePrefab;
-            case 2: return FloorTilePrefab;
-            case 3: return NextTilePrefab;
-            case 4: return RandomTilePrefab;
-            case 5: return StorePrefab;
-            case 6: return StonePillarPrefab;
+            case MAP_WALL: return WallTilePrefab;
+            case MAP_ENEMY: return EnemyTilePrefab;
+            case MAP_FLOOR: return FloorTilePrefab;
+            case MAP_EXIT: return NextTilePrefab;
+            case MAP_EVENT: return RandomTilePrefab;
+            case MAP_SHOP: return StorePrefab;
+            case MAP_PILLAR: return StonePillarPrefab;
             default: return null;
         }
     }
@@ -94,6 +103,7 @@ public class MapController : MonoBehaviour
     //    DontDestroyOnLoad 로 씬 전환 후에도 맵 데이터를 유지시키죠.
     void Awake()
     {
+        // UnityEngine.Random.InitState(3);
         if (Instance == null)
         {
             Instance = this;
@@ -117,7 +127,7 @@ public class MapController : MonoBehaviour
 
         ChangeLongFloor();       // 6. 바닥 타일의 길이가 너무 길 경우 수정해주는 함수                   
         CheckUseless();          // 7. 의미없는 타일 모두 벽 타일로 교체하는 함수
-        CheckWhiteHole();       //  8.바닥의 두께가 3칸 이상으로 두껍게 생성된 것을 수정하는 함수
+        CheckWhiteHole();       //  8. 바닥의 두께가 3칸 이상으로 두껍게 생성된 것을 수정하는 함수
         MakeRandomTile();       //  9. 랜덤 이벤트 타일을 생성하는 함수
 
 
@@ -133,12 +143,12 @@ public class MapController : MonoBehaviour
     // 0: Wall, 1 : Enemy, 2: Floor, 3: Des, 4: EventMap, 5: Store, 6: Pillar
     void GenerateEmptyMap()
     {
-        Map = new int[width + 2, height + 2];
+        Map = new MAP_TILE[width + 2, height + 2];
         for (int x = 0; x < width + 2; x++)
         {
             for (int y = 0; y < height + 2; y++)
             {
-                Map[x, y] = 0;
+                Map[x, y] = MAP_WALL;
             }
         }
     }
@@ -147,10 +157,10 @@ public class MapController : MonoBehaviour
     {
         // 내부 영역 (플레이어 이동 가능 영역)
         startPos = new Vector2Int(Random.Range(width / 4, width / 4 * 3), Random.Range(height / 4, height / 4 * 3)); // 시작지점은 랜덤 좌표
-        Map[startPos.x, startPos.y] = 2; // 시작 지점 Floor 타일로 설정.
+        Map[startPos.x, startPos.y] = MAP_FLOOR; // 시작 지점 Floor 타일로 설정.
         Debug.Log("startPos: " + startPos);
         desPos = GetDes();
-        Map[desPos.x, desPos.y] = 3; // 목적지는 3
+        Map[desPos.x, desPos.y] = MAP_EXIT; // 목적지는 3
     }
 
     Vector2Int GetDes()
@@ -185,9 +195,9 @@ public class MapController : MonoBehaviour
         {
             Vector2Int pos = path[i];
             if (pos != startPos && Random.value < 0.1f)
-                Map[pos.x, pos.y] = 1; // 적
+                Map[pos.x, pos.y] = MAP_ENEMY; // 적
             else
-                Map[pos.x, pos.y] = 2; // 벽
+                Map[pos.x, pos.y] = MAP_FLOOR; // 벽
         }
     }
 
@@ -238,42 +248,42 @@ public class MapController : MonoBehaviour
         // 0 : Wall, 1 : Enemy, 2 : Floor, 3 : des, 4: EventMap
         if (desPos.x == 1 && desPos.y == 1)
         {
-            if (Map[2, 1] != 0 && Map[1, 2] == 0)
-                Map[2, 1] = 5;
-            if (Map[1, 2] != 0 && Map[2, 1] == 0)
-                Map[1, 2] = 5;
-            if (Map[2, 1] != 0 && Map[1, 2] != 0)
-                Map[2, 1] = 5;
+            if (Map[2, 1] != MAP_WALL && Map[1, 2] == MAP_WALL)
+                Map[2, 1] = MAP_SHOP;
+            if (Map[1, 2] != MAP_WALL && Map[2, 1] == MAP_WALL)
+                Map[1, 2] = MAP_SHOP;
+            if (Map[2, 1] != MAP_WALL && Map[1, 2] != MAP_WALL)
+                Map[2, 1] = MAP_SHOP;
         }
 
         if (desPos.x == 1 && desPos.y == height)
         {
-            if (Map[2, height] != 0 && Map[1, height - 1] == 0)
-                Map[2, height] = 5;
-            if (Map[1, height - 1] != 0 && Map[2, height] == 0)
-                Map[1, height - 1] = 5;
-            if (Map[1, height - 1] != 0 && Map[2, height] != 0)
-                Map[1, height - 1] = 5;
+            if (Map[2, height] != MAP_WALL && Map[1, height - 1] == MAP_WALL)
+                Map[2, height] = MAP_SHOP;
+            if (Map[1, height - 1] != MAP_WALL && Map[2, height] == MAP_WALL)
+                Map[1, height - 1] = MAP_SHOP;
+            if (Map[1, height - 1] != MAP_WALL && Map[2, height] != MAP_WALL)
+                Map[1, height - 1] = MAP_SHOP;
         }
 
         if (desPos.x == width && desPos.y == 1) //!
         {
-            if (Map[width - 1, 1] != 0 && Map[width, 2] == 0)
-                Map[width - 1, 1] = 5;
-            if (Map[width, 2] != 0 && Map[width - 1, 1] == 0)
-                Map[width, 2] = 5;
-            if (Map[width, 2] != 0 && Map[width - 1, 1] != 0)
-                Map[width - 1, 1] = 5;
+            if (Map[width - 1, 1] != MAP_WALL && Map[width, 2] == MAP_WALL)
+                Map[width - 1, 1] = MAP_SHOP;
+            if (Map[width, 2] != MAP_WALL && Map[width - 1, 1] == MAP_WALL)
+                Map[width, 2] = MAP_SHOP;
+            if (Map[width, 2] != MAP_WALL && Map[width - 1, 1] != MAP_WALL)
+                Map[width - 1, 1] = MAP_SHOP;
         }
 
         if (desPos.x == width && desPos.y == height)
         {
-            if (Map[width - 1, height] != 0 && Map[width, height - 1] == 0)
-                Map[width - 1, height] = 5;
-            if (Map[width - 1, height] != 0 && Map[width, height - 1] == 2)
-                Map[width, height - 1] = 5;
-            if (Map[width - 1, height] != 0 && Map[width, height - 1] != 0)
-                Map[width - 1, height] = 5;
+            if (Map[width - 1, height] != MAP_WALL && Map[width, height - 1] == MAP_WALL)
+                Map[width - 1, height] = MAP_SHOP;
+            if (Map[width - 1, height] != MAP_WALL && Map[width, height - 1] == MAP_FLOOR)
+                Map[width, height - 1] = MAP_SHOP;
+            if (Map[width - 1, height] != MAP_WALL && Map[width, height - 1] != MAP_WALL)
+                Map[width - 1, height] = MAP_SHOP;
         }
     }
 
@@ -294,13 +304,13 @@ public class MapController : MonoBehaviour
                 GameObject prefab = null;
                 switch (Map[x, y])
                 {
-                    case 0: prefab = WallTilePrefab; break;
-                    case 1: prefab = EnemyTilePrefab; break;
-                    case 2: prefab = FloorTilePrefab; break;
-                    case 3: prefab = NextTilePrefab; break;
-                    case 4: prefab = RandomTilePrefab; break;
-                    case 5: prefab = StorePrefab; break;
-                    case 6: prefab = StonePillarPrefab; break;
+                    case MAP_WALL: prefab = WallTilePrefab; break;
+                    case MAP_ENEMY: prefab = EnemyTilePrefab; break;
+                    case MAP_FLOOR: prefab = FloorTilePrefab; break;
+                    case MAP_EXIT: prefab = NextTilePrefab; break;
+                    case MAP_EVENT: prefab = RandomTilePrefab; break;
+                    case MAP_SHOP: prefab = StorePrefab; break;
+                    case MAP_PILLAR: prefab = StonePillarPrefab; break;
                 }
                 if (prefab != null)
                 {
@@ -333,7 +343,7 @@ public class MapController : MonoBehaviour
                 if (extraRoadCnt < extraMaxCnt / 4) // 경로 max/2개까지 만듦,
                 {
                     // 새로운 경로 시작 조건: 적이 아닌 타일(즉, 1이 아닌 타일)에서 시작하며 && 8% 확률
-                    if (Map[x, y] != 1 && !(x == startPos.x && y == startPos.y) && Random.value < 0.08f)
+                    if (Map[x, y] != MAP_ENEMY && !(x == startPos.x && y == startPos.y) && Random.value < 0.08f)
                     {
                         extraRoadCnt++;
                         Vector2Int secondStartPos = new Vector2Int(x, y);
@@ -342,8 +352,8 @@ public class MapController : MonoBehaviour
                         {
                             foreach (Vector2Int pos in path)
                             {
-                                if (pos != startPos && Map[pos.x, pos.y] != 3)
-                                    Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
+                                if (pos != startPos && Map[pos.x, pos.y] != MAP_EXIT)
+                                    Map[pos.x, pos.y] = (Random.value < 0.1f) ? MAP_ENEMY : MAP_FLOOR;
                             }
                         }
                     }
@@ -359,7 +369,7 @@ public class MapController : MonoBehaviour
                 if (extraRoadCnt < extraMaxCnt / 4 * 2) // 경로이번에는 오른쪽 아래부터 시작해서 만들기
                 {
                     // 새로운 경로 시작 조건: 적이 아닌 타일(즉, 1이 아닌 타일)에서 시작하 && 8% 확률
-                    if (Map[x, y] != 1 && !(x == startPos.x && y == startPos.y) && Random.value < 0.08f)
+                    if (Map[x, y] != MAP_ENEMY && !(x == startPos.x && y == startPos.y) && Random.value < 0.08f)
                     {
                         extraRoadCnt++;
                         Vector2Int secondStartPos = new Vector2Int(x, y);
@@ -368,8 +378,8 @@ public class MapController : MonoBehaviour
                         {
                             foreach (Vector2Int pos in path)
                             {
-                                if (Map[pos.x, pos.y] != 3 && !(x == startPos.x && y == startPos.y)) // 혹시나 목적지가 오염되지 않게 예외 처리
-                                    Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
+                                if (Map[pos.x, pos.y] != MAP_EXIT && !(x == startPos.x && y == startPos.y)) // 혹시나 목적지가 오염되지 않게 예외 처리
+                                    Map[pos.x, pos.y] = (Random.value < 0.1f) ? MAP_ENEMY : MAP_FLOOR;
                             }
                         }
                     }
@@ -384,7 +394,7 @@ public class MapController : MonoBehaviour
                 if (extraRoadCnt < extraMaxCnt / 4 * 4) // 경로이번에는 가운데 시작
                 {
                     // 새로운 경로 시작 조건: 적이 아닌 타일(즉, 1이 아닌 타일)에서 시작하 && 8% 확률
-                    if (Map[x, y] != 1 && !(x == startPos.x && y == startPos.y) && Random.value < 0.12f) // 약간 높음
+                    if (Map[x, y] != MAP_ENEMY && !(x == startPos.x && y == startPos.y) && Random.value < 0.12f) // 약간 높음
                     {
                         extraRoadCnt++;
                         Vector2Int secondStartPos = new Vector2Int(x, y);
@@ -393,8 +403,8 @@ public class MapController : MonoBehaviour
                         {
                             foreach (Vector2Int pos in path)
                             {
-                                if (Map[pos.x, pos.y] != 3 && !(x == startPos.x && y == startPos.y))
-                                    Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
+                                if (Map[pos.x, pos.y] != MAP_EXIT && !(x == startPos.x && y == startPos.y))
+                                    Map[pos.x, pos.y] = (Random.value < 0.1f) ? MAP_ENEMY : MAP_FLOOR;
                             }
                         }
                     }
@@ -409,24 +419,24 @@ public class MapController : MonoBehaviour
         {
             for (int y = 1; y <= height; y++)
             {
-                if (Map[x, y] != 2 && Map[x, y] != 3)
+                if (Map[x, y] != MAP_FLOOR && Map[x, y] != MAP_EXIT)
                 {
                     if ((x == startPos.x && y == startPos.y) ||
                         (x == desPos.x && y == desPos.y))
                         continue;
 
                     bool hasAdjacentFloor = false;
-                    if (IsInBounds(new Vector2Int(x, y + 1)) && Map[x, y + 1] == 2)
+                    if (IsInBounds(new Vector2Int(x, y + 1)) && Map[x, y + 1] == MAP_FLOOR)
                         hasAdjacentFloor = true;
-                    if (IsInBounds(new Vector2Int(x, y - 1)) && Map[x, y - 1] == 2)
+                    if (IsInBounds(new Vector2Int(x, y - 1)) && Map[x, y - 1] == MAP_FLOOR)
                         hasAdjacentFloor = true;
-                    if (IsInBounds(new Vector2Int(x + 1, y)) && Map[x + 1, y] == 2)
+                    if (IsInBounds(new Vector2Int(x + 1, y)) && Map[x + 1, y] == MAP_FLOOR)
                         hasAdjacentFloor = true;
-                    if (IsInBounds(new Vector2Int(x - 1, y)) && Map[x - 1, y] == 2)
+                    if (IsInBounds(new Vector2Int(x - 1, y)) && Map[x - 1, y] == MAP_FLOOR)
                         hasAdjacentFloor = true;
 
                     if (!hasAdjacentFloor)
-                        Map[x, y] = 0;
+                        Map[x, y] = MAP_WALL;
                 }
             }
         }
@@ -438,10 +448,10 @@ public class MapController : MonoBehaviour
         {
             for (int y = 1; y <= height; y++)
             {
-                if (Map[x, y] != 2)
+                if (Map[x, y] != MAP_FLOOR)
                     continue;
 
-                if (Map[x + 1, y] == 2 && Map[x, y - 1] == 2 && Map[x - 1, y] == 2 && Map[x + 1, y + 1] != 0 && Map[x + 1, y - 1] != 0 && Map[x - 1, y + 1] != 0 && Map[x - 1, y - 1] != 0) //2=floor
+                if (Map[x + 1, y] == MAP_FLOOR && Map[x, y - 1] == MAP_FLOOR && Map[x - 1, y] == MAP_FLOOR && Map[x + 1, y + 1] != 0 && Map[x + 1, y - 1] != 0 && Map[x - 1, y + 1] != 0 && Map[x - 1, y - 1] != 0) //2=floor
                 {
                     Map[x, y] = 0;
                 }
@@ -452,12 +462,12 @@ public class MapController : MonoBehaviour
         {
             for (int y = 1; y <= height; y++)
             {
-                if (Map[x, y] != 2)
+                if (Map[x, y] != MAP_FLOOR)
                     continue;
 
-                if (Map[x, y + 1] == 0 && Map[x, y - 1] == 0 && Map[x - 1, y] == 0 && Map[x + 1, y] == 0)
+                if (Map[x, y + 1] == MAP_WALL && Map[x, y - 1] == MAP_WALL && Map[x - 1, y] == MAP_WALL && Map[x + 1, y] == MAP_WALL)
                 {
-                    Map[x, y] = 0;
+                    Map[x, y] = MAP_WALL;
                 }
             }
         }
@@ -473,25 +483,25 @@ public class MapController : MonoBehaviour
                 if (x - 3 < 1 || x + 3 > width || y - 3 < 1 || y + 3 > height)
                     continue;
                 // 바닥이 아니라면 스킵
-                if (Map[x, y] != 2) continue;
+                if (Map[x, y] != MAP_FLOOR) continue;
 
                 //시작지점 (플레이어 위) 라면 스킵
                 if (x == startPos.x && y == startPos.y) continue;
 
                 // 1+6칸 연속이면 수정함.  추후 수정 가능! (랜덤칸 및 적으로)
 
-                if (Map[x + 1, y] == 2 && Map[x + 2, y] == 2 && Map[x + 3, y] == 2 &&
-                    Map[x - 1, y] == 2 && Map[x - 2, y] == 2 && Map[x - 3, y] == 2)
+                if (Map[x + 1, y] == MAP_FLOOR && Map[x + 2, y] == MAP_FLOOR && Map[x + 3, y] == MAP_FLOOR &&
+                    Map[x - 1, y] == MAP_FLOOR && Map[x - 2, y] == MAP_FLOOR && Map[x - 3, y] == MAP_FLOOR)
                 {
                     if (x == startPos.x && y == startPos.y) continue;
-                    Map[x, y] = 1;
+                    Map[x, y] = MAP_ENEMY;
                 }
 
-                if (Map[x, y + 1] == 2 && Map[x, y + 2] == 2 && Map[x, y + 3] == 2 &&
-                    Map[x, y - 1] == 2 && Map[x, y - 2] == 2 && Map[x, y - 3] == 2)
+                if (Map[x, y + 1] == MAP_FLOOR && Map[x, y + 2] == MAP_FLOOR && Map[x, y + 3] == MAP_FLOOR &&
+                    Map[x, y - 1] == MAP_FLOOR && Map[x, y - 2] == MAP_FLOOR && Map[x, y - 3] == MAP_FLOOR)
                 {
                     if (x == startPos.x && y == startPos.y) continue;
-                    Map[x, y] = 1;
+                    Map[x, y] = MAP_ENEMY;
                 }
             }
         }
@@ -500,15 +510,15 @@ public class MapController : MonoBehaviour
         {
             for (int y = 3; y <= height - 3; y++)
             {
-                if (Map[x, y] != 2) continue;
+                if (Map[x, y] != MAP_FLOOR) continue;
 
                 if (x == startPos.x && y == startPos.y) continue;
 
-                if (Map[x, y + 1] == 2 && Map[x, y + 2] == 2 && Map[x, y + 3] == 2 &&
-                    Map[x, y - 1] == 2 && Map[x, y - 2] == 2 && Map[x, y - 3] == 2)
+                if (Map[x, y + 1] == MAP_FLOOR && Map[x, y + 2] == MAP_FLOOR && Map[x, y + 3] == MAP_FLOOR &&
+                    Map[x, y - 1] == MAP_FLOOR && Map[x, y - 2] == MAP_FLOOR && Map[x, y - 3] == MAP_FLOOR)
                 {
                     if (x == startPos.x && y == startPos.y) continue;
-                    Map[x, y] = 1;
+                    Map[x, y] = MAP_ENEMY;
                 }
             }
         }
@@ -518,15 +528,15 @@ public class MapController : MonoBehaviour
         {
             for (int y = 3; y <= height - 3; y++)
             {
-                if (Map[x, y] != 2) continue;
+                if (Map[x, y] != MAP_FLOOR) continue;
 
                 if (x == startPos.x && y == startPos.y) continue;
 
-                if (Map[x, y + 1] == 2 && Map[x, y + 2] == 2 && Map[x, y + 3] == 2 &&
-                    Map[x, y - 1] == 2 && Map[x, y - 2] == 2 && Map[x, y - 3] == 2)
+                if (Map[x, y + 1] == MAP_FLOOR && Map[x, y + 2] == MAP_FLOOR && Map[x, y + 3] == MAP_FLOOR &&
+                    Map[x, y - 1] == MAP_FLOOR && Map[x, y - 2] == MAP_FLOOR && Map[x, y - 3] == MAP_FLOOR)
                 {
                     if (x == startPos.x && y == startPos.y) continue;
-                    Map[x, y] = 1;
+                    Map[x, y] = MAP_ENEMY;
                 }
             }
         }
@@ -536,14 +546,14 @@ public class MapController : MonoBehaviour
         {
             for (int x = 3; x <= width - 3; x++)
             {
-                if (Map[x, y] != 2) continue;
+                if (Map[x, y] != MAP_FLOOR) continue;
                 if (x == startPos.x && y == startPos.y) continue;
 
-                if (Map[x + 1, y] == 2 && Map[x + 2, y] == 2 && Map[x + 3, y] == 2 &&
-                    Map[x - 1, y] == 2 && Map[x - 2, y] == 2 && Map[x - 3, y] == 2)
+                if (Map[x + 1, y] == MAP_FLOOR && Map[x + 2, y] == MAP_FLOOR && Map[x + 3, y] == MAP_FLOOR &&
+                    Map[x - 1, y] == MAP_FLOOR && Map[x - 2, y] == MAP_FLOOR && Map[x - 3, y] == MAP_FLOOR)
                 {
                     if (x == startPos.x && y == startPos.y) continue;
-                    Map[x, y] = 1;
+                    Map[x, y] = MAP_ENEMY;
                 }
             }
         }
@@ -553,14 +563,14 @@ public class MapController : MonoBehaviour
         {
             for (int x = 3; x <= width - 3; x++)
             {
-                if (Map[x, y] != 2) continue;
+                if (Map[x, y] != MAP_FLOOR) continue;
                 if (x == startPos.x && y == startPos.y) continue;
 
-                if (Map[x + 1, y] == 2 && Map[x + 2, y] == 2 && Map[x + 3, y] == 2 &&
-                    Map[x - 1, y] == 2 && Map[x - 2, y] == 2 && Map[x - 3, y] == 2)
+                if (Map[x + 1, y] == MAP_FLOOR && Map[x + 2, y] == MAP_FLOOR && Map[x + 3, y] == MAP_FLOOR &&
+                    Map[x - 1, y] == MAP_FLOOR && Map[x - 2, y] == MAP_FLOOR && Map[x - 3, y] == MAP_FLOOR)
                 {
                     if (x == startPos.x && y == startPos.y) continue;
-                    Map[x, y] = 1;
+                    Map[x, y] = MAP_ENEMY;
                 }
             }
         }
@@ -585,10 +595,10 @@ public class MapController : MonoBehaviour
                     if (curRandomCycle > randomCycle && curRandomMapCnt < totalRandomMapCnt)
                     {
                         // 현재 검사 타일이 적 타일 이면서, 10퍼센트의 확률이라면
-                        if (Map[x, y] == 1 && Random.value < 0.1f)
+                        if (Map[x, y] == MAP_ENEMY && Random.value < 0.1f)
                         {
                             if (x == startPos.x && y == startPos.y) continue;
-                            Map[x, y] = 4;
+                            Map[x, y] = MAP_EVENT;
                             curRandomMapCnt++;
                             curRandomCycle = 0;
                             lastX = x;
@@ -610,51 +620,51 @@ public class MapController : MonoBehaviour
         {
             for (int y = 2; y <= height - 2; y++)
             {
-                if (Map[x, y] != 0)
+                if (Map[x, y] != MAP_WALL)
                     continue;
                 // 추가 경로 개수 제한.많으면 많을 수록 연결된 길이 수없이 많아져서 미로로서의 기능은 상실 우려 그러나 유저의 순식간의 도착 방지 가능
                 if (curExtraCnt > maxExtraPathCnt)
                     continue;
 
                 // 왼쪽만 floor, 나머지 3방향이 벽
-                if (Map[x - 1, y] == 2 && Map[x + 1, y] == 0 &&
-                    Map[x + 2, y] == 0 && Map[x, y - 1] == 0 && Map[x, y + 1] == 0)
+                if (Map[x - 1, y] == MAP_FLOOR && Map[x + 1, y] == MAP_WALL &&
+                    Map[x + 2, y] == MAP_WALL && Map[x, y - 1] == MAP_WALL && Map[x, y + 1] == MAP_WALL)
                 {
-                    Map[x, y] = 2;
-                    Map[x + 1, y] = 2;
-                    Map[x + 2, y] = 2;
+                    Map[x, y] = MAP_FLOOR;
+                    Map[x + 1, y] = MAP_FLOOR;
+                    Map[x + 2, y] = MAP_FLOOR;
 
                     CarveFrom(new Vector2Int(x + 2, y));
                     curExtraCnt++;
                 }
                 // 오른쪽만 floor, 나머지 3방향이 벽
-                else if (Map[x + 1, y] == 2 && Map[x - 1, y] == 0 &&
-                         Map[x - 2, y] == 0 && Map[x, y - 1] == 0 && Map[x, y + 1] == 0)
+                else if (Map[x + 1, y] == MAP_FLOOR && Map[x - 1, y] == MAP_WALL &&
+                         Map[x - 2, y] == MAP_WALL && Map[x, y - 1] == MAP_WALL && Map[x, y + 1] == MAP_WALL)
                 {
-                    Map[x, y] = 2;
-                    Map[x - 1, y] = 2;
-                    Map[x - 2, y] = 2;
+                    Map[x, y] = MAP_FLOOR;
+                    Map[x - 1, y] = MAP_FLOOR;
+                    Map[x - 2, y] = MAP_FLOOR;
 
                     CarveFrom(new Vector2Int(x - 2, y));
                     curExtraCnt++;
                 }
                 // 상단만 floor, 나머지 3방향이 벽
-                else if (Map[x, y + 1] == 2 && Map[x, y - 1] == 0 &&
-                         Map[x, y - 2] == 0 && Map[x - 1, y] == 0 && Map[x + 1, y] == 0)
+                else if (Map[x, y + 1] == MAP_FLOOR && Map[x, y - 1] == MAP_WALL &&
+                         Map[x, y - 2] == MAP_WALL && Map[x - 1, y] == MAP_WALL && Map[x + 1, y] == MAP_WALL)
                 {
-                    Map[x, y] = 2;
-                    Map[x, y - 1] = 2;
-                    Map[x, y - 2] = 2;
+                    Map[x, y] = MAP_FLOOR;
+                    Map[x, y - 1] = MAP_FLOOR;
+                    Map[x, y - 2] = MAP_FLOOR;
 
                     CarveFrom(new Vector2Int(x, y - 2));
                 }
                 // 하단만 floor, 나머지 3방향이 벽
-                else if (Map[x, y - 1] == 2 && Map[x, y + 1] == 0 &&
-                         Map[x, y + 2] == 0 && Map[x - 1, y] == 0 && Map[x + 1, y] == 0)
+                else if (Map[x, y - 1] == MAP_FLOOR && Map[x, y + 1] == MAP_WALL &&
+                         Map[x, y + 2] == MAP_WALL && Map[x - 1, y] == MAP_WALL && Map[x + 1, y] == MAP_WALL)
                 {
-                    Map[x, y] = 2;
-                    Map[x, y + 1] = 2;
-                    Map[x, y + 2] = 2;
+                    Map[x, y] = MAP_FLOOR;
+                    Map[x, y + 1] = MAP_FLOOR;
+                    Map[x, y + 2] = MAP_FLOOR;
 
                     CarveFrom(new Vector2Int(x, y + 2));
                     curExtraCnt++;
@@ -670,9 +680,9 @@ public class MapController : MonoBehaviour
         {
             for (int y = 1; y <= height - 3; y++)
             {
-                if (Map[x, y + 1] == 2 && Map[x, y - 1] == 2 && Map[x - 1, y] == 2 && Map[x + 1, y] == 2)
+                if (Map[x, y + 1] == MAP_FLOOR && Map[x, y - 1] == MAP_FLOOR && Map[x - 1, y] == MAP_FLOOR && Map[x + 1, y] == MAP_FLOOR)
                 {
-                    Map[x, y] = 6;
+                    Map[x, y] = MAP_PILLAR;
                 }
             }
         }
@@ -689,7 +699,7 @@ public class MapController : MonoBehaviour
         {
             Vector2Int pos = path[i];
             if (pos != startPos)
-                Map[pos.x, pos.y] = (Random.value < 0.1f) ? 1 : 2;
+                Map[pos.x, pos.y] = (Random.value < 0.1f) ? MAP_ENEMY : MAP_FLOOR;
         }
     }
 
@@ -698,13 +708,13 @@ public class MapController : MonoBehaviour
     {
         for (int x = 0; x < width + 2; x++)
         {
-            Map[x, 0] = 0;
-            Map[x, height + 1] = 0;
+            Map[x, 0] = MAP_WALL;
+            Map[x, height + 1] = MAP_WALL;
         }
         for (int y = 0; y < height + 2; y++)
         {
-            Map[0, y] = 0;
-            Map[width + 1, y] = 0;
+            Map[0, y] = MAP_WALL;
+            Map[width + 1, y] = MAP_WALL;
         }
     }
 
@@ -712,33 +722,33 @@ public class MapController : MonoBehaviour
     void LastCheck()
     {
         // 시작지점이 적 타일
-        if (Map[startPos.x, startPos.y] != 2)
+        if (Map[startPos.x, startPos.y] != MAP_FLOOR)
         {
             startPos.x++;
             LastCheck();
         }
 
         //시작 지점이 싹 다 가로막힘
-        if (Map[startPos.x - 1, startPos.y] != 2 && Map[startPos.x + 1, startPos.y] != 2 &&
-            Map[startPos.x, startPos.y + 1] != 2 && Map[startPos.x, startPos.y - 1] != 2)
+        if (Map[startPos.x - 1, startPos.y] != MAP_FLOOR && Map[startPos.x + 1, startPos.y] != MAP_FLOOR &&
+            Map[startPos.x, startPos.y + 1] != MAP_FLOOR && Map[startPos.x, startPos.y - 1] != MAP_FLOOR)
         {
             startPos.y++;
             LastCheck();
         }
     }
 
-    float manageZ(int type)
+    float manageZ(MAP_TILE type)
     {
         switch (type)
         {
             //Z가 작을 수록 앞으로 나온다.
-            case 0: return -0.5f; // WallTile
-            case 1: return -0.6f; // EnemyTile
-            case 2: return -1.0f; // FloorTile:
-            case 3: return -0.8f; // DesTile
-            case 4: return -0.9f; // EventTile
-            case 5: return -0.7f; //StoreTile
-            case 6: return -1.1f; //StonePillar
+            case MAP_WALL: return -0.5f; // WallTile
+            case MAP_ENEMY: return -0.6f; // EnemyTile
+            case MAP_FLOOR: return -1.0f; // FloorTil(MAP_TILE)e:
+            case MAP_EXIT: return -0.8f; // DesTile
+            case MAP_EVENT: return -0.9f; // EventTile
+            case MAP_SHOP: return -0.7f; //StoreTile
+            case MAP_PILLAR: return -1.1f; //StonePillar
             default: return 0f;
         }
     }
