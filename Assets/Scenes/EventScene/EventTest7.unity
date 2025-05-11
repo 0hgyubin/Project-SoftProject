@@ -796,6 +796,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8369065638556168128, guid: bb6de71b162678a45a8f0824fbc5512e, type: 3}
+      propertyPath: hpUI
+      value: 
+      objectReference: {fileID: 218459469}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2151,8 +2155,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1123387167}
   - component: {fileID: 1123387166}
-  - component: {fileID: 1123387165}
   - component: {fileID: 1123387168}
+  - component: {fileID: 1123387165}
   m_Layer: 0
   m_Name: EventNPC
   m_TagString: EventNPC
@@ -2285,14 +2289,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1123387164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f32b3b54b30653943a62f0907370964c, type: 3}
+  m_Script: {fileID: 11500000, guid: f3983cc5d594e0844a02352ba34c04c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 987892651}
   portalController: {fileID: 36377745}
   talkText: {fileID: 676287933}
   talkPanel: {fileID: 1667630864}
-  gameManager: {fileID: 1071730301}
 --- !u!1 &1181552968
 GameObject:
   m_ObjectHideFlags: 0

@@ -90,7 +90,7 @@ public class EventNPCController6 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && player.canDialoging)
+        if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && player.canDialoging)
         {
             // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
             // {
