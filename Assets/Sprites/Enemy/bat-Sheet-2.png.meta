@@ -119,10 +119,10 @@ TextureImporter:
       name: bat-Sheet-2_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 9
-        width: 28
-        height: 15
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: bat-Sheet-2_1
       rect:
         serializedVersion: 2
-        x: 33
-        y: 9
-        width: 25
-        height: 16
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 20af5aece4b0fec42b07632909ab4c1d
     internalID: 0
     vertices: []
     indices: 

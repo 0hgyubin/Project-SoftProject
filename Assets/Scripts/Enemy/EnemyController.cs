@@ -27,6 +27,7 @@ public class EnemyController : MonoBehaviour
     [Header("bool")]
     public bool isMelee; //근거리인지 원거리인지
     public bool bowIsSymmetry = true;
+    public bool isFly; //공중의 적인지 확인 (현재 근접 박쥐만 사용)
 
     protected SpriteRenderer spriteRenderer;
     public SpriteRenderer weaponRenderer; //적 무기의 스프라이트 렌더러(스나이퍼 Flipx를 위해 구현)
@@ -129,8 +130,16 @@ public class EnemyController : MonoBehaviour
 
     protected void FollowPlayer(){
         if(isPlayerInRange && !isPlayerInAttackRange){
-            Vector2 targetPosition = new Vector2(player.position.x, transform.position.y);
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            if (!isFly)
+            {
+                Vector2 targetPosition = new Vector2(player.position.x, transform.position.y);
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                Vector2 targetPosition = new Vector2(player.position.x, player.position.y);
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            } 
         }
     }
 
