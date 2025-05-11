@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             animator.SetBool("Move", false);
         }
 
-        if (Input.GetMouseButtonDown(1) && canDash)
+        if (Input.GetMouseButtonDown(1) && canDash && !isDialoging)
         {
             Dash();
         }
@@ -157,6 +157,15 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("EventNPC"))
         {
             canDialoging = true;
+            Debug.Log("EventNPC");
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("EventNPC"))
+        {
+            canDialoging = false;
             Debug.Log("EventNPC");
         }
     }

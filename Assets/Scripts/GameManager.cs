@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        text.SetText(coin.ToString());
     }
 
     public void IncreaseCoin(){

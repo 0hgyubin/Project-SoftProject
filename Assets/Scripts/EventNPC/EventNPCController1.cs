@@ -27,7 +27,7 @@ public class EventNPCController : MonoBehaviour
         "보물상자 속에는 아무 것도 없었다.",
         "" // 대화 종료 시 빈 문자열
     };
-    private bool wKeyPressed = false; // W 키가 눌렸는지 여부를 추적
+    //private bool wKeyPressed = false; // W 키가 눌렸는지 여부를 추적
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,11 +39,11 @@ public class EventNPCController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W) && player.canDialoging)
+        if (Input.GetKeyDown(KeyCode.W) && player.canDialoging)
         {
-            if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
-            {
-                wKeyPressed = true;
+            // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
+            // {
+            //     wKeyPressed = true;
                 player.isDialoging = true;
                 talkPanel.SetActive(true);
 
@@ -68,12 +68,12 @@ public class EventNPCController : MonoBehaviour
                         gameObject.SetActive(false);
                     }
                 }
-            }
+            //}
         }
 
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            wKeyPressed = false; // W 키에서 손을 떼면 다시 누를 수 있도록 초기화
-        }
+        // if (Input.GetKeyUp(KeyCode.W))
+        // {
+        //     wKeyPressed = false; // W 키에서 손을 떼면 다시 누를 수 있도록 초기화
+        // }
     }
 }

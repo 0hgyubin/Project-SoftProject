@@ -106,6 +106,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   projectileLifetime: 0.4
   weaponRepository: {fileID: 0}
+  canMove: {fileID: 0}
 --- !u!114 &8424928862163933124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,4 +124,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1855994466192179425, guid: 93656e047c4ddae48b953dbb457d4833, type: 3}
   projectileLifetime: 0.4
   weaponRepository: {fileID: 11400000, guid: eedb3638896cbd641b74a94cd01ae565, type: 2}
+  canMove: {fileID: 8369065638556168128, guid: bb6de71b162678a45a8f0824fbc5512e, type: 3}
+  magazineSize: 12
+  reloadTime: 1
+  ammoText: {fileID: 0}
   bulletSpeed: 15
