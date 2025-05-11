@@ -6,7 +6,6 @@ public class PortalController : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    [SerializeField]
     private bool isEventRoom = false;
     private bool isEventOn = false;
 
@@ -33,7 +32,7 @@ public class PortalController : MonoBehaviour
                     float distance = Vector3.Distance(transform.position, player.transform.position);
                     if (distance <= 1.0f && Input.GetKeyDown(KeyCode.W))
                     {
-                        //SceneManager.LoadScene("MapScene"); // 다른 씬으로 전환
+                        SceneManager.LoadScene("MapTest"); // 다른 씬으로 전환
                         Debug.Log("포탈 이동 제대로 됨.");
                     }
                 }
@@ -51,7 +50,7 @@ public class PortalController : MonoBehaviour
                     float distance = Vector3.Distance(transform.position, player.transform.position);
                     if (distance <= 1.0f && Input.GetKeyDown(KeyCode.W))
                     {
-                        //SceneManager.LoadScene("MapScene"); // 다른 씬으로 전환
+                        SceneManager.LoadScene("MapTest"); // 다른 씬으로 전환
                         Debug.Log("포탈 이동 제대로 됨.");
                     }
                 }
