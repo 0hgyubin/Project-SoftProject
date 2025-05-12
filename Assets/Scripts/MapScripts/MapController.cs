@@ -47,6 +47,8 @@ public class MapController : MonoBehaviour
 
 
     private GameObject mapParent;
+    [Header("랜덤 시드(0으로 두면 자동으로 랜덤 생성)")]
+    public int seed = 0; //0이면 자동으로 새 시드 생성
 
 
     //현위치 타일의 상태 반환
@@ -104,7 +106,12 @@ public class MapController : MonoBehaviour
     //    DontDestroyOnLoad 로 씬 전환 후에도 맵 데이터를 유지시키죠.
     void Awake()
     {
-        // UnityEngine.Random.InitState(3);
+        if(seed == 0)
+            seed = System.Environment.TickCount;
+
+        UnityEngine.Random.InitState(seed);
+        Debug.Log($"[MapController] 사용된 시드 값: {seed}");
+        
         if (Instance == null)
         {
             Instance = this;
@@ -142,7 +149,10 @@ public class MapController : MonoBehaviour
 
             RenderMap();             // 11. 전체 타일 렌더링하는 함수
             SpawnPlayer();           // 12. 플레이어 생성 및 카메라 연결
-            if(GetDistance()<INF) break; // INF는 미방문을 의미. 10억.
+            // INF는 미방문을 의미. 10억.
+            int d = GetDistance();
+            Debug.Log(" current Cost : " + d);
+            if(d<INF) break; 
             // LastCheck();
         }
     }
