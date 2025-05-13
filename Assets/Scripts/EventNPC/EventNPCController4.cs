@@ -3,6 +3,7 @@ using TMPro;
 
 public class EventNPC4 : MonoBehaviour
 {
+    [SerializeField]
     private SpriteRenderer spriteRenderer;
 
     [SerializeField]
@@ -52,6 +53,11 @@ public class EventNPC4 : MonoBehaviour
                     if (dialogIndex == 2) 
                     {
                         gameManager.coin -= 50;
+                    }
+
+                    if(dialogIndex == 1)
+                    {
+                        spriteRenderer.enabled = false;
                     }
 
                     dialogIndex++;

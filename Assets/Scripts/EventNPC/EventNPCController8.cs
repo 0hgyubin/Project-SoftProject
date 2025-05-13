@@ -35,7 +35,7 @@ public class EventNPCController8 : MonoBehaviour
 
     private int dialogIndex = 0;
     private string[] dialogs = {
-        "대뜸 흑인 남자가 수상한 제안을 했다.",
+        "이곳에 있어서는 안 될 것 같은 분홍색 괴물이 수상한 제안을 했다.",
         "알약을 먹으면 강력한 힘을 가질 수 있다고 한다. 하지만 극심한 고통이 따른다고 한다.",
         "알약을 먹을 것인가?",
         " ",

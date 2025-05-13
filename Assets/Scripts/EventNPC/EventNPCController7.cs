@@ -20,7 +20,8 @@ public class EventNPCController7 : MonoBehaviour
 
     private int dialogIndex = 0;
     private string[] dialogs = {
-        "성스러워 보이는 분수대에서 물이 흘러 나왔다.",
+        "우물을 발견했다.",
+        "우물에는 체력을 회복할 수 있는 물이라고 적혀 있었다.",
         "깨끗한 물은 마셔도 될 것처럼 보였다.",
         "물을 마시니 상처가 회복되고 체력이 차올랐다.",
         "" // 대화 종료 시 빈 문자열
@@ -46,7 +47,7 @@ public class EventNPCController7 : MonoBehaviour
                 {
                     talkText.text = dialogs[dialogIndex];
 
-                    if (dialogIndex == 2) // 세세 번째 대사에서 체력 감소
+                    if (dialogIndex == 3) // 세세 번째 대사에서 체력 감소
                     {
                         player.hpUI.TakeDamaged(-30);
                     }

@@ -140,9 +140,9 @@ public class EventNPCController6 : MonoBehaviour
                         Debug.Log("이게됨?");
                         talkText.text = dialogs[dialogIndex];
                         player.MoveSpeed += 2;
-                        // for(int i = 0 ; i < 500; i++){
-                        //     Instantiate(coin, transform.position, Quaternion.identity);
-                        // }
+                        for(int i = 0 ; i < 500; i++){
+                             Instantiate(coin, transform.position, Quaternion.identity);
+                         }
                         dialogIndex = 10;
                     }
 
