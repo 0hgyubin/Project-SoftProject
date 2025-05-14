@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [HideInInspector] public Transform target;  // ���⼱ �÷��̾�
+    [HideInInspector] public Transform target; // 씬에서 카메라가 따라갈 대상
 
-    public float followSpeed = 5f;              // ī�޶� �÷��̾ ���󰡴� �ӵ�
+    public float followSpeed = 5f;              // 카메라가 대상을 부드럽게 따라가는 속도
     public Vector3 offset = new Vector3(0, 0, -10f); 
 
     void LateUpdate()

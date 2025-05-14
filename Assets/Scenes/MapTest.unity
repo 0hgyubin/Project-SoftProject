@@ -330,6 +330,7 @@ MonoBehaviour:
   tileSize: 1
   maxExtraPathCnt: 10
   randomCycle: 180
+  seed: 8154343
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

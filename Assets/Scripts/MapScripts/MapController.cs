@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using SoftProject.Enums;
@@ -115,12 +115,12 @@ public class MapController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 바뀌어도 유지
+            DontDestroyOnLoad(this.gameObject); // 씬 바뀌어도 유지
         }
         else
         {
             // 이미 다른 씬에 MapController가 존재한다면, 중복제거를 위해 GameObject (=자기자신) 삭제
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 
@@ -149,10 +149,7 @@ public class MapController : MonoBehaviour
 
             RenderMap();             // 11. 전체 타일 렌더링하는 함수
             SpawnPlayer();           // 12. 플레이어 생성 및 카메라 연결
-            // INF는 미방문을 의미. 10억.
-            int d = GetDistance();
-            Debug.Log(" current Cost : " + d);
-            if(d<INF) break; 
+            if(GetDistance()<INF) break; // INF는 미방문을 의미. 10억.
             // LastCheck();
         }
     }
@@ -314,6 +311,7 @@ public class MapController : MonoBehaviour
         tileObjects.Clear();
 
         mapParent = new GameObject("Map");
+        DontDestroyOnLoad(mapParent); 
         for (int x = 0; x < width + 2; x++)
         {
             for (int y = 0; y < height + 2; y++)
