@@ -57,6 +57,8 @@ public class EventNPCController3 : MonoBehaviour
     private bool isCoinOver50 = false;
 
     private int dialogIndex = 0;
+
+    private bool onFirstDialoge = false;
     private string[] dialogs = {
         "가위바위보 도박을 하는 고블린을 발견했다.", // 0 > 1 or 3(gameManager.Coin >= 50)
         "50코인도 없는 거렁뱅이는 썩 꺼지라는 말을 들었다.", // 1 > 2
@@ -92,7 +94,12 @@ public class EventNPCController3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && player.canDialoging)
+
+        if(Input.GetKeyDown(KeyCode.W) && player.canDialoging)
+        {
+            onFirstDialoge = true;
+        }
+        if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && onFirstDialoge)
         {
             // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
             // {
@@ -194,6 +201,7 @@ public class EventNPCController3 : MonoBehaviour
                         gambleResult = gamble.notPushed;
                         isGambleOver = false;
                         isCoinOver50 = false;
+                        onFirstDialoge = false;
                         if(!isCoinOver50)
                         {
                             gameObject.SetActive(false);
