@@ -14,14 +14,15 @@ TagManager:
   - OneWayGround
   - Coin
   - EnemyProjectile
+  - DroppedItem
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - DroppedItem
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

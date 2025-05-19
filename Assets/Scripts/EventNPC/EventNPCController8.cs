@@ -3,8 +3,6 @@ using TMPro;
 using UnityEngine.UI;
 
 
-// 가위바위보 도박 할 수 있는
-
 public class EventNPCController8 : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;

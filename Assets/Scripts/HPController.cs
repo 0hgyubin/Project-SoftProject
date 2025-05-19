@@ -9,6 +9,8 @@ public class HPController : MonoBehaviour
     public Image HpImage;
 
     public float maxHP = 100; // ������ ��
+
+    [SerializeField]
     private float currentHP;
 
 

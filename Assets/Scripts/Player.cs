@@ -192,8 +192,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("EventNPC"))
         {
             canDialoging = true;
-            Debug.Log("EventNPC");
+            Debug.Log("EventNPC IN");
         }
+
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -201,8 +202,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("EventNPC"))
         {
             canDialoging = false;
-            Debug.Log("EventNPC");
+            Debug.Log("EventNPC OUT");
         }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
