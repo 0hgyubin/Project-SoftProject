@@ -104,8 +104,8 @@ public class PistolController : WeaponController
         isReloading = true;
 
         //재장전 자막 출력
-        // SubtitleManager.Instance.ShowSubtitle("재 장전 중...", reloadTime);
-        SubtitleManager.Instance.ShowSubtitle("Ammo Remaining....", reloadTime);
+        SubtitleManager.Instance.ShowSubtitle("장전 중...", reloadTime);
+        // SubtitleManager.Instance.ShowSubtitle("Ammo Remaining....", reloadTime);
 
         yield return new WaitForSeconds(reloadTime);
 
@@ -118,6 +118,6 @@ public class PistolController : WeaponController
         // ammoText.gameObject.SetActive(false);
         if (ammoText != null){
             ammoText.enabled = false;
-            }
+        }
     }
 }
