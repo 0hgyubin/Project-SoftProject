@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using SoftProject.Enums;
 using static SoftProject.Enums.MAP_TILE;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 /*
 MAP_FLOOR는 2 이니까,
@@ -16,10 +17,13 @@ public class MapController : MonoBehaviour
 {
 
     // MapController 스크립트에 접근할 수 있게 만들어 줆. CharacterController Script에서의 접근 때문에 필수 
-    public static MapController Instance {
+    public static MapController Instance
+    {
         get; // 읽기용
         private set; //쓰기용
     }
+
+    [SerializeField] private TextMeshProUGUI distanceText; //남은 거리 출력
 
     public GameObject EnemyTilePrefab; // 적 타일 
     public GameObject RandomTilePrefab; // 랜덤 이벤트 타일
@@ -113,7 +117,7 @@ public class MapController : MonoBehaviour
 
         UnityEngine.Random.InitState(seed);
         Debug.Log($"[MapController] 사용된 시드 값: {seed}");
-        
+
         if (Instance == null)
         {
             Instance = this;
@@ -142,7 +146,8 @@ public class MapController : MonoBehaviour
 
     void Start()
     {
-        while(true){
+        while (true)
+        {
             GenerateEmptyMap();      // 1. 모든 맵을 벽으로 초기화
             SetStartAndGoal();       // 2. 시작점과 목적지 정하기
 
@@ -161,12 +166,25 @@ public class MapController : MonoBehaviour
             MakeBoundWall();         // 10. 플레이어를 범위 밖으로 못나가게 벽 타일로 두루는 함수
 
 
-            
+
 
             RenderMap();             // 11. 전체 타일 렌더링하는 함수
             SpawnPlayer();           // 12. 플레이어 생성 및 카메라 연결
-            if(GetDistance()<INF) break; // INF는 미방문을 의미. 10억.
+            if (GetDistance() < INF) break; // INF는 미방문을 의미. 10억.
+            // INF는 미방문을 의미. 10억.
+            int d = GetDistance();
+            Debug.Log(" current Cost : " + d);
+            UpdateDistanceUI(d);
+            if (d < INF) break;
             // LastCheck();
+        }
+    }
+
+    void UpdateDistanceUI(int distance)
+    {
+        if (distanceText != null)
+        {
+            distanceText.text = "Distance: " + distance.ToString();
         }
     }
 
@@ -327,7 +345,7 @@ public class MapController : MonoBehaviour
         tileObjects.Clear();
 
         mapParent = new GameObject("Map");
-        DontDestroyOnLoad(mapParent); 
+        DontDestroyOnLoad(mapParent);
         for (int x = 0; x < width + 2; x++)
         {
             for (int y = 0; y < height + 2; y++)
@@ -780,12 +798,15 @@ public class MapController : MonoBehaviour
     }
 
     //목적지에 도달하기 위해 밟아야 하는 최소한의 MAP_ENEMY의 수.
-    int GetDistance(){
+    int GetDistance()
+    {
         Queue<Vector2Int> que = new Queue<Vector2Int>();
-        int [,] dist = new int[width + 2, height + 2];
-        for(int i=0;i<width+2;i++){
-            for(int j=0;j<height+2;j++){
-                dist[i,j] = INF;
+        int[,] dist = new int[width + 2, height + 2];
+        for (int i = 0; i < width + 2; i++)
+        {
+            for (int j = 0; j < height + 2; j++)
+            {
+                dist[i, j] = INF;
             }
         }
 
@@ -793,25 +814,27 @@ public class MapController : MonoBehaviour
         dist[startPos.x, startPos.y] = 0;
         Vector2Int[] dirs = new Vector2Int[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
 
-        while(que.Count > 0){
+        while (que.Count > 0)
+        {
             Vector2Int cur = que.Dequeue();
             if (cur == desPos) break;
 
-            foreach(Vector2Int dir in dirs){
+            foreach (Vector2Int dir in dirs)
+            {
                 Vector2Int next = cur + dir;
-                if(!IsInBounds(next)) continue;
-                if(Map[next.x,next.y] == MAP_WALL) continue;
-                if(Map[next.x,next.y] == MAP_PILLAR) continue;
+                if (!IsInBounds(next)) continue;
+                if (Map[next.x, next.y] == MAP_WALL) continue;
+                if (Map[next.x, next.y] == MAP_PILLAR) continue;
 
                 int ndist = dist[cur.x, cur.y];
-                if(Map[next.x,next.y]==MAP_ENEMY) ndist++;
-                if(ndist >= dist[next.x,next.y]) continue;
-                dist[next.x,next.y] = ndist;
+                if (Map[next.x, next.y] == MAP_ENEMY) ndist++;
+                if (ndist >= dist[next.x, next.y]) continue;
+                dist[next.x, next.y] = ndist;
                 que.Enqueue(next);
             }
         }
 
-        return dist[desPos.x,desPos.y];
+        return dist[desPos.x, desPos.y];
     }
 
 }
