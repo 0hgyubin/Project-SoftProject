@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7199745219106804781}
   m_Layer: 0
   m_Name: CharacterSprite
-  m_TagString: Player
+  m_TagString: MapPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,7 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  centerThreshold: 0.05
 --- !u!61 &6029922855069065330
 BoxCollider2D:
   m_ObjectHideFlags: 0

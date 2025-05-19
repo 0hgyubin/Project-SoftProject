@@ -41,6 +41,7 @@ public class MapController : MonoBehaviour
     public MAP_TILE[,] Map;
     private Vector2Int startPos;      // 시작 지점 (1~width, 1~height)
     private Vector2Int desPos;        // 도착 지점
+    private GameObject player;        // 맵의 캐릭터 스프라이트
 
     // 생성된 타일 오브젝트를 관리용 dic //ReplaceTileAt 함수에 사용
     private Dictionary<Vector2Int, GameObject> tileObjects = new Dictionary<Vector2Int, GameObject>();
@@ -341,7 +342,12 @@ public class MapController : MonoBehaviour
     void SpawnPlayer()
     {
         Vector3 pos = new Vector3((startPos.x - 1) * tileSize + tileSize * 0.5f, (startPos.y - 1) * tileSize + tileSize * 0.5f, -2f);
-        GameObject player = Instantiate(PlayerPrefab, pos, Quaternion.identity);
+        player = Instantiate(PlayerPrefab, pos, Quaternion.identity);
+        DontDestroyOnLoad(player);
+    }
+
+    private void Update()
+    {
         CameraController camera = Camera.main.GetComponent<CameraController>();
         if (camera != null)
             camera.target = player.transform;
