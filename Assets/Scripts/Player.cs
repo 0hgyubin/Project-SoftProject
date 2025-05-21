@@ -145,6 +145,7 @@ public class Player : MonoBehaviour
             }
             else if (CurJumpCnt < MaxJumpCnt)
             {
+                animator.SetBool("Jump", true);
                 audioSource.PlayOneShot(jumpSound);
                 isGrounded = false;
                 PlayerRigidBody.AddForceY(JumpForce, ForceMode2D.Impulse);
@@ -176,6 +177,7 @@ public class Player : MonoBehaviour
         {
             CurJumpCnt = 0;
             isGrounded = true;
+            animator.SetBool("Jump", false);
         }
 
         if (collision.gameObject.CompareTag("Wall"))
