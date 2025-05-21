@@ -25,7 +25,7 @@ public class WeaponController : MonoBehaviour
     // public GameObject swordPrefab;
     // public GameObject pistolPrefab;
     public WeaponRepository weaponRepository;
-    Player canMove;
+    Player playerDialogeOrDead;
 
 
 
@@ -52,13 +52,13 @@ public class WeaponController : MonoBehaviour
         else {
             Debug.LogError("WeaponData not found for ID: " + weaponID);
         }
-        canMove = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerDialogeOrDead = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     protected virtual void Update(){
         FollowPlayer();
         FollowMouse();
-        if(Input.GetMouseButtonDown(0) && !canMove.isDialoging){    //마우스 좌클릭시 투사체 발사
+        if(Input.GetMouseButtonDown(0) && !playerDialogeOrDead.isDialoging && !playerDialogeOrDead.hpUI.IsDead()){    //마우스 좌클릭시 투사체 발사
             FireProjectile();
         }
         FlipWeaponSpriteByMouse();

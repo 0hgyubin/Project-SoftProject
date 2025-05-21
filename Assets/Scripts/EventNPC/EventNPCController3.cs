@@ -57,16 +57,18 @@ public class EventNPCController3 : MonoBehaviour
     private bool isCoinOver50 = false;
 
     private int dialogIndex = 0;
+
+    private bool onFirstDialoge = false;
     private string[] dialogs = {
-        "가위바위보 도박을 하는 남자를 발견했다.", // 0 > 1 or 3(gameManager.Coin >= 50)
+        "가위바위보 도박을 하는 고블린을 발견했다.", // 0 > 1 or 3(gameManager.Coin >= 50)
         "50코인도 없는 거렁뱅이는 썩 꺼지라는 말을 들었다.", // 1 > 2
-        "남자는 곧 사라졌다", // 2 > 9
-        "50코인이 있는 걸 보여주자 남자는 만족스럽게 웃었다.", // 3 > 4
+        "고블린은 곧 사라졌다", // 2 > 9
+        "50코인이 있는 걸 보여주자 고블린은 만족스럽게 웃었다.", // 3 > 4
         "50코인을 걸고 하는 가위바위보 내기에 참여할 것인가?", // 4 > 5 (버튼 선택)
         " ", //게임 참가 고를 때. 게임 참여 시 5 > 6, 게임 미참여 시 5 > 11
         "당신은 무엇을 낼 것인가?", // 6 > 8 or 9 or 10 (어떤 걸 고르든 33% 확률)
         " ",
-        "가위바위보에서 이겼다! 당신은 남자의 50코인을 얻었다!", // 8 > 11
+        "가위바위보에서 이겼다! 당신은 고블린의 50코인을 얻었다!", // 8 > 11
         "가위바위보에서 졌다. 당신은 50코인을 빼앗겼다.", // 9 > 11
         "가위바위보에서 비겼다.", // 10 > 6
         ""   // 대화 종료 시 빈 문자열
@@ -92,7 +94,12 @@ public class EventNPCController3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && player.canDialoging)
+
+        if(Input.GetKeyDown(KeyCode.W) && player.canDialoging)
+        {
+            onFirstDialoge = true;
+        }
+        if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && onFirstDialoge)
         {
             // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
             // {
@@ -194,6 +201,7 @@ public class EventNPCController3 : MonoBehaviour
                         gambleResult = gamble.notPushed;
                         isGambleOver = false;
                         isCoinOver50 = false;
+                        onFirstDialoge = false;
                         if(!isCoinOver50)
                         {
                             gameObject.SetActive(false);

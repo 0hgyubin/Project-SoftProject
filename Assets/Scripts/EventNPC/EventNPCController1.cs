@@ -20,6 +20,8 @@ public class EventNPCController : MonoBehaviour
     [SerializeField]
     public GameObject talkPanel;
 
+    private bool onFirstDialoge = false;
+
     private int dialogIndex = 0;
     private string[] dialogs = {
         "보물상자를 열어보았다.",
@@ -41,9 +43,13 @@ public class EventNPCController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W) && player.canDialoging)
         {
+            onFirstDialoge = true;
+        }
             // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
             // {
             //     wKeyPressed = true;
+        if(Input.GetKeyDown(KeyCode.W) && onFirstDialoge)
+        {
                 player.isDialoging = true;
                 talkPanel.SetActive(true);
 
@@ -66,10 +72,12 @@ public class EventNPCController : MonoBehaviour
                         player.isDialoging = false;
                         dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
                         gameObject.SetActive(false);
+                        onFirstDialoge = false;
                     }
                 }
             //}
         }
+        
 
         // if (Input.GetKeyUp(KeyCode.W))
         // {

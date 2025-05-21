@@ -20,6 +20,8 @@ public class EventNPCController2 : MonoBehaviour
     [SerializeField]
     public GameObject talkPanel;
 
+    private bool onFirstDialoge = false;
+
     // [SerializeField]
     // public GameObject[] droppedItem;
     // 나중에 아이템들 모아지면 여기서 랜덤으로 선택해서 아이템 떨어트리기.
@@ -43,6 +45,11 @@ public class EventNPCController2 : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.W) && player.canDialoging)
+        {
+            onFirstDialoge = true;
+        }
+
+        if(Input.GetKeyDown(KeyCode.W)  && onFirstDialoge)
         {
             // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
             // {
@@ -70,6 +77,7 @@ public class EventNPCController2 : MonoBehaviour
                         player.isDialoging = false;
                         dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
                         gameObject.SetActive(false);
+                        onFirstDialoge = false;
                     }
                 //}
             }

@@ -3,6 +3,7 @@ using TMPro;
 
 public class EventNPC4 : MonoBehaviour
 {
+    [SerializeField]
     private SpriteRenderer spriteRenderer;
 
     [SerializeField]
@@ -19,6 +20,8 @@ public class EventNPC4 : MonoBehaviour
 
     [SerializeField]
     private GameManager gameManager;
+
+    private bool onFirstDialoge = false;
 
     private int dialogIndex = 0;
     private string[] dialogs = {
@@ -37,7 +40,11 @@ public class EventNPC4 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W) && player.canDialoging)
+        if(Input.GetKeyDown(KeyCode.W) && player.canDialoging)
+        {
+            onFirstDialoge = true;
+        }
+        if (Input.GetKeyDown(KeyCode.W) && onFirstDialoge)
         {
             // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
             // {
@@ -54,6 +61,11 @@ public class EventNPC4 : MonoBehaviour
                         gameManager.coin -= 50;
                     }
 
+                    if(dialogIndex == 1)
+                    {
+                        spriteRenderer.enabled = false;
+                    }
+
                     dialogIndex++;
 
                     if (dialogIndex >= dialogs.Length)
@@ -64,6 +76,7 @@ public class EventNPC4 : MonoBehaviour
                         player.isDialoging = false;
                         dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
                         gameObject.SetActive(false);
+                        onFirstDialoge= false;
                     }
                 //}
             }

@@ -56,7 +56,7 @@ public class EventNPCController6 : MonoBehaviour
     private GameObject coin;
     
 
-
+    private bool onFirstDialoge = false;
     private int dialogIndex = 0;
     private string[] dialogs = {
         "숭실대 마스코트 슝슝이를 만났다", //0 > 1
@@ -90,7 +90,13 @@ public class EventNPCController6 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && player.canDialoging)
+
+        if(Input.GetKeyDown(KeyCode.W) && player.canDialoging)
+        {
+            onFirstDialoge = true;
+        }
+
+        if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && onFirstDialoge)
         {
             // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
             // {
@@ -140,9 +146,9 @@ public class EventNPCController6 : MonoBehaviour
                         Debug.Log("이게됨?");
                         talkText.text = dialogs[dialogIndex];
                         player.MoveSpeed += 2;
-                        // for(int i = 0 ; i < 500; i++){
-                        //     Instantiate(coin, transform.position, Quaternion.identity);
-                        // }
+                        for(int i = 0 ; i < 500; i++){
+                             Instantiate(coin, transform.position, Quaternion.identity);
+                         }
                         dialogIndex = 10;
                     }
 
@@ -180,6 +186,7 @@ public class EventNPCController6 : MonoBehaviour
                         isAnswer1Pushed = false;
                         isAnswer2Pushed = false;
                         isAnswer3Pushed = false;
+                        onFirstDialoge = false;
                         dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
                     }
                 }

@@ -3,8 +3,6 @@ using TMPro;
 using UnityEngine.UI;
 
 
-// 가위바위보 도박 할 수 있는
-
 public class EventNPCController8 : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
@@ -33,9 +31,11 @@ public class EventNPCController8 : MonoBehaviour
 
     private bool isButtonPushed = false;
 
+    private bool onFirstDialoge = false;
+
     private int dialogIndex = 0;
     private string[] dialogs = {
-        "대뜸 흑인 남자가 수상한 제안을 했다.",
+        "검정 선글라스를 쓴 흑인 남자가 수상한 제안을 했다.",
         "알약을 먹으면 강력한 힘을 가질 수 있다고 한다. 하지만 극심한 고통이 따른다고 한다.",
         "알약을 먹을 것인가?",
         " ",
@@ -60,7 +60,11 @@ public class EventNPCController8 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && player.canDialoging)
+        if(Input.GetKeyDown(KeyCode.W) && player.canDialoging)
+        {
+            onFirstDialoge = true;
+        }
+        if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && onFirstDialoge)
         {
             // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
             // {
@@ -105,6 +109,7 @@ public class EventNPCController8 : MonoBehaviour
                         player.isDialoging = false;
                         dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
                         isButtonPushed = false;
+                        onFirstDialoge = false;
                     }
                 }
             //}
@@ -116,7 +121,8 @@ public class EventNPCController8 : MonoBehaviour
     public void OnClickedButtonYes()
     {
         isPlayerSelected = true;
-        isButtonPushed = true;;
+        isButtonPushed = true;
+        dialogIndex++;
         // wKeyPressed = false;
     }
     public void OnClickedButtonNo()

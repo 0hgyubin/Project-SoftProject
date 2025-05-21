@@ -1,4 +1,6 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HPController : MonoBehaviour
@@ -7,7 +9,11 @@ public class HPController : MonoBehaviour
     public Image HpImage;
 
     public float maxHP = 100; // ������ ��
+
+    [SerializeField]
     private float currentHP;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +25,7 @@ public class HPController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void TakeDamaged(float damage)
@@ -37,6 +43,17 @@ public class HPController : MonoBehaviour
         {
             float fillRatio = currentHP / maxHP;
             HpImage.fillAmount = fillRatio;
+        }
+    }
+
+    public bool IsDead()
+    {
+        if(currentHP <= 0)
+        {
+            return true;
+        }
+        else{
+            return false;
         }
     }
 }

@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+
 //1234
 public class Player : MonoBehaviour
 {
@@ -54,11 +58,42 @@ public class Player : MonoBehaviour
 
     public bool isDialoging = false; //대화 중인지 확인
     public bool canDialoging = false; //대화 가능한지 확인
+
+
+    [SerializeField]
+    private Image canvasImage;
+
+    [SerializeField]
+    public float fadingSpeed = 10f; 
+
     void Awake(){
         animator = GetComponent<Animator>();
     }
     void Update()
     {
+        // 현재 색상을 가져옵니다
+        Color currentColor = canvasImage.color;
+        //죽었을 때 페이드아웃되고 씬 로드하도록 변경.
+        if(hpUI.IsDead())
+        {
+            Debug.Log("hp가 0 이하임");
+            // 알파 값을 점차 감소시킵니다
+            currentColor.a += fadingSpeed * Time.deltaTime;
+            // 색상을 업데이트합니다
+            canvasImage.color = currentColor;
+            if(currentColor.a > 0.8)
+            {
+                SceneManager.LoadScene("ResultScene");
+            }
+
+        }
+        else
+        {
+            currentColor.a = 0;
+        }
+
+
+
         WallSlide(); //벽 매달리기 기능 추가
 
 
@@ -90,7 +125,7 @@ public class Player : MonoBehaviour
             animator.SetBool("Move", false);
         }
 
-        if (Input.GetMouseButtonDown(1) && canDash && !isDialoging)
+        if (Input.GetMouseButtonDown(1) && canDash && !isDialoging && !hpUI.IsDead())
         {
             Dash();
         }
@@ -109,7 +144,7 @@ public class Player : MonoBehaviour
 
     private void Moving(float moveInput)
     {
-        if (!isDashed && !isDialoging)
+        if (!isDashed && !isDialoging && !hpUI.IsDead())
         {
             if (Input.GetKey(KeyCode.A))
             {
@@ -125,7 +160,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isDialoging) //대화 중 점프 방지용
+        if (Input.GetKeyDown(KeyCode.Space) && !isDialoging && !hpUI.IsDead()) //대화 중 점프 방지용
 
         {
             if (isTouchingWall && !isGrounded)
@@ -157,8 +192,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("EventNPC"))
         {
             canDialoging = true;
-            Debug.Log("EventNPC");
+            Debug.Log("EventNPC IN");
         }
+
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -166,8 +202,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("EventNPC"))
         {
             canDialoging = false;
-            Debug.Log("EventNPC");
+            Debug.Log("EventNPC OUT");
         }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
