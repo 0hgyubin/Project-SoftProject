@@ -104,8 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc13ca06033227845addec6d0b5c1a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 9
-  attackRadius: 5
+  detectionRadius: 15
+  attackRadius: 8
   moveSpeed: 0
   enemyHealth: 100
   attackDelay: 1
@@ -114,9 +114,10 @@ MonoBehaviour:
   shootTransform: {fileID: 3174809328697670280}
   projectileSpeed: 5
   damage: 5
-  maxDistance: 5
+  maxDistance: 10
   isMelee: 0
   bowIsSymmetry: 1
+  isFly: 0
   weaponRenderer: {fileID: 0}
   weaponAnimator: {fileID: 0}
 --- !u!50 &8490412277629443975

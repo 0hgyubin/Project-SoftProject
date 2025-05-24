@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MapTest.unity
     guid: 1f5c6166692ac544b89a17dda7764065
   - enabled: 1
-    path: Assets/Scenes/BattleScene1.unity
+    path: Assets/Scenes/BattleScene/BattleScene1.unity
     guid: bfb2bf036e9a1bf4b9e7912c062e2d1c
   - enabled: 1
     path: Assets/Scenes/ResultScene.unity
