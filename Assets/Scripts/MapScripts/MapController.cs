@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using SoftProject.Enums;
 using static SoftProject.Enums.MAP_TILE;
+using UnityEngine.SceneManagement;
 
 /*
 MAP_FLOOR는 2 이니까,
@@ -41,13 +42,13 @@ public class MapController : MonoBehaviour
     public MAP_TILE[,] Map;
     private Vector2Int startPos;      // 시작 지점 (1~width, 1~height)
     private Vector2Int desPos;        // 도착 지점
-    private GameObject player;        // 맵의 캐릭터 스프라이트
+    public GameObject player;        // 맵의 캐릭터 스프라이트
 
     // 생성된 타일 오브젝트를 관리용 dic //ReplaceTileAt 함수에 사용
     private Dictionary<Vector2Int, GameObject> tileObjects = new Dictionary<Vector2Int, GameObject>();
 
 
-    private GameObject mapParent;
+    public GameObject mapParent;
     [Header("랜덤 시드(0으로 두면 자동으로 랜덤 생성)")]
     public int seed = 0; //0이면 자동으로 새 시드 생성
 
@@ -107,7 +108,7 @@ public class MapController : MonoBehaviour
     //    DontDestroyOnLoad 로 씬 전환 후에도 맵 데이터를 유지시키죠.
     void Awake()
     {
-        if(seed == 0)
+        if (seed == 0)
             seed = System.Environment.TickCount;
 
         UnityEngine.Random.InitState(seed);
@@ -123,6 +124,20 @@ public class MapController : MonoBehaviour
             // 이미 다른 씬에 MapController가 존재한다면, 중복제거를 위해 GameObject (=자기자신) 삭제
             Destroy(this.gameObject);
         }
+
+        // 씬 로드 콜백 등록
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        bool isMapScene = scene.name == "MapTest";
+
+        if (mapParent != null)
+            mapParent.SetActive(isMapScene);
+
+        if (player != null)
+            player.SetActive(isMapScene);
     }
 
     void Start()
@@ -798,4 +813,5 @@ public class MapController : MonoBehaviour
 
         return dist[desPos.x,desPos.y];
     }
+
 }
