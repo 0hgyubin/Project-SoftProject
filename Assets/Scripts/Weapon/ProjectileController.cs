@@ -10,8 +10,7 @@ public class ProjectileController : MonoBehaviour
     //
     void Start()
     {
-        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        SetDamage(player.attackDamage);
+        //데미지 설정은 start()에서 이루어지지 않음. SetDamage()는 외부에서 실행.
         Destroy(gameObject, lifeTime);
     }
 
@@ -42,6 +41,7 @@ public class ProjectileController : MonoBehaviour
         lifeTime = newLifetime;//
     }
 
+    //데미지 설정의 책임은 부모 스크립트인 Pistol/SwordController.cs에게 있음.
     public void SetDamage(float damage)
     {
         this.damage = damage;

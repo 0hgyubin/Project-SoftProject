@@ -54,7 +54,7 @@ public class EventNPCController6 : MonoBehaviour
 
     [SerializeField]
     private GameObject coin;
-    
+
 
     private bool onFirstDialoge = false;
     private int dialogIndex = 0;
@@ -91,7 +91,7 @@ public class EventNPCController6 : MonoBehaviour
     void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.W) && player.canDialoging)
+        if (Input.GetKeyDown(KeyCode.W) && player.canDialoging)
         {
             onFirstDialoge = true;
         }
@@ -101,96 +101,86 @@ public class EventNPCController6 : MonoBehaviour
             // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
             // {
 
-                //wKeyPressed = true;
-                player.isDialoging = true;
-                talkPanel.SetActive(true);
-                button1_1Object.SetActive(false);
-                button1_2Object.SetActive(false);
-                button1_3Object.SetActive(false);
-                button2_1Object.SetActive(false);
-                button2_2Object.SetActive(false);
-                button2_3Object.SetActive(false);
-                button3_1Object.SetActive(false);
-                button3_2Object.SetActive(false);
-                button3_3Object.SetActive(false);
-                if (dialogIndex < dialogs.Length)
+            //wKeyPressed = true;
+            player.isDialoging = true;
+            talkPanel.SetActive(true);
+            button1_1Object.SetActive(false);
+            button1_2Object.SetActive(false);
+            button1_3Object.SetActive(false);
+            button2_1Object.SetActive(false);
+            button2_2Object.SetActive(false);
+            button2_3Object.SetActive(false);
+            button3_1Object.SetActive(false);
+            button3_2Object.SetActive(false);
+            button3_3Object.SetActive(false);
+            if (dialogIndex < dialogs.Length)
+            {
+                talkText.text = dialogs[dialogIndex];
+
+                if (dialogIndex == 4)
                 {
-                    talkText.text = dialogs[dialogIndex];
-
-                    if(dialogIndex == 4)
-                    {
-                        button1_1Object.SetActive(true);
-                        button1_2Object.SetActive(true);
-                        button1_3Object.SetActive(true);
-                    }
-                    if(dialogIndex == 6)
-                    {
-                        button2_1Object.SetActive(true);
-                        button2_2Object.SetActive(true);
-                        button2_3Object.SetActive(true);
-                    }
-                    if(dialogIndex == 8)
-                    {
-                        button3_1Object.SetActive(true);
-                        button3_2Object.SetActive(true);
-                        button3_3Object.SetActive(true);
-                    }
-
-                    if(dialogIndex == 10)
-                    {
-                        player.hpUI.TakeDamaged(5);
-                    }
-
-                    if(dialogIndex == 9)
-                    {
-                        Debug.Log("이게됨?");
-                        talkText.text = dialogs[dialogIndex];
-                        player.MoveSpeed += 2;
-                        for(int i = 0 ; i < 500; i++){
-                             Instantiate(coin, transform.position, Quaternion.identity);
-                         }
-                        dialogIndex = 10;
-                    }
-
-
-
-                    
-
-
-
-
-                    dialogIndex++;
-
-
-                    if(dialogIndex == 5 && !isAnswer1Pushed)
-                    {
-                        dialogIndex = 4;
-                    }
-                    if(dialogIndex == 7 && !isAnswer2Pushed)
-                    {
-                        dialogIndex = 6;
-                    }
-                    if(dialogIndex == 9 && !isAnswer3Pushed)
-                    {
-                        dialogIndex = 8;
-                    }
-
-
-
-                    if (dialogIndex >= dialogs.Length)
-                    {
-                        talkText.text = "";
-                        talkPanel.SetActive(false);
-                        portalController.setIsEventOn(true);
-                        player.isDialoging = false;
-                        isAnswer1Pushed = false;
-                        isAnswer2Pushed = false;
-                        isAnswer3Pushed = false;
-                        onFirstDialoge = false;
-                        dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
-                    }
+                    button1_1Object.SetActive(true);
+                    button1_2Object.SetActive(true);
+                    button1_3Object.SetActive(true);
                 }
-            //}
+                if (dialogIndex == 6)
+                {
+                    button2_1Object.SetActive(true);
+                    button2_2Object.SetActive(true);
+                    button2_3Object.SetActive(true);
+                }
+                if (dialogIndex == 8)
+                {
+                    button3_1Object.SetActive(true);
+                    button3_2Object.SetActive(true);
+                    button3_3Object.SetActive(true);
+                }
+
+                if (dialogIndex == 10)
+                {
+                    player.hpUI.TakeDamaged(5);
+                }
+
+                if (dialogIndex == 9)
+                {
+                    Debug.Log("이게됨?");
+                    talkText.text = dialogs[dialogIndex];
+                    player.moveSpeed += 2;
+                    for (int i = 0; i < 500; i++)
+                    {
+                        Instantiate(coin, transform.position, Quaternion.identity);
+                    }
+                    dialogIndex = 10;
+                }
+
+                dialogIndex++;
+
+                if (dialogIndex == 5 && !isAnswer1Pushed)
+                {
+                    dialogIndex = 4;
+                }
+                if (dialogIndex == 7 && !isAnswer2Pushed)
+                {
+                    dialogIndex = 6;
+                }
+                if (dialogIndex == 9 && !isAnswer3Pushed)
+                {
+                    dialogIndex = 8;
+                }
+
+                if (dialogIndex >= dialogs.Length)
+                {
+                    talkText.text = "";
+                    talkPanel.SetActive(false);
+                    portalController.setIsEventOn(true);
+                    player.isDialoging = false;
+                    isAnswer1Pushed = false;
+                    isAnswer2Pushed = false;
+                    isAnswer3Pushed = false;
+                    onFirstDialoge = false;
+                    dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
+                }
+            }
         }
 
         isPlayerSelected = false; // 이 부분을 Update 함수의 맨 마지막으로 이동        
