@@ -148,7 +148,6 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                moveInput = 0.1f;
                 PlayerRigidBody.linearVelocityX = moveSpeed;
             }
         }
@@ -280,22 +279,21 @@ public class Player : MonoBehaviour
         damageTimer = 0f;
     }
 
-    public void TakeDamage(float damage) //데미지를 입었을때 호출될 함수
+    //데미지를 입었을때 호출될 함수
+    public void TakeDamage(float damage)
     {
         isTouched = true;
-        if (canDamaged == true)
+        if (!canDamaged) return;
+        hpUI.TakeDamaged(damage);
+
+        damageTimer = 0f;
+
+        if (hitSound != null && audioSource != null) // 피격음 재생
         {
-            //Debug.Log("Hit in PlayerController");
-            hpUI.TakeDamaged(damage); // **데미지는 항상 올바르게 설정할 것
-            damageTimer = 0f;
-
-            if (hitSound != null && audioSource != null) // 피격음 재생
-            {
-                audioSource.PlayOneShot(hitSound);
-            }
-
-            StartCoroutine(CharacterInvincible());
+            audioSource.PlayOneShot(hitSound);
         }
+
+        StartCoroutine(CharacterInvincible());
     }
 
     private void FlipSpriteByMouse() //마우스 위치에 따라 캐릭터의 flipX 유무 결정하는 함수
