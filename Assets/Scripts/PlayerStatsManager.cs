@@ -33,7 +33,7 @@ public class PlayerStatsManager : MonoBehaviour
     }
 
     /// 전투 씬 시작 시 호출: Player 오브젝트에 저장된 스탯을 적용
-    public void ApplyStatsTo(Player player)
+    public void LoadStatsTo(Player player)
     {
         //잠시, 오류 처리문 없애봄. 오히려 오류 나는게 눈에 더 띄어서 도움될 듯.
         // if (player.hpUI != null)
@@ -59,6 +59,6 @@ public class PlayerStatsManager : MonoBehaviour
     // 맵 씬 복귀 직후, 혹은 필요할 때 수동으로 불러오기
     public void ResetPlayerStats(Player player)
     {
-        ApplyStatsTo(player);
+        LoadStatsTo(player);
     }
 }

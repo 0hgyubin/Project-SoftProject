@@ -79,6 +79,22 @@ public class Player : MonoBehaviour
             // PlayerStatsManager.Awake() 내부에서 DontDestroyOnLoad 처리됨
         }
     }
+
+    private void OnEnable()
+    {
+        // Player 오브젝트가 활성화될 때(씬 전환 후 맵 씬에 돌아올 때 등)
+        // 저장된 스탯을 적용
+        if (PlayerStatsManager.Instance != null)
+            PlayerStatsManager.Instance.LoadStatsTo(this);
+    }
+
+    private void OnDisable()
+    {
+        // Player 오브젝트가 비활성화될 때(맵 -> 전투 씬 전환 직전)
+        // 현재 스탯을 저장
+        if (PlayerStatsManager.Instance != null)
+            PlayerStatsManager.Instance.SaveStatsFrom(this);
+    }
     void Update()
     {
         // 현재 색상을 가져옵니다
