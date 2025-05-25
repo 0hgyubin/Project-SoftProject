@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SwordController: WeaponController
+public class SwordController : WeaponController
 {
     public GameObject swordProjectilePrefab;    //근접 범위 내에서 생성되는 투사체(궤적)
     private GameObject currentProjectile; // 궤적 오브젝트
@@ -13,47 +13,46 @@ public class SwordController: WeaponController
     {
         weaponID = 2;
         base.Start();
-        // attackPower = 10f;
+        attackPower = 15f;
         // animator = GetComponent<Animator>();
         // spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    protected override void Update(){
+    protected override void Update()
+    {
         base.Update();
         UpdateProjectileFlip();
     }
 
-    protected override void FireProjectile(){
-        if(currentProjectile == null){
+    protected override void FireProjectile()
+    {
+        if (currentProjectile == null)
+        {
 
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
-            
+
             //플레이어 -> 마우스 벡터
             Vector3 direction = (mousePos - transform.position).normalized;
-            
+
             //플레이어로부터 떨어진 거리
             float offsetDistance = 0.5f;
-            
+
             // 스폰 위치: 플레이어 위치에서 direction 방향으로 offsetDistance만큼 전진
             Vector3 spawnPosition = transform.position + direction * offsetDistance;
-            
+
 
             Quaternion rotatedRotation = transform.rotation * Quaternion.Euler(0, 0, 0);
             currentProjectile = Instantiate(swordProjectilePrefab, spawnPosition, rotatedRotation);//투사체 생성
             currentProjectile.transform.SetParent(transform);   //투사체의 부모를 검으로 설정
-            // currentProjectile.GetComponent<ProjectileController>().SetLifetime(0.4f);
+            ProjectileController curProjectile = currentProjectile.GetComponent<ProjectileController>();
 
-            // // 현재 생성된 투사체의 SpriteRenderer 가져오기
-            // SpriteRenderer projSpriteRenderer = currentProjectile.GetComponent<SpriteRenderer>();
-            // if(projSpriteRenderer != null){
-            //     // 마우스가 플레이어 왼쪽에 있으면 flipX true, 아니면 false
-            //     if(mousePos.x < transform.position.x){
-            //         projSpriteRenderer.flipX = true;
-            //     } else {
-            //         projSpriteRenderer.flipX = false;
-            //     }
-            // }
+            Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+            if (curProjectile != null)
+            {
+                curProjectile.SetDamage(attackPower + player.attackDamage);
+            }
 
             //오규빈) 검 공격 애니메이션 추가 위해서 넣은 코드
             float rotationAngle = 180f;
@@ -61,22 +60,29 @@ public class SwordController: WeaponController
         }
     }
 
-    private void UpdateProjectileFlip(){
-        if(currentProjectile != null){
+    private void UpdateProjectileFlip()
+    {
+        if (currentProjectile != null)
+        {
             SpriteRenderer projSpriteRenderer = currentProjectile.GetComponent<SpriteRenderer>();
-            if(projSpriteRenderer != null){
+            if (projSpriteRenderer != null)
+            {
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePos.z = 0;
-                if(mousePos.x < transform.position.x){
+                if (mousePos.x < transform.position.x)
+                {
                     projSpriteRenderer.flipX = true;
-                } else {
+                }
+                else
+                {
                     projSpriteRenderer.flipX = false;
                 }
             }
         }
     }
 
-    protected override void FollowMouse(){
+    protected override void FollowMouse()
+    {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 

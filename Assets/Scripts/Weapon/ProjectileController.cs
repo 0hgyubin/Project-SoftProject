@@ -7,22 +7,22 @@ public class ProjectileController : MonoBehaviour
     private float damage;
     public bool isMelee;   //근접 무기의 투사체인지 아닌지 구분.
 
-//
+    //
     void Start()
     {
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         damage = player.attackDamage;
-        Destroy(gameObject,lifeTime);
+        Destroy(gameObject, lifeTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision){
-        if(collision.gameObject.CompareTag("Enemy")){
-            //박정태 수정
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
             EnemyController enemyController = collision.GetComponent<EnemyController>(); //충돌한 적 가져옴.
             enemyController.TakeDamage(damage);//EnemyController의 TakeDamage함수 사용해서 적 체력 감소.
             Debug.Log("Enemy 피격 (1)!  damage: " + damage); //체력 줄은 거 확인하기 위해 +damage 추가
-            //13 데미지 나와야 정상
-            if(!isMelee) Destroy(gameObject);
+            if (!isMelee) Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Boss"))
         {
@@ -32,13 +32,18 @@ public class ProjectileController : MonoBehaviour
             //13 데미지 나와야 정상
             if (!isMelee) Destroy(gameObject);
         }
-        else if(!isMelee && collision.gameObject.CompareTag("Ground")){
+        else if (!isMelee && collision.gameObject.CompareTag("Ground"))
+        {
             Destroy(gameObject);
         }
     }
-    public void SetLifetime(float newLifetime){
+    public void SetLifetime(float newLifetime)
+    {
         lifeTime = newLifetime;//
     }
 
-    
+    public void SetDamage(float damage)
+    {
+        this.damage = damage;
+    }
 }
