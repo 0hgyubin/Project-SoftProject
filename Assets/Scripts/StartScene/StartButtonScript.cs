@@ -4,15 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class StartButtonScript : MonoBehaviour
 {
-    [Header("클릭 사운드")]
+    [Header("Click Sound")]
     public AudioClip clickSound;
-    AudioSource audioPlayer;
+    AudioSource audioSource;
 
     void Awake()
     {
-        audioPlayer = GetComponent<AudioSource>();
-        audioPlayer.playOnAwake = false;
-        audioPlayer.loop = false;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
     }
 
     public void OnButtonClicked()
@@ -22,7 +22,7 @@ public class StartButtonScript : MonoBehaviour
 
     IEnumerator PlayClickAndLoad()
     {
-        audioPlayer.PlayOneShot(clickSound);
+        audioSource.PlayOneShot(clickSound);
 
         yield return new WaitForSeconds(clickSound.length);
 
