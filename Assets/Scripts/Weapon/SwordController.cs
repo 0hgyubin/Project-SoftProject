@@ -89,21 +89,10 @@ public class SwordController : WeaponController
         Vector3 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        //마우스가 총보다 왼쪽에 있으면 180도 돌림. 총이 물구나무 서는 현상 방지.
-        // if (mousePosition.x < transform.position.x - 90)
-        // {
-        //     spriteRenderer.flipX = true;           
-        // }
-
-        // else
-        // {
-        //     spriteRenderer.flipX = false;
-        // }
         if (mousePosition.x < transform.position.x)
         {
             angle += 180f;
         }
-        //Debug.Log("!!!");
 
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }

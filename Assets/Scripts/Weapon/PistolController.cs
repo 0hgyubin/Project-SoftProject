@@ -17,7 +17,7 @@ public class PistolController : WeaponController
 
 
     public float bulletSpeed = 15f;
-    
+
     protected override void Start()
     {
         weaponID = 1;
@@ -26,17 +26,20 @@ public class PistolController : WeaponController
         currentAmmo = 0;
         // currentAmmo = magazineSize;
         var tmp = GameObject.Find("Canvas/AmmoText");
-        if(tmp != null){
+        if (tmp != null)
+        {
             ammoText = tmp.GetComponent<TextMeshProUGUI>();
         }
-        if(ammoText != null){
+        if (ammoText != null)
+        {
             ammoText.enabled = true;
             UpdateAmmoUI();
             StartCoroutine(Reload());
         }
     }
 
-    protected override void Update(){
+    protected override void Update()
+    {
         base.Update();
         //R키 누르면 재장전.
         if (ammoText != null && Input.GetKeyDown(KeyCode.R) && !isReloading)
@@ -45,40 +48,49 @@ public class PistolController : WeaponController
         }
     }
 
-    protected override void FireProjectile(){
-        if(isReloading) return;
+    protected override void FireProjectile()
+    {
+        if (isReloading) return;
 
 
         GameObject bullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
+
+        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        bullet.GetComponent<ProjectileController>().SetDamage(attackPower + player.attackDamage);
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
         Vector3 fireDirection = (mousePos - transform.position).normalized;
 
-        float angle = Mathf.Atan2(fireDirection.y,fireDirection.x) * Mathf.Rad2Deg;   //이미지 90도 회전
-        bullet.transform.rotation = Quaternion.Euler(new Vector3(0,0,angle));   //Z축 회전.
+        float angle = Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg;   //이미지 90도 회전
+        bullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));   //Z축 회전.
 
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        if(rb != null){
-             rb.linearVelocity = fireDirection * bulletSpeed;
+        if (rb != null)
+        {
+            rb.linearVelocity = fireDirection * bulletSpeed;
         }
-        else{
+        else
+        {
             Debug.Log("rb 가 null임.");
         }
 
         currentAmmo--;
         UpdateAmmoUI();
 
-        if(ammoText != null && currentAmmo <= 0){
-            if(!isReloading){
+        if (ammoText != null && currentAmmo <= 0)
+        {
+            if (!isReloading)
+            {
                 StartCoroutine(Reload());
             }
-            return ;
+            return;
         }
-        
+
     }
 
-    protected override void FollowMouse(){
+    protected override void FollowMouse()
+    {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
@@ -86,26 +98,29 @@ public class PistolController : WeaponController
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;// '칼'은 -90, '총' -0도에 맞춰 조정
 
         //마우스가 총보다 왼쪽에 있으면 180도 돌림. 총이 물구나무 서는 현상 방지.
-        if(mousePosition.x < transform.position.x) {
+        if (mousePosition.x < transform.position.x)
+        {
             angle += 180f;
         }
         //Debug.Log("!!!");
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    private void UpdateAmmoUI(){
-        if (ammoText != null){
+    private void UpdateAmmoUI()
+    {
+        if (ammoText != null)
+        {
             ammoText.text = $"{currentAmmo}/{magazineSize}";
-            }
         }
-        
+    }
 
-    private IEnumerator Reload(){
+
+    private IEnumerator Reload()
+    {
         isReloading = true;
 
         //재장전 자막 출력
-        SubtitleManager.Instance.ShowSubtitle("Reloading...", reloadTime);
-        // SubtitleManager.Instance.ShowSubtitle("Ammo Remaining....", reloadTime);
+        SubtitleManager.Instance.ShowSubtitle("장전 중...", reloadTime);
 
         yield return new WaitForSeconds(reloadTime);
 
@@ -114,9 +129,11 @@ public class PistolController : WeaponController
         isReloading = false;
     }
 
-    void OnDisable(){
+    void OnDisable()
+    {
         // ammoText.gameObject.SetActive(false);
-        if (ammoText != null){
+        if (ammoText != null)
+        {
             ammoText.enabled = false;
         }
     }

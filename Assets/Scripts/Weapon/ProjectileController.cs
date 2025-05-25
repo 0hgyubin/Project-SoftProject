@@ -11,7 +11,7 @@ public class ProjectileController : MonoBehaviour
     void Start()
     {
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        damage = player.attackDamage;
+        SetDamage(player.attackDamage);
         Destroy(gameObject, lifeTime);
     }
 
