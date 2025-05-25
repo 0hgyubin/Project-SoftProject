@@ -22,10 +22,9 @@ public class PistolController : WeaponController
     {
         weaponID = 1;
         base.Start();
-        // if(프리팹 없다면??){}
         currentAmmo = 0;
-        // currentAmmo = magazineSize;
         var tmp = GameObject.Find("Canvas/AmmoText");
+        attackPower = 11f;
         if (tmp != null)
         {
             ammoText = tmp.GetComponent<TextMeshProUGUI>();
@@ -56,7 +55,7 @@ public class PistolController : WeaponController
         GameObject bullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
 
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        bullet.GetComponent<ProjectileController>().SetDamage(attackPower + player.attackDamage);
+        bullet.GetComponent<ProjectileController>().SetDamage(attackPower + player.strength);
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
@@ -102,7 +101,6 @@ public class PistolController : WeaponController
         {
             angle += 180f;
         }
-        //Debug.Log("!!!");
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 

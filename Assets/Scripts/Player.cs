@@ -13,16 +13,12 @@ public class Player : MonoBehaviour
     public HPController hpUI;
 
     public int maxSpeed;
-    public int CurJumpCnt = 0;
+    public int curJumpCnt = 0;
     public float damageTimer = 2f;
-    public float DashCoolTime = 3f;
+    public float dashCoolTime = 3f;
 
-    //박정태 수정
     public float strength = 3f; //주인공이 가진 힘 스텟. 플레이어 공격력 = 무기 공격력 + 플레이어 힘 스탯
-    
-    
-    public float attackDamage; //플레이어 공격력.
-    private float weaponDamage; //무기 공격력
+
 
     //데미지 연산은 ProjetcileController에서 진행할 예정
 
@@ -35,12 +31,12 @@ public class Player : MonoBehaviour
     public SpriteRenderer characterSpriteRender;
     public Collider2D CharacterColider;
 
-    public float MoveSpeed = 8f;
-    public int MaxJumpCnt = 2;
-    public float JumpForce = 30f;
-    public float DashForce = 10f;
-    public float BlinkDuration = 1.6f;
-    
+    public float moveSpeed = 8f;
+    public int maxJumpCnt = 2;
+    public float jumpForce = 30f;
+    public float dashForce = 10f;
+    public float blinkDuration = 1.6f;
+
     public bool isGrounded = true;
     public bool canDamaged = true;
 
@@ -68,9 +64,10 @@ public class Player : MonoBehaviour
     private Image canvasImage;
 
     [SerializeField]
-    public float fadingSpeed = 10f; 
+    public float fadingSpeed = 10f;
 
-    void Awake(){
+    void Awake()
+    {
         animator = GetComponent<Animator>();
         canvasImage = fadePanelObject.GetComponent<Image>();
     }
@@ -79,7 +76,7 @@ public class Player : MonoBehaviour
         // 현재 색상을 가져옵니다
         Color currentColor = canvasImage.color;
         //죽었을 때 페이드아웃되고 씬 로드하도록 변경.
-        if(hpUI.IsDead())
+        if (hpUI.IsDead())
         {
             fadePanelObject.SetActive(true);
             Debug.Log("hp가 0 이하임");
@@ -87,7 +84,7 @@ public class Player : MonoBehaviour
             currentColor.a += fadingSpeed * Time.deltaTime;
             // 색상을 업데이트합니다
             canvasImage.color = currentColor;
-            if(currentColor.a > 0.8)
+            if (currentColor.a > 0.8)
             {
                 SceneManager.LoadScene("ResultScene");
             }
@@ -102,14 +99,6 @@ public class Player : MonoBehaviour
 
         WallSlide(); //벽 매달리기 기능 추가
 
-
-        //박정태 수정정
-        WeaponController weaponController = GameObject.FindGameObjectWithTag("Weapon").GetComponent<WeaponController>(); //무기 받아오기
-        weaponDamage = weaponController.attackPower;//무기에 있는 attackPower라는 값 가져오기.
-        attackDamage = strength + weaponDamage; //플레이어 공격력 = 힘 + 무기 공격력
-        //여기서 몇 데미지를 줄지 결정함.
-
-
         float moveInput = 0f;
 
         FlipSpriteByMouse();
@@ -122,9 +111,10 @@ public class Player : MonoBehaviour
         }
 
         // Move Left and Right
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) { 
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
             Moving(moveInput);
-            animator.SetBool("Move", true); 
+            animator.SetBool("Move", true);
         }
         else
         {
@@ -140,7 +130,7 @@ public class Player : MonoBehaviour
         {
             damageTimer += Time.deltaTime;
             if (damageTimer >= damageInterval)
-            {               
+            {
                 hpUI.TakeDamaged(10f); // interval마다 데미지
                 StartCoroutine(CharacterInvincible());
                 damageTimer = 0f;
@@ -154,12 +144,12 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A))
             {
-                PlayerRigidBody.linearVelocityX = -MoveSpeed;
+                PlayerRigidBody.linearVelocityX = -moveSpeed;
             }
             else if (Input.GetKey(KeyCode.D))
             {
                 moveInput = 0.1f;
-                PlayerRigidBody.linearVelocityX = MoveSpeed;
+                PlayerRigidBody.linearVelocityX = moveSpeed;
             }
         }
     }
@@ -175,21 +165,21 @@ public class Player : MonoBehaviour
                 PlayerRigidBody.linearVelocity = Vector2.zero;
 
                 // 수평+수직 방향으로 힘 가하기
-                PlayerRigidBody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
+                PlayerRigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
 
                 // 점프 후 벽 상태 초기화
                 isTouchingWall = false;
                 isGrounded = false;
-                CurJumpCnt++;
+                curJumpCnt++;
 
                 audioSource.PlayOneShot(jumpSound);
             }
-            else if (CurJumpCnt < MaxJumpCnt)
+            else if (curJumpCnt < maxJumpCnt)
             {
                 audioSource.PlayOneShot(jumpSound);
                 isGrounded = false;
-                PlayerRigidBody.AddForceY(JumpForce, ForceMode2D.Impulse);
-                CurJumpCnt++;
+                PlayerRigidBody.AddForceY(jumpForce, ForceMode2D.Impulse);
+                curJumpCnt++;
             }
         }
     }
@@ -217,7 +207,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("OneWayGround"))
         {
-            CurJumpCnt = 0;
+            curJumpCnt = 0;
             isGrounded = true;
         }
 
@@ -256,15 +246,15 @@ public class Player : MonoBehaviour
         // 대시 힘 적용
         if (characterSpriteRender.flipX == false)
         {
-            PlayerRigidBody.AddForceX(-DashForce, ForceMode2D.Impulse);
+            PlayerRigidBody.AddForceX(-dashForce, ForceMode2D.Impulse);
         }
         else
         {
-            PlayerRigidBody.AddForceX(DashForce, ForceMode2D.Impulse);
+            PlayerRigidBody.AddForceX(dashForce, ForceMode2D.Impulse);
         }
 
         Invoke("EndDash", 0.5f);         // 대시 종료
-        Invoke("ResetDash", DashCoolTime); // 대시 쿨타임 초기화
+        Invoke("ResetDash", dashCoolTime); // 대시 쿨타임 초기화
     }
 
 
@@ -273,17 +263,17 @@ public class Player : MonoBehaviour
     {
         SpriteRenderer SR = characterSpriteRender;
 
-        float duration = BlinkDuration; // 임의값 조정
+        float duration = blinkDuration; // 임의값 조정
         float curTime = 0f;
         float blinkInterval = 0.2f;
 
         while (curTime <= duration)
         {
             SR.enabled = false;
-            yield return new WaitForSeconds(blinkInterval/2);
+            yield return new WaitForSeconds(blinkInterval / 2);
             SR.enabled = true;
-            yield return new WaitForSeconds(blinkInterval/2);
-            curTime +=  blinkInterval;
+            yield return new WaitForSeconds(blinkInterval / 2);
+            curTime += blinkInterval;
         }
 
         isTouched = false;

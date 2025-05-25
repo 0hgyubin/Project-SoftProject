@@ -6,16 +6,12 @@ public class SwordController : WeaponController
     public GameObject swordProjectilePrefab;    //근접 범위 내에서 생성되는 투사체(궤적)
     private GameObject currentProjectile; // 궤적 오브젝트
     private bool isRotating = false;      // 현재 회전 중인지 체크 //오규빈) 검 공격 애니메이션 추가 위해서 넣은 코드
-    // private Animator animator;
-    // private SpriteRenderer spriteRenderer;
 
     protected override void Start()
     {
         weaponID = 2;
         base.Start();
         attackPower = 15f;
-        // animator = GetComponent<Animator>();
-        // spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     protected override void Update()
@@ -51,7 +47,7 @@ public class SwordController : WeaponController
 
             if (curProjectile != null)
             {
-                curProjectile.SetDamage(attackPower + player.attackDamage);
+                curProjectile.SetDamage(attackPower + player.strength);
             }
 
             //오규빈) 검 공격 애니메이션 추가 위해서 넣은 코드
