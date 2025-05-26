@@ -75,7 +75,7 @@ public class EventNPCController6 : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        portalController.setIsEventRoom(true);
+        portalController.SetIsEventRoom(true);
         button1_1 = button1_1Object.GetComponent<Button>();
         button1_2 = button1_2Object.GetComponent<Button>();
         button1_3 = button1_3Object.GetComponent<Button>();
@@ -172,7 +172,7 @@ public class EventNPCController6 : MonoBehaviour
                 {
                     talkText.text = "";
                     talkPanel.SetActive(false);
-                    portalController.setIsEventOn(true);
+                    portalController.SetIsEventOn(true);
                     player.isDialoging = false;
                     isAnswer1Pushed = false;
                     isAnswer2Pushed = false;

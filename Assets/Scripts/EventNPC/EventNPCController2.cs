@@ -73,7 +73,7 @@ public class EventNPCController2 : MonoBehaviour
                 {
                     talkText.text = "";
                     talkPanel.SetActive(false);
-                    portalController.setIsEventOn(true);
+                    portalController.SetIsEventOn(true);
                     player.isDialoging = false;
                     dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
                     gameObject.SetActive(false);
