@@ -6,11 +6,68 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: d6e5f4d39924cb942b03f666b9e70436
+  - enabled: 1
     path: Assets/Scenes/MapTest.unity
     guid: 1f5c6166692ac544b89a17dda7764065
   - enabled: 1
     path: Assets/Scenes/BattleScene/BattleScene1.unity
     guid: bfb2bf036e9a1bf4b9e7912c062e2d1c
+  - enabled: 1
+    path: Assets/Scenes/BattleScene/BattleScene2.unity
+    guid: 9e07aaae3d3731a4b939f0c017976db0
+  - enabled: 1
+    path: Assets/Scenes/BattleScene/BattleScene3.unity
+    guid: 8d975a0fbcd777a47bd8b4bfe527bf31
+  - enabled: 1
+    path: Assets/Scenes/BattleScene/BattleScene4.unity
+    guid: 4120c99dcecc2214897d2d99b7d7bdb1
+  - enabled: 1
+    path: Assets/Scenes/BattleScene/BattleScene5.unity
+    guid: 910d676b51a375e4eaa7c13008f3271e
+  - enabled: 1
+    path: Assets/Scenes/BattleScene/BattleScene6.unity
+    guid: f231756ec070a044ba8aea623d83cf7a
+  - enabled: 1
+    path: Assets/Scenes/BattleScene/BattleScene7.unity
+    guid: ba98cdde3f2bb4f4abfc1bdecd10f114
+  - enabled: 1
+    path: Assets/Scenes/BattleScene/BattleScene8.unity
+    guid: 01dfa9d82e292134dab461d2cfc36708
+  - enabled: 1
+    path: Assets/Scenes/BattleScene/BattleScene9.unity
+    guid: b128d5fd6be11a44abf9d6b149908b2d
+  - enabled: 1
+    path: Assets/Scenes/BattleScene/BattleScene10.unity
+    guid: c504751258d4b234fbd005c408271d86
+  - enabled: 1
+    path: Assets/Scenes/EventScene/EventTest1.unity
+    guid: bbcf89b9058c31943b5a7f158dcdfbe9
+  - enabled: 1
+    path: Assets/Scenes/EventScene/EventTest2.unity
+    guid: 1611192b1b0fd0145a18cadd988c94f7
+  - enabled: 1
+    path: Assets/Scenes/EventScene/EventTest3.unity
+    guid: c13f19d3129559a449ce438782b7aec9
+  - enabled: 1
+    path: Assets/Scenes/EventScene/EventTest4.unity
+    guid: 5f8eda88925491746a1d069f59683b7c
+  - enabled: 1
+    path: Assets/Scenes/EventScene/EventTest5.unity
+    guid: 4619d101595e76d4ba24eb1f5338f6dc
+  - enabled: 1
+    path: Assets/Scenes/EventScene/EventTest6.unity
+    guid: 18c47e7ba5c2176478cee3e757a25072
+  - enabled: 1
+    path: Assets/Scenes/EventScene/EventTest7.unity
+    guid: 9de76836db433d34c9252b2fa3639e00
+  - enabled: 1
+    path: Assets/Scenes/EventScene/EventTest8.unity
+    guid: b8911a83093b07849b43d7f78ab63950
+  - enabled: 1
+    path: Assets/Scenes/ShoppingTest.unity
+    guid: eb92b59d77a2bfb428fec418983e741b
   - enabled: 1
     path: Assets/Scenes/ResultScene.unity
     guid: 816ff0a366703de4db581b0197571615

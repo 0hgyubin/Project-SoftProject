@@ -54,17 +54,36 @@ public class MapCharacterController : MonoBehaviour
 
         // 적 타일 이라면..
         if (tile == MAP_ENEMY)
-        {   
-            //현재 밟힌 타일
+        {
+            // 현재 밟힌 타일을 평지로 교체
             myMapController.ReplaceTile(cellX, cellY, MAP_FLOOR);
-            
-            // 전투씬 전환
-            SceneManager.LoadScene("CharacterTest");
+
+            // 1~10 사이 랜덤 숫자 생성
+            int randomIndex = UnityEngine.Random.Range(1, 11);
+            // BattleScene + 숫자 형태의 씬 이름
+            string battleSceneName = "BattleScene" + randomIndex;
+
+            // 전투 씬 전환
+            SceneManager.LoadScene(battleSceneName);
         }
-        //이벤트(4), 상점(5)를 밟았을 때 처리
-        else if (tile == MAP_EVENT || tile == MAP_SHOP)
+
+        //이벤트(4),
+        else if (tile == MAP_EVENT)
         {
             myMapController.ReplaceTile(cellX, cellY, MAP_FLOOR);
+            // 1~10 사이 랜덤 숫자 생성
+            int randomIndex = UnityEngine.Random.Range(1, 9);
+            // BattleScene + 숫자 형태의 씬 이름
+            string EventSceneName = "EventTest" + randomIndex;
+
+            // 전투 씬 전환
+            SceneManager.LoadScene(EventSceneName);
+        }
+        // 상점(5)를 밟았을 때 처리
+        else if ( tile == MAP_SHOP)
+        {
+            myMapController.ReplaceTile(cellX, cellY, MAP_FLOOR);
+            SceneManager.LoadScene("ShoppingTest");
         }
     }
 }
