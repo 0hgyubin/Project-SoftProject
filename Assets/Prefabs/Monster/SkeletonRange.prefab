@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRadius: 9
-  attackRadius: 5
+  attackRadius: 7
   moveSpeed: 0
   enemyHealth: 100
   attackDelay: 1
@@ -223,9 +223,10 @@ MonoBehaviour:
   shootTransform: {fileID: 1329390181980424315}
   projectileSpeed: 5
   damage: 5
-  maxDistance: 5
+  maxDistance: 9
   isMelee: 0
   bowIsSymmetry: 1
+  isFly: 0
   weaponRenderer: {fileID: 0}
   weaponAnimator: {fileID: 0}
 --- !u!50 &4597860479285560004
