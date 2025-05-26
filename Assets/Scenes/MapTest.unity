@@ -512,6 +512,8 @@ MonoBehaviour:
   tileSize: 1
   maxExtraPathCnt: 10
   randomCycle: 180
+  player: {fileID: 0}
+  mapParent: {fileID: 0}
   seed: 0
 --- !u!1 &1610987137
 GameObject:
