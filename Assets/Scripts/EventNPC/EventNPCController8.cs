@@ -48,8 +48,7 @@ public class EventNPCController8 : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        portalController.setIsEventRoom(true);
-
+        portalController.SetIsEventRoom(true);
 
         // Button 컴포넌트 캐싱
         buttonYes = buttonYesObject.GetComponent<Button>();
@@ -105,7 +104,7 @@ public class EventNPCController8 : MonoBehaviour
                 {
                     talkText.text = "";
                     talkPanel.SetActive(false);
-                    portalController.setIsEventOn(true);
+                    portalController.SetIsEventOn(true);
                     player.isDialoging = false;
                     dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
                     isButtonPushed = false;

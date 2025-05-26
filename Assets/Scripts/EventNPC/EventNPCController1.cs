@@ -10,7 +10,7 @@ public class EventNPCController : MonoBehaviour
 
     [SerializeField]
     private Player player;
-    
+
     [SerializeField]
     private PortalController portalController;
 
@@ -35,7 +35,7 @@ public class EventNPCController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        portalController.setIsEventRoom(true);
+        portalController.SetIsEventRoom(true);
     }
 
     // Update is called once per frame
@@ -45,39 +45,39 @@ public class EventNPCController : MonoBehaviour
         {
             onFirstDialoge = true;
         }
-            // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
-            // {
-            //     wKeyPressed = true;
-        if(Input.GetKeyDown(KeyCode.W) && onFirstDialoge)
+        // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
+        // {
+        //     wKeyPressed = true;
+        if (Input.GetKeyDown(KeyCode.W) && onFirstDialoge)
         {
-                player.isDialoging = true;
-                talkPanel.SetActive(true);
+            player.isDialoging = true;
+            talkPanel.SetActive(true);
 
-                if (dialogIndex < dialogs.Length)
+            if (dialogIndex < dialogs.Length)
+            {
+                talkText.text = dialogs[dialogIndex];
+
+                if (dialogIndex == 1) // 두 번째 대사에서 체력 감소
                 {
-                    talkText.text = dialogs[dialogIndex];
-
-                    if (dialogIndex == 1) // 두 번째 대사에서 체력 감소
-                    {
-                        player.hpUI.TakeDamaged(20);
-                    }
-
-                    dialogIndex++;
-
-                    if (dialogIndex >= dialogs.Length)
-                    {
-                        talkText.text = "";
-                        talkPanel.SetActive(false);
-                        portalController.setIsEventOn(true);
-                        player.isDialoging = false;
-                        dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
-                        gameObject.SetActive(false);
-                        onFirstDialoge = false;
-                    }
+                    player.hpUI.TakeDamaged(20);
                 }
+
+                dialogIndex++;
+
+                if (dialogIndex >= dialogs.Length)
+                {
+                    talkText.text = "";
+                    talkPanel.SetActive(false);
+                    portalController.setIsEventOn(true);
+                    player.isDialoging = false;
+                    dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
+                    gameObject.SetActive(false);
+                    onFirstDialoge = false;
+                }
+            }
             //}
         }
-        
+
 
         // if (Input.GetKeyUp(KeyCode.W))
         // {

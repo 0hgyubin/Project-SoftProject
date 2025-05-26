@@ -47,9 +47,9 @@ public class EventNPCController3 : MonoBehaviour
 
 
     private bool isPlayerSelected = false;
-    private enum isOnGamble{no = 0, yes = 1, notPushed = 2};
+    private enum isOnGamble { no = 0, yes = 1, notPushed = 2 };
     isOnGamble onGamble = isOnGamble.notPushed;
-    private enum gamble{Win = 0, lose = 1, draw = 2 ,notPushed = 3};
+    private enum gamble { Win = 0, lose = 1, draw = 2, notPushed = 3 };
     gamble gambleResult = gamble.notPushed;
 
     private bool isGambleOver = false;
@@ -79,7 +79,7 @@ public class EventNPCController3 : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        portalController.setIsEventRoom(true);
+        portalController.SetIsEventRoom(true);
 
 
         // Button 컴포넌트 캐싱
@@ -95,7 +95,7 @@ public class EventNPCController3 : MonoBehaviour
     void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.W) && player.canDialoging)
+        if (Input.GetKeyDown(KeyCode.W) && player.canDialoging)
         {
             onFirstDialoge = true;
         }
@@ -104,110 +104,110 @@ public class EventNPCController3 : MonoBehaviour
             // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
             // {
 
-                //wKeyPressed = true;
-                player.isDialoging = true;
-                talkPanel.SetActive(true);
-                buttonYesObject.SetActive(false);
-                buttonNoObject.SetActive(false);
-                buttonRockObject.SetActive(false);
-                buttonScissorsObject.SetActive(false);
-                buttonPaperObject.SetActive(false);
+            //wKeyPressed = true;
+            player.isDialoging = true;
+            talkPanel.SetActive(true);
+            buttonYesObject.SetActive(false);
+            buttonNoObject.SetActive(false);
+            buttonRockObject.SetActive(false);
+            buttonScissorsObject.SetActive(false);
+            buttonPaperObject.SetActive(false);
 
-                if (dialogIndex < dialogs.Length)
+            if (dialogIndex < dialogs.Length)
+            {
+                talkText.text = dialogs[dialogIndex];
+
+                if (isGambleOver)
                 {
-                    talkText.text = dialogs[dialogIndex];
+                    dialogIndex = 11;
+                }
 
-                    if(isGambleOver)
+
+
+                if (dialogIndex == 0 && gameManager.coin >= 50) // 코인 50개 이상인지 검사
+                {
+                    isCoinOver50 = true;
+                    onGamble = isOnGamble.notPushed;
+                    dialogIndex = 2; // 그래야 한 번 더 커져서 3으로 감.
+                }
+
+                if (!isCoinOver50 && dialogIndex == 3)
+                {
+                    dialogIndex = 11; //대화 종료
+                }
+
+
+
+                if (isCoinOver50 && dialogIndex == 5)
+                {
+                    buttonYesObject.SetActive(true);
+                    buttonNoObject.SetActive(true);
+                }
+
+
+
+
+                if (isCoinOver50 && dialogIndex == 7)
+                {
+                    buttonRockObject.SetActive(true);
+                    buttonScissorsObject.SetActive(true);
+                    buttonPaperObject.SetActive(true);
+                }
+
+
+
+                if (isCoinOver50 && dialogIndex == 8)
+                {
+                    gameManager.coin = gameManager.coin + 50;
+                    isGambleOver = true;
+                    //dialogIndex = 11;
+                }
+
+                if (isCoinOver50 && dialogIndex == 9)
+                {
+                    gameManager.coin = gameManager.coin - 50;
+                    isGambleOver = true;
+                    //dialogIndex = 11;
+                }
+
+                if (isCoinOver50 && dialogIndex == 10)
+                {
+                    dialogIndex = 5;
+                }
+
+
+                dialogIndex++;
+
+
+                if (isCoinOver50 && dialogIndex == 6 && onGamble == isOnGamble.notPushed)
+                {
+                    dialogIndex = 5; //버튼 선택 안 했을 때 대비
+                }
+
+                if (isCoinOver50 && dialogIndex == 8 && gambleResult == gamble.notPushed)
+                {
+                    dialogIndex = 7;
+                }
+
+
+                if (dialogIndex >= dialogs.Length)
+                {
+                    talkText.text = "";
+                    talkPanel.SetActive(false);
+                    portalController.setIsEventOn(true);
+                    player.isDialoging = false;
+                    dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
+                    onGamble = isOnGamble.notPushed;
+                    gambleResult = gamble.notPushed;
+                    isGambleOver = false;
+                    isCoinOver50 = false;
+                    onFirstDialoge = false;
+                    if (!isCoinOver50)
                     {
-                        dialogIndex = 11;
-                    }
-
-
-
-                    if (dialogIndex == 0 && gameManager.coin >= 50) // 코인 50개 이상인지 검사
-                    {
-                        isCoinOver50 = true;
-                        onGamble = isOnGamble.notPushed;
-                        dialogIndex = 2; // 그래야 한 번 더 커져서 3으로 감.
-                    }
-
-                    if(!isCoinOver50 && dialogIndex == 3)
-                    {
-                        dialogIndex = 11; //대화 종료
-                    }
-
-
-
-                    if(isCoinOver50 && dialogIndex == 5)
-                    {
-                        buttonYesObject.SetActive(true);
-                        buttonNoObject.SetActive(true);
-                    }
-
-
-
-
-                    if(isCoinOver50 && dialogIndex == 7)
-                    {
-                        buttonRockObject.SetActive(true);
-                        buttonScissorsObject.SetActive(true);
-                        buttonPaperObject.SetActive(true);
-                    }
-
-
-
-                    if(isCoinOver50 && dialogIndex == 8)
-                    {
-                        gameManager.coin = gameManager.coin + 50;
-                        isGambleOver = true;
-                        //dialogIndex = 11;
-                    }
-
-                    if(isCoinOver50 && dialogIndex == 9)
-                    {
-                        gameManager.coin = gameManager.coin - 50;
-                        isGambleOver = true;
-                        //dialogIndex = 11;
-                    }
-
-                    if(isCoinOver50 && dialogIndex == 10)
-                    {
-                        dialogIndex = 5;
-                    }
-
-
-                    dialogIndex++;
-
-
-                    if(isCoinOver50 && dialogIndex == 6 && onGamble == isOnGamble.notPushed)
-                    {
-                        dialogIndex = 5; //버튼 선택 안 했을 때 대비
-                    }
-
-                    if(isCoinOver50 && dialogIndex == 8 && gambleResult == gamble.notPushed)
-                    {
-                        dialogIndex = 7;
-                    }
-
-
-                    if (dialogIndex >= dialogs.Length)
-                    {
-                        talkText.text = "";
-                        talkPanel.SetActive(false);
-                        portalController.setIsEventOn(true);
-                        player.isDialoging = false;
-                        dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
-                        onGamble = isOnGamble.notPushed;
-                        gambleResult = gamble.notPushed;
-                        isGambleOver = false;
-                        onFirstDialoge = false;
-                        if(!isCoinOver50)
-                        {
-                            gameObject.SetActive(false);
-                        }
-                        isCoinOver50 = false;
+                        gameObject.SetActive(false);
                     }
                 }
+            }
             //}
         }
 
@@ -232,16 +232,16 @@ public class EventNPCController3 : MonoBehaviour
     {
         isPlayerSelected = true;
         // wKeyPressed = false;
-        gambleResult = (gamble)Random.Range(0,3);
-        if(gambleResult == (gamble)0)
+        gambleResult = (gamble)Random.Range(0, 3);
+        if (gambleResult == (gamble)0)
         {
             dialogIndex = 8;
         }
-        else if(gambleResult == (gamble)1)
+        else if (gambleResult == (gamble)1)
         {
             dialogIndex = 9;
         }
-        else if(gambleResult == (gamble)2)
+        else if (gambleResult == (gamble)2)
         {
             dialogIndex = 10;
         }
