@@ -60,7 +60,11 @@ public class Player : MonoBehaviour
     public bool canDialoging = false; //대화 가능한지 확인
 
 
+    // Inspector에서 할당할 게임 오브젝트 (페이드 아웃용 이미지 오브젝트)
     [SerializeField]
+    private GameObject fadePanelObject;
+
+    // 페이드 아웃 이미지의 Image 컴포넌트 (선택적으로 사용)
     private Image canvasImage;
 
     [SerializeField]
@@ -68,6 +72,7 @@ public class Player : MonoBehaviour
 
     void Awake(){
         animator = GetComponent<Animator>();
+        canvasImage = fadePanelObject.GetComponent<Image>();
     }
     void Update()
     {
@@ -76,6 +81,7 @@ public class Player : MonoBehaviour
         //죽었을 때 페이드아웃되고 씬 로드하도록 변경.
         if(hpUI.IsDead())
         {
+            fadePanelObject.SetActive(true);
             Debug.Log("hp가 0 이하임");
             // 알파 값을 점차 감소시킵니다
             currentColor.a += fadingSpeed * Time.deltaTime;

@@ -3359,6 +3359,10 @@ PrefabInstance:
       propertyPath: canDialoging
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8369065638556168128, guid: bb6de71b162678a45a8f0824fbc5512e, type: 3}
+      propertyPath: fadePanelObject
+      value: 
+      objectReference: {fileID: 143003464}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

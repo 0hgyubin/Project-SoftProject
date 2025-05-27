@@ -862,12 +862,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coin: {fileID: 5690115090809490215, guid: 0921ae8031071484383ef37cc02bc439, type: 3}
   floor: 1
-  commonWeapons: []
-  rareWeapons:
-  - {fileID: 1102845162993337033, guid: ef3bc557731cec1499fbd5a7f6fad7b9, type: 3}
-  - {fileID: 8290723906184841239, guid: 3929c9c74ca29b44bb97586ec7f86d2c, type: 3}
-  epicWeapons: []
-  legendaryWeapons: []
   gradeSelect:
   - 0
   - 10
@@ -3362,6 +3356,10 @@ PrefabInstance:
       propertyPath: canDialoging
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8369065638556168128, guid: bb6de71b162678a45a8f0824fbc5512e, type: 3}
+      propertyPath: fadePanelObject
+      value: 
+      objectReference: {fileID: 143003464}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
