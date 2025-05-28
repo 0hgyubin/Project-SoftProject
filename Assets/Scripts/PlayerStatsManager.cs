@@ -25,6 +25,16 @@ public class PlayerStatsManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // 최초 스탯 저장.
+            var player = FindAnyObjectByType<Player>();
+            if (player != null)
+            {
+                SaveStatsFrom(player);
+            }
+
+            //HP를 100으로 초기화하는거 필요함 @@@@
+
         }
         else
         {
@@ -37,11 +47,15 @@ public class PlayerStatsManager : MonoBehaviour
     {
         //잠시, 오류 처리문 없애봄. 오히려 오류 나는게 눈에 더 띄어서 도움될 듯.
         // if (player.hpUI != null)
+
+        // 최대 체력 변화하는거 추가히기 @@@@@
         player.hpUI.SetCurrentHP(currentHP);
         player.strength = strength;
         player.moveSpeed = moveSpeed;
         player.maxJumpCnt = maxJumpCnt;
         player.dashCoolTime = dashCoolTime;
+        Debug.Log("OnEnable() 내부에서 load 실행");
+        Debug.Log("currentHP:" + currentHP);
     }
 
     // 전투 종료 시 호출: Player 오브젝트의 현재 스탯을 저장
@@ -54,6 +68,8 @@ public class PlayerStatsManager : MonoBehaviour
         moveSpeed = player.moveSpeed;
         maxJumpCnt = player.maxJumpCnt;
         dashCoolTime = player.dashCoolTime;
+        Debug.Log("OnDisable() 내부에서 load 실행");
+        Debug.Log("currentHP:" + currentHP);
     }
 
     // 맵 씬 복귀 직후, 혹은 필요할 때 수동으로 불러오기

@@ -84,14 +84,18 @@ public class Player : MonoBehaviour
     {
         // Player 오브젝트가 활성화될 때(씬 전환 후 맵 씬에 돌아올 때 등)
         // 저장된 스탯을 적용
+        Debug.Log("OnEnable() 실행");
         if (PlayerStatsManager.Instance != null)
+        {
             PlayerStatsManager.Instance.LoadStatsTo(this);
+        }
     }
 
     private void OnDisable()
     {
         // Player 오브젝트가 비활성화될 때(맵 -> 전투 씬 전환 직전)
         // 현재 스탯을 저장
+        Debug.Log("OnDisable() 실행");
         if (PlayerStatsManager.Instance != null)
             PlayerStatsManager.Instance.SaveStatsFrom(this);
     }

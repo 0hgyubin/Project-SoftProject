@@ -18,6 +18,7 @@ public class HPController : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
+        // 외부에서 어차피 SetCurrentHP() 호출해줌.
         UpdateHPUI();
     }
 
@@ -31,12 +32,10 @@ public class HPController : MonoBehaviour
     {
         float newHP = GetCurrentHP() - damage;
         SetCurrentHP(newHP);
-        Debug.Log("Hit");
     }
 
     void UpdateHPUI()
     {
-        Debug.Log("HpChanged");
         if (HpImage != null)
         {
             float fillRatio = currentHP / maxHP;
