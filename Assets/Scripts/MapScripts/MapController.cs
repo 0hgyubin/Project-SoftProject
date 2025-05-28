@@ -176,7 +176,7 @@ public class MapController : MonoBehaviour
             Debug.Log(" current Cost : " + d);
             UpdateDistanceUI(d);
             if (d < INF) break;
-            // LastCheck();
+            //LastCheck();
         }
     }
 
@@ -419,6 +419,7 @@ public class MapController : MonoBehaviour
 
     void SpawnPlayer()
     {
+        LastCheck();
         Vector3 pos = new Vector3((startPos.x - 1) * tileSize + tileSize * 0.5f, (startPos.y - 1) * tileSize + tileSize * 0.5f, -2f);
         player = Instantiate(PlayerPrefab, pos, Quaternion.identity);
         DontDestroyOnLoad(player);
