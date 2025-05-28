@@ -14,16 +14,19 @@ public class GameManager : MonoBehaviour
         if(insatnce == null){
             insatnce = this;
         }
+
+        coin = CoinManagement.Instance.coin;
     }
 
     // Update is called once per frame
     void Update()
     {
         text.SetText(coin.ToString());
+        coin = CoinManagement.Instance.coin;
     }
 
     public void IncreaseCoin(){
-        coin += 1;
+        CoinManagement.Instance.coin += 1;
         text.SetText(coin.ToString());
     }
 }
