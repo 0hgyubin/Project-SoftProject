@@ -176,7 +176,7 @@ public class MapController : MonoBehaviour
             Debug.Log(" current Cost : " + d);
             UpdateDistanceUI(d);
             if (d < INF) break;
-            // LastCheck();
+            //LastCheck();
         }
     }
 
@@ -268,7 +268,7 @@ public class MapController : MonoBehaviour
             foreach (Vector2Int dir in dirs)
             {
                 Vector2Int next = current + dir;
-                if (IsInBounds(next) && !visited[next.x, next.y])
+                if (IsInBounds(next) && !visited[next.x, next.y] )
                 {
                     visited[next.x, next.y] = true;
                     parent[next] = current;
@@ -290,6 +290,51 @@ public class MapController : MonoBehaviour
         path.Reverse();
         return path;
     }
+
+    List<Vector2Int> BFS2(Vector2Int start, Vector2Int des)
+    {
+        Queue<Vector2Int> queue = new Queue<Vector2Int>();
+        Dictionary<Vector2Int, Vector2Int> parent = new Dictionary<Vector2Int, Vector2Int>();
+        bool[,] visited = new bool[width + 2, height + 2];
+
+        queue.Enqueue(start);
+        visited[start.x, start.y] = true;
+        Vector2Int[] dirs = new Vector2Int[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+
+        while (queue.Count > 0)
+        {
+            Vector2Int current = queue.Dequeue();
+            if (current == des)
+                break;
+            foreach (Vector2Int dir in dirs)
+            {
+                Vector2Int next = current + dir;
+                if (IsInBounds(next) && !visited[next.x, next.y] &&
+                    (Map[next.x, next.y] == MAP_FLOOR || Map[next.x, next.y] == MAP_EXIT)
+                    )
+                {
+                    visited[next.x, next.y] = true;
+                    parent[next] = current;
+                    queue.Enqueue(next);
+                }
+            }
+        }
+        if (!parent.ContainsKey(des))
+            return null;
+
+        List<Vector2Int> path = new List<Vector2Int>();  // path 리스트는 경로 저장. 앞으로 확률에 따라 주어진 경로에는 랜덤한 타일이 배치됨
+        Vector2Int step = des;
+        while (step != start)
+        {
+            path.Add(step);
+            step = parent[step];
+        }
+        path.Add(start);
+        path.Reverse();
+        return path;
+    }
+
+
 
     void MakeStoreNextToDes()
     {
@@ -374,6 +419,7 @@ public class MapController : MonoBehaviour
 
     void SpawnPlayer()
     {
+        LastCheck();
         Vector3 pos = new Vector3((startPos.x - 1) * tileSize + tileSize * 0.5f, (startPos.y - 1) * tileSize + tileSize * 0.5f, -2f);
         player = Instantiate(PlayerPrefab, pos, Quaternion.identity);
         DontDestroyOnLoad(player);
@@ -715,18 +761,36 @@ public class MapController : MonoBehaviour
 
     void MakeStonePillar()
     {
-        // 상하좌우가 모두 FloorTile일때, 그 타일을 기둥 장식타일로
-        for (int x = 1; x <= width - 3; x++)
+
+        for (int x = 1; x <= width; x++)
         {
-            for (int y = 1; y <= height - 3; y++)
+            for (int y = 1; y <= height; y++)
             {
-                if (Map[x, y + 1] == MAP_FLOOR && Map[x, y - 1] == MAP_FLOOR && Map[x - 1, y] == MAP_FLOOR && Map[x + 1, y] == MAP_FLOOR)
+                if (
+                    Map[x + 1, y] == MAP_FLOOR && 
+                    Map[x - 1, y] == MAP_FLOOR &&  
+                    Map[x, y + 1] == MAP_FLOOR &&  
+                    Map[x, y - 1] == MAP_FLOOR  
+                )
                 {
+                    // 원래 값을 백업
+                    MAP_TILE backupTile = Map[x, y];
+
                     Map[x, y] = MAP_PILLAR;
+
+                    var path = BFS2(startPos, desPos);
+                    bool pathExists = (path != null && path.Count > 0);
+
+                    //경로가 끊어졌으면 롤백
+                    if (!pathExists)
+                    {
+                        Map[x, y] = backupTile;
+                    }
                 }
             }
         }
     }
+
 
     // 공통 BFS 경로 생성 부분
     void CarveFrom(Vector2Int variableStart)
