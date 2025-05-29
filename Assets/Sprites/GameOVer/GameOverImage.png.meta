@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a55b650f6d610c840ae69e3ebb505db2
+guid: 2eb419a07ea407e478c33b53c9f27ef7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 421283774944632851
-    second: MungMoongAttack_0
+      213: 7363487588843531866
+    second: GameOverImage_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MungMoongAttack_0
+      name: GameOverImage_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 5
-        width: 64
-        height: 56
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 310e53b7c53b8d500800000000000000
-      internalID: 421283774944632851
+      spriteID: a5e2409d2fc503660800000000000000
+      internalID: 7363487588843531866
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      MungMoongAttack_0: 421283774944632851
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

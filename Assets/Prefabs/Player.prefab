@@ -205,7 +205,7 @@ MonoBehaviour:
   CurJumpCnt: 0
   damageTimer: 2
   DashCoolTime: 0
-  strength: 3
+  strength: 100
   attackDamage: 0
   damageInterval: 2
   isDashed: 0
@@ -228,7 +228,7 @@ MonoBehaviour:
   dashEffectPrefab: {fileID: 5305428818100442843, guid: 4fca9d1d59478b245b17a5653e2f3164, type: 3}
   isDialoging: 0
   canDialoging: 0
-  canvasImage: {fileID: 0}
+  fadePanelObject: {fileID: 0}
   fadingSpeed: 0.6
 --- !u!82 &2846552222138200101
 AudioSource:
