@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
 
     //박정태 수정
     public float strength = 3f; //주인공이 가진 힘 스텟. 플레이어 공격력 = 무기 공격력 + 플레이어 힘 스탯
-    
-    
+
+
     public float attackDamage; //플레이어 공격력.
     private float weaponDamage; //무기 공격력
 
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     public float JumpForce = 30f;
     public float DashForce = 10f;
     public float BlinkDuration = 1.6f;
-    
+
     public bool isGrounded = true;
     public bool canDamaged = true;
 
@@ -68,9 +68,10 @@ public class Player : MonoBehaviour
     private Image canvasImage;
 
     [SerializeField]
-    public float fadingSpeed = 10f; 
+    public float fadingSpeed = 10f;
 
-    void Awake(){
+    void Awake()
+    {
         animator = GetComponent<Animator>();
         canvasImage = fadePanelObject.GetComponent<Image>();
     }
@@ -79,7 +80,7 @@ public class Player : MonoBehaviour
         // 현재 색상을 가져옵니다
         Color currentColor = canvasImage.color;
         //죽었을 때 페이드아웃되고 씬 로드하도록 변경.
-        if(hpUI.IsDead())
+        if (hpUI.IsDead())
         {
             fadePanelObject.SetActive(true);
             Debug.Log("hp가 0 이하임");
@@ -87,7 +88,7 @@ public class Player : MonoBehaviour
             currentColor.a += fadingSpeed * Time.deltaTime;
             // 색상을 업데이트합니다
             canvasImage.color = currentColor;
-            if(currentColor.a > 0.8)
+            if (currentColor.a > 0.8)
             {
                 SceneManager.LoadScene("ResultScene");
             }
@@ -103,7 +104,7 @@ public class Player : MonoBehaviour
         WallSlide(); //벽 매달리기 기능 추가
 
 
-        //박정태 수정정
+        //박정태 수정
         WeaponController weaponController = GameObject.FindGameObjectWithTag("Weapon").GetComponent<WeaponController>(); //무기 받아오기
         weaponDamage = weaponController.attackPower;//무기에 있는 attackPower라는 값 가져오기.
         attackDamage = strength + weaponDamage; //플레이어 공격력 = 힘 + 무기 공격력
@@ -122,9 +123,10 @@ public class Player : MonoBehaviour
         }
 
         // Move Left and Right
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) { 
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
             Moving(moveInput);
-            animator.SetBool("Move", true); 
+            animator.SetBool("Move", true);
         }
         else
         {
@@ -140,7 +142,7 @@ public class Player : MonoBehaviour
         {
             damageTimer += Time.deltaTime;
             if (damageTimer >= damageInterval)
-            {               
+            {
                 hpUI.TakeDamaged(10f); // interval마다 데미지
                 StartCoroutine(CharacterInvincible());
                 damageTimer = 0f;
@@ -280,10 +282,10 @@ public class Player : MonoBehaviour
         while (curTime <= duration)
         {
             SR.enabled = false;
-            yield return new WaitForSeconds(blinkInterval/2);
+            yield return new WaitForSeconds(blinkInterval / 2);
             SR.enabled = true;
-            yield return new WaitForSeconds(blinkInterval/2);
-            curTime +=  blinkInterval;
+            yield return new WaitForSeconds(blinkInterval / 2);
+            curTime += blinkInterval;
         }
 
         isTouched = false;
@@ -347,6 +349,63 @@ public class Player : MonoBehaviour
     public static implicit operator Player(GameObject v)
     {
         throw new NotImplementedException();
+    }
+
+
+    //상점에서 바꿀 수 있는 스탯들 setter함수
+    public void SetStrength(float newStrength)
+    {
+        strength = newStrength;
+    }
+
+    public void SetMaxHP(float newMaxHP)
+    {
+        hpUI.setMaxHP(newMaxHP);
+    }
+
+    public void SetMoveSpeed(float newMoveSpeed)
+    {
+        MoveSpeed = newMoveSpeed;
+    }
+
+    public void SetMaxJumpCnt(int newMaxJumpCnt)
+    {
+        MaxJumpCnt = newMaxJumpCnt;
+    }
+
+    public void SetDashCoolTime(float newDashCoolTime)
+    {
+        DashCoolTime = newDashCoolTime;
+    }
+
+    public void AddStrength(float addStrength)
+    {
+        strength += addStrength;
+        strength = Mathf.Max(strength, 1f);
+    }
+
+    public void AddMaxHP(float addMaxHP)
+    {
+        hpUI.setMaxHP(hpUI.maxHP + addMaxHP);
+        hpUI.TakeDamaged(-addMaxHP);
+    }
+
+    public void AddMoveSpeed(float addMoveSpeed)
+    {
+        MoveSpeed += addMoveSpeed;
+        MoveSpeed = Mathf.Max(MoveSpeed, 1f);
+    }
+
+    public void AddMaxJumpCnt(int addMaxJumpCnt)
+    {
+        MaxJumpCnt += addMaxJumpCnt;
+        MaxJumpCnt = Mathf.Max(MaxJumpCnt, 1);
+    }
+
+    public void DivideBy2DashCoolTime()
+    {
+        DashCoolTime /= 2;
+        DashCoolTime = Mathf.Clamp(DashCoolTime, 0.00001f, 5f);
     }
 
 }

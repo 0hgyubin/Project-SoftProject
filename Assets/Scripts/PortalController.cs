@@ -30,7 +30,7 @@ public class PortalController : MonoBehaviour
                 if (player != null)
                 {
                     float distance = Vector3.Distance(transform.position, player.transform.position);
-                    if (distance <= 1.0f && Input.GetKeyDown(KeyCode.W))
+                    if (distance <= 1.5f && Input.GetKeyDown(KeyCode.W))
                     {
                         SceneManager.LoadScene("MapTest"); // 다른 씬으로 전환
                         Debug.Log("포탈 이동 제대로 됨.");

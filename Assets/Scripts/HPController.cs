@@ -55,4 +55,9 @@ public class HPController : MonoBehaviour
             return false;
         }
     }
+
+    public void setMaxHP(float newMaxHP)
+    {
+        maxHP = newMaxHP;
+    }
 }

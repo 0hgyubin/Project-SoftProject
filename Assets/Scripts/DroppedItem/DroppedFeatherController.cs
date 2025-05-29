@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class DroppedPotionController : DroppedItemController
+public class DroppedFeatherController : DroppedItemController
 {
 
+    [SerializeField]
+    float addMoveSpeed = 1f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    // Update is called once per frame
     protected override void Update()
     {
         base.Update();
@@ -19,7 +19,6 @@ public class DroppedPotionController : DroppedItemController
 
     protected override void getItem()
     {
-        player.hpUI.TakeDamaged(-40);
-        Destroy(gameObject);
+        player.AddMoveSpeed(addMoveSpeed);
     }
 }
