@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6424290114894169047}
   - component: {fileID: 2897310617260977628}
   - component: {fileID: 415352673985316570}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dumbbell
   m_TagString: DroppedItem
   m_Icon: {fileID: 0}

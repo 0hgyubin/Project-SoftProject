@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5627560299486209220}
   - component: {fileID: 8105666324713418990}
   - component: {fileID: 2746759851363197643}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Heart
   m_TagString: DroppedItem
   m_Icon: {fileID: 0}

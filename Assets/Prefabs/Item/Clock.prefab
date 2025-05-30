@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7709057451639410300}
   - component: {fileID: 1377377984037660445}
   - component: {fileID: 2189607208363821561}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Clock
   m_TagString: DroppedItem
   m_Icon: {fileID: 0}

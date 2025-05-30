@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7797767144069101148}
   - component: {fileID: 6453784309856676390}
   - component: {fileID: 631307130954026159}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wing
   m_TagString: DroppedItem
   m_Icon: {fileID: 0}
