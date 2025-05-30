@@ -4,7 +4,7 @@ public class DroppedFeatherController : DroppedItemController
 {
 
     [SerializeField]
-    float addMoveSpeed = 1f;
+    int addMoveSpeed = 1;
 
 
     protected override void Update()
@@ -20,5 +20,6 @@ public class DroppedFeatherController : DroppedItemController
     protected override void getItem()
     {
         player.AddMoveSpeed(addMoveSpeed);
+        Destroy(gameObject);
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DroppedHeatController : DroppedItemController
+public class DroppedHeartController : DroppedItemController
 {
     [SerializeField]
     float addMaxHP = 1f;
@@ -18,5 +18,6 @@ public class DroppedHeatController : DroppedItemController
     protected override void getItem()
     {
         player.AddMaxHP(addMaxHP);
+        Destroy(gameObject);
     }
 }

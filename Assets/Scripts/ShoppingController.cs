@@ -16,28 +16,24 @@ public class ShoppingController : MonoBehaviour
 
     [SerializeField]
     GameObject droppedItem;
-    
-    
 
-    
-    
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
 
-    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W) && player.canDialoging)
+        if (Input.GetKeyDown(KeyCode.W) && player.canDialoging)
         {
-            Debug.Log("사기");
-            if(gameManager.coin > howMuch)
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if (distance <= 1)
             {
-                gameManager.coin = gameManager.coin - howMuch;
-                Instantiate(droppedItem, transform.position, Quaternion.identity);
+                Debug.Log("사기");
+                if (gameManager.coin > howMuch)
+                {
+                    gameManager.coin = gameManager.coin - howMuch;
+                    Instantiate(droppedItem, transform.position, Quaternion.identity);
+                }
             }
         }
     }

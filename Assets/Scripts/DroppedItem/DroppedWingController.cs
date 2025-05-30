@@ -19,5 +19,6 @@ public class DroppedWingController : DroppedItemController
     protected override void getItem()
     {
         player.AddMaxJumpCnt(1);
+        Destroy(gameObject);
     }
 }
