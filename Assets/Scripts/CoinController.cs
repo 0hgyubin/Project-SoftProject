@@ -4,11 +4,11 @@ using UnityEngine;
 public class CoinController : MonoBehaviour
 {
     bool isOnGroun = false;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
         Debug.Log("Coin");
         Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
 
@@ -16,14 +16,15 @@ public class CoinController : MonoBehaviour
         Vector2 jumpVelocity = Vector2.up * randomJumpForce;
         jumpVelocity.x = Random.Range(-1f, 1f);
 
-        rigidbody.AddForce(jumpVelocity, ForceMode2D.Impulse); 
+        rigidbody.AddForce(jumpVelocity, ForceMode2D.Impulse);
         Destroy(gameObject, 60f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isOnGroun){
+        if (isOnGroun)
+        {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
@@ -36,13 +37,12 @@ public class CoinController : MonoBehaviour
             }
         }
     }
-    private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("OneWayGround"))
-        {
+    private void OnCollisionEnter2D(Collision2D other){
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("OneWayGround")){
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
-                rb.linearVelocity = Vector2.zero;
-                rb.angularVelocity = 0f;
-                isOnGroun = true;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            isOnGroun = true;
         }
     }
 }
