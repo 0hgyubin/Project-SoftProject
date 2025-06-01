@@ -85,5 +85,10 @@ public class MapCharacterController : MonoBehaviour
             myMapController.ReplaceTile(cellX, cellY, MAP_FLOOR);
             SceneManager.LoadScene("ShoppingTest");
         }
+        else if (tile == MAP_EXIT)
+        {
+            myMapController.ReplaceTile(cellX, cellY, MAP_FLOOR);
+            SceneManager.LoadScene("Boss");
+        }
     }
 }

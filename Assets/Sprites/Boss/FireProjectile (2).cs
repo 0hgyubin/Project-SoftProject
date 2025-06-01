@@ -28,5 +28,19 @@ public class FireProjectile : MonoBehaviour
             // 수평 방향만 반전
             moveDirection = new Vector2(-moveDirection.x, moveDirection.y);
         }
+        if (collision.collider.CompareTag("Player"))
+        {
+            Player playerComponent = collision.collider.GetComponent<Player>();
+            if (playerComponent.isDashed)
+            {
+                Destroy(gameObject);
+            }
+            if (playerComponent != null)
+            {
+                Destroy(gameObject);
+                playerComponent.TakeDamage(10); // 'damage'는 이 투사체가 가하는 데미지의 양
+
+            }
+        }
     }
 }
