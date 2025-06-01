@@ -26,15 +26,22 @@ public class GoverButtonController : MonoBehaviour
 
         yield return new WaitForSeconds(clickSound.length);
 
-        //싹다 지워야함 그래서 다 지웠다.
+        // 플레이어 스탯 초기화
+        if (PlayerStatsManager.Instance != null)
+        {
+            // 모든 스탯을 기본값으로 초기화
+            PlayerStatsManager.Instance.InitializeDefaultStats();
+        }
 
-        // 1) 기존 컨트롤러를 없애기 .. << 이 방식이 틀렸을 수도
+        // 기존 오브젝트들 제거
         if (MapController.Instance != null)
+        {
+            if (MapController.Instance.Map != null)
+                Destroy(MapController.Instance.mapParent.gameObject);
+            if (MapController.Instance.player != null)
+                Destroy(MapController.Instance.player.gameObject);
             Destroy(MapController.Instance.gameObject);
-        if (MapController.Instance.Map != null)
-            Destroy(MapController.Instance.mapParent.gameObject);        
-        if (MapController.Instance.player != null) //플레이어를 없애기
-            Destroy(MapController.Instance.player.gameObject);
+        }
 
         SceneManager.LoadScene("MapTest");
     }
