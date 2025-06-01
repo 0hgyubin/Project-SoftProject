@@ -71,12 +71,13 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         canvasImage = fadePanelObject.GetComponent<Image>();
 
-        // PlayerStatsManager 가 없으면 동적으로 생성
+        // PlayerStatsManager 확인 및 생성
         if (PlayerStatsManager.Instance == null)
         {
             GameObject go = new GameObject("PlayerStatsManager");
-            go.AddComponent<PlayerStatsManager>();
-            // PlayerStatsManager.Awake() 내부에서 DontDestroyOnLoad 처리됨
+            PlayerStatsManager manager = go.AddComponent<PlayerStatsManager>();
+            // 초기 HP 설정
+            manager.currentHP = manager.maxHP;
         }
     }
 

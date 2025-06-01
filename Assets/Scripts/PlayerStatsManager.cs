@@ -27,17 +27,15 @@ public class PlayerStatsManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // 최초 실행시 HP 초기화
-            currentHP = maxHP; // 또는 원하는 초기 HP 값
-
-            var player = FindAnyObjectByType<Player>();
-            if (player != null)
+            // 최초 실행시 기본값 초기화
+            if (!PlayerPrefs.HasKey("PlayerHP"))
             {
-                SaveStatsFrom(player);
+                InitializeDefaultStats();
             }
-
-            //HP를 100으로 초기화하는거 필요함 @@@@
-
+            else
+            {
+                LoadAllStats();
+            }
         }
         else
         {
@@ -45,34 +43,60 @@ public class PlayerStatsManager : MonoBehaviour
         }
     }
 
+    private void InitializeDefaultStats()
+    {
+        currentHP = maxHP;
+        moveSpeed = 8f;  // 기본 이동 속도
+        maxJumpCnt = 2;  // 기본 점프 횟수
+        dashCoolTime = 3f;  // 기본 대시 쿨타임
+        
+        // 모든 스탯 저장
+        SaveAllStats();
+    }
+
+    private void SaveAllStats()
+    {
+        PlayerPrefs.SetFloat("PlayerHP", currentHP);
+        PlayerPrefs.SetFloat("MoveSpeed", moveSpeed);
+        PlayerPrefs.SetInt("MaxJumpCnt", maxJumpCnt);
+        PlayerPrefs.SetFloat("DashCoolTime", dashCoolTime);
+        PlayerPrefs.Save();
+    }
+
+    private void LoadAllStats()
+    {
+        currentHP = PlayerPrefs.GetFloat("PlayerHP", maxHP);
+        moveSpeed = PlayerPrefs.GetFloat("MoveSpeed", 8f);
+        maxJumpCnt = PlayerPrefs.GetInt("MaxJumpCnt", 2);
+        dashCoolTime = PlayerPrefs.GetFloat("DashCoolTime", 3f);
+    }
+
     /// 전투 씬 시작 시 호출: Player 오브젝트에 저장된 스탯을 적용
     public void LoadStatsTo(Player player)
     {
-        //잠시, 오류 처리문 없애봄. 오히려 오류 나는게 눈에 더 띄어서 도움될 듯.
-        // if (player.hpUI != null)
-
-        // 최대 체력 변화하는거 추가히기 @@@@@
-        player.hpUI.SetCurrentHP(currentHP);
-        player.strength = strength;
-        player.moveSpeed = moveSpeed;
-        player.maxJumpCnt = maxJumpCnt;
-        player.dashCoolTime = dashCoolTime;
-        Debug.Log("OnEnable() 내부에서 load 실행");
-        Debug.Log("currentHP:" + currentHP);
+        if (player != null && player.hpUI != null)
+        {
+            Debug.Log($"LoadStatsTo - currentHP: {currentHP}, moveSpeed: {moveSpeed}, maxJumpCnt: {maxJumpCnt}");
+            player.hpUI.SetCurrentHP(currentHP);
+            player.moveSpeed = moveSpeed;
+            player.maxJumpCnt = maxJumpCnt;
+            player.dashCoolTime = dashCoolTime;
+        }
     }
 
     // 전투 종료 시 호출: Player 오브젝트의 현재 스탯을 저장
     public void SaveStatsFrom(Player player)
     {
-        //잠시, 오류 처리문 없애봄. 오히려 오류 나는게 눈에 더 띄어서 도움될 듯.
-        // if (player.hpUI != null)
-        currentHP = player.hpUI.GetCurrentHP();
-        strength = player.strength;
-        moveSpeed = player.moveSpeed;
-        maxJumpCnt = player.maxJumpCnt;
-        dashCoolTime = player.dashCoolTime;
-        Debug.Log("OnDisable() 내부에서 load 실행");
-        Debug.Log("currentHP:" + currentHP);
+        if (player != null && player.hpUI != null)
+        {
+            currentHP = player.hpUI.GetCurrentHP();
+            moveSpeed = player.moveSpeed;
+            maxJumpCnt = player.maxJumpCnt;
+            dashCoolTime = player.dashCoolTime;
+            
+            SaveAllStats();
+            Debug.Log($"SaveStatsFrom - HP: {currentHP}, Speed: {moveSpeed}, JumpCnt: {maxJumpCnt}");
+        }
     }
 
     // 맵 씬 복귀 직후, 혹은 필요할 때 수동으로 불러오기

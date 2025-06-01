@@ -17,7 +17,16 @@ public class HPController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Start에서 초기화하지 않고, PlayerStatsManager가 관리하도록 함
+        if (PlayerStatsManager.Instance != null)
+        {
+            currentHP = PlayerStatsManager.Instance.currentHP;
+            Debug.Log($"HPController Start - 불러온 HP: {currentHP}");
+        }
+        else
+        {
+            currentHP = maxHP;
+            Debug.Log("PlayerStatsManager가 없어서 maxHP로 초기화됨");
+        }
         UpdateHPUI();
     }
 
@@ -63,8 +72,15 @@ public class HPController : MonoBehaviour
     // 외부에서 HP를 설정할 수 있도록 (UI도 함께 업데이트)
     public void SetCurrentHP(float hp)
     {
-        //Clamp()함수, min~max 사이 값으로 조정. 0~maxHP 벗어나지 않게, 상한, 하한 정해둠.
         currentHP = Mathf.Clamp(hp, 0f, maxHP);
         UpdateHPUI();
+        
+        // HP 변경시마다 저장
+        if (PlayerStatsManager.Instance != null)
+        {
+            PlayerStatsManager.Instance.currentHP = currentHP;
+            PlayerPrefs.SetFloat("PlayerHP", currentHP);
+            PlayerPrefs.Save();
+        }
     }
 }
