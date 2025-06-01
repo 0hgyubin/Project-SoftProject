@@ -24,6 +24,14 @@ public class ProjectileController : MonoBehaviour
             //13 데미지 나와야 정상
             if(!isMelee) Destroy(gameObject);
         }
+        else if (collision.gameObject.CompareTag("Boss"))
+        {
+            BossDragonController bossController = collision.GetComponent<BossDragonController>(); //충돌한 적 가져옴.
+            bossController.TakeDamage(damage);
+            Debug.Log("111111111111111111 피격 (1)!  damage: " + damage); //체력 줄은 거 확인하기 위해 +damage 추가
+            //13 데미지 나와야 정상
+            if (!isMelee) Destroy(gameObject);
+        }
         else if(!isMelee && collision.gameObject.CompareTag("Ground")){
             Destroy(gameObject);
         }

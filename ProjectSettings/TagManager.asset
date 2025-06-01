@@ -16,15 +16,16 @@ TagManager:
   - EnemyProjectile
   - MapPlayer
   - MapManager
+  - Boss
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Boss
   - Water
   - UI
-  - 
-  - 
+  - Enemy
+  - Player
   - 
   - 
   - 

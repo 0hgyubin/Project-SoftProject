@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8369065638556168128}
   - component: {fileID: 2846552222138200101}
   - component: {fileID: 4680450189188158487}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ MonoBehaviour:
   dashEffectPrefab: {fileID: 5305428818100442843, guid: 4fca9d1d59478b245b17a5653e2f3164, type: 3}
   isDialoging: 0
   canDialoging: 0
-  canvasImage: {fileID: 0}
+  fadePanelObject: {fileID: 0}
   fadingSpeed: 0.6
 --- !u!82 &2846552222138200101
 AudioSource:

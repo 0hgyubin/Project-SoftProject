@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: a55b650f6d610c840ae69e3ebb505db2
+guid: 5cfe62f41327aa147878b163540c70b5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 421283774944632851
-    second: MungMoongAttack_0
+      213: -7913588553758652644
+    second: "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_0"
+  - first:
+      213: 7923824498578908610
+    second: "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_1"
+  - first:
+      213: -8473362941696329045
+    second: "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_2"
+  - first:
+      213: -1779347765708269079
+    second: "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_3"
+  - first:
+      213: 4157168242608368697
+    second: "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_4"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +125,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MungMoongAttack_0
+      name: "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_0"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 5
-        width: 64
-        height: 56
+        x: 146
+        y: 313
+        width: 24
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +140,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 310e53b7c53b8d500800000000000000
-      internalID: 421283774944632851
+      spriteID: c174e9a63294d2290800000000000000
+      internalID: -7913588553758652644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_1"
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 235
+        width: 56
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c56554366417fd60800000000000000
+      internalID: 7923824498578908610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_2"
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 315
+        width: 40
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baa3b3f5c41986a80800000000000000
+      internalID: -8473362941696329045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_3"
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 11
+        width: 345
+        height: 290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e9d21d62ac7e47e0800000000000000
+      internalID: -1779347765708269079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_4"
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 27
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93ce434bd7a31b930800000000000000
+      internalID: 4157168242608368697
       vertices: []
       indices: 
       edges: []
@@ -138,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MungMoongAttack_0: 421283774944632851
+      "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_0": -7913588553758652644
+      "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_1": 7923824498578908610
+      "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_2": -8473362941696329045
+      "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_3": -1779347765708269079
+      "\uC2A4\uD504\uB77C\uC774\uD2B8-0005_4": 4157168242608368697
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
