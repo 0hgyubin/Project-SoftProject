@@ -8,6 +8,7 @@ public class PlayerStatsManager : MonoBehaviour
     //  보존할 기본 스탯 
     [Header("필수 보존 스탯")]
     public float currentHP;
+    public float maxHP = 100;
     public float strength;
     public float weaponDamage;
 
@@ -26,7 +27,9 @@ public class PlayerStatsManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // 최초 스탯 저장.
+            // 최초 실행시 HP 초기화
+            currentHP = maxHP; // 또는 원하는 초기 HP 값
+
             var player = FindAnyObjectByType<Player>();
             if (player != null)
             {

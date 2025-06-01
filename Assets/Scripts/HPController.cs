@@ -17,8 +17,7 @@ public class HPController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentHP = maxHP;
-        // 외부에서 어차피 SetCurrentHP() 호출해줌.
+        // Start에서 초기화하지 않고, PlayerStatsManager가 관리하도록 함
         UpdateHPUI();
     }
 
