@@ -223,7 +223,7 @@ public class EnemyController : MonoBehaviour
     private IEnumerator ResetColor()
     {
         spriteRenderer.color = Color.red; // 빨간색으로 변경
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         spriteRenderer.color = originalColor;
     }
 
