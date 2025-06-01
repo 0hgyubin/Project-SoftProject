@@ -8,8 +8,7 @@ public class CoinController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-        Debug.Log("Coin");
+        // Debug.Log("Coin");
         Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
 
         float randomJumpForce = Random.Range(3f, 10f);
@@ -23,13 +22,15 @@ public class CoinController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Debug.Log("isOnGroun: " + isOnGroun);
         if (isOnGroun)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
                 float distance = Vector3.Distance(transform.position, player.transform.position);
-                if (distance <= 0.5f)
+                // Debug.Log("Distance to player: " + distance);
+                if (distance <= 0.9f)
                 {
                     GameManager.insatnce.IncreaseCoin();
                     Destroy(gameObject);
@@ -37,8 +38,10 @@ public class CoinController : MonoBehaviour
             }
         }
     }
-    private void OnCollisionEnter2D(Collision2D other){
-        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("OneWayGround")){
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("OneWayGround"))
+        {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
