@@ -35,13 +35,14 @@ public class EnemyController : MonoBehaviour
     protected Animator animator; //적 본인의 애니메이터
     protected Transform player; // 플레이어의 위치를 저장하는 변수
 
+    protected Color originalColor; // 원래 색상을 저장하는 변수
 
     protected bool isPlayerInRange = false; // 플레이어가 탐지 범위 내에 있는지 여부
     protected bool isPlayerInAttackRange = false; // 플레이어가 공격 범위 내에 있는지 여부
     protected bool isPreparingAttack = false; // 공격 준비 상태 여부
     // private float lastAttackTime; // 마지막 공격 시간
     protected Vector2 attackDirection; // 공격 방향을 저장하는 변수
-    
+
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
@@ -54,12 +55,13 @@ public class EnemyController : MonoBehaviour
             {
                 weaponAnimator.enabled = false;//있다면 해당 활, 총등의 애니메이터를 가져옴
             }
-            
+
         }
         //만약 활, 총 등에 애니메이션 없는 적인데 원거리 적이라면 말 해주세요 내용 더 추가해야 합니다
         // lastAttackTime = Time.time; // 현재 시간을 마지막 공격 시간으로 설정
         spriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        originalColor = spriteRenderer.color; // 원래 색상
     }
 
     // Update is called once per frame
@@ -200,14 +202,33 @@ public class EnemyController : MonoBehaviour
         rb.linearVelocity = direction * projectileSpeed;
     }
 
-    public void TakeDamage(float damage){
+    public void TakeDamage(float damage)
+    {
         enemyHealth -= damage;
-        if(enemyHealth <= 0f){
+        if (enemyHealth <= 0f)
+        { // 적이 죽었을 때
             Destroy(gameObject);
+        }
+        else
+        {
+            // 게임오브젝트의 색을 빨간 색으로 바꿔주기
+            if (spriteRenderer != null)
+            {
+                StopAllCoroutines(); // 만약 연속으로 피격되어도 코루틴이 겹치지 않도록
+                StartCoroutine(ResetColor());
+            }
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision){
+    private IEnumerator ResetColor()
+    {
+        spriteRenderer.color = Color.red; // 빨간색으로 변경
+        yield return new WaitForSeconds(0.5f);
+        spriteRenderer.color = originalColor;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.gameObject.CompareTag("Player"))
         {
             Player playerComponent = collision.gameObject.GetComponent<Player>();

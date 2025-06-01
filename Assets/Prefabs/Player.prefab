@@ -205,7 +205,7 @@ MonoBehaviour:
   CurJumpCnt: 0
   damageTimer: 2
   DashCoolTime: 0
-  strength: 100
+  strength: 5
   attackDamage: 0
   damageInterval: 2
   isDashed: 0

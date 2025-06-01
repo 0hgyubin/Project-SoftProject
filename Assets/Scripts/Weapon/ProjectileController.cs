@@ -20,11 +20,11 @@ public class ProjectileController : MonoBehaviour
             //박정태 수정
             EnemyController enemyController = collision.GetComponent<EnemyController>(); //충돌한 적 가져옴.
             enemyController.TakeDamage(damage);//EnemyController의 TakeDamage함수 사용해서 적 체력 감소.
-            Debug.Log("Enemy 피격 (1)!  damage: " + damage); //체력 줄은 거 확인하기 위해 +damage 추가
-            //13 데미지 나와야 정상
-            if(!isMelee) Destroy(gameObject);
+            Debug.Log("Enemy get damaged: " + damage); //체력 줄은 거 확인하기 위해 +damage 추가
+            // 데미지 나와야 정상
+            if(!isMelee) Destroy(gameObject); //근접 공격이 아니라면 투사체 파괴
         }
-        else if(!isMelee && collision.gameObject.CompareTag("Ground")){
+        else if(!isMelee && collision.gameObject.CompareTag("Ground")){ // 원거리 공격 투사체가 땅에 닿으면 파괴
             Destroy(gameObject);
         }
     }
