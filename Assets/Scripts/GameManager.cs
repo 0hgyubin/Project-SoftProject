@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
         if (insatnce == null)
         {
             insatnce = this;
-            DontDestroyOnLoad(this.gameObject);
-            DontDestroyOnLoad(text);
+            // DontDestroyOnLoad(this.gameObject);
+            // DontDestroyOnLoad(text);
         }
 
         coin = CoinManagement.Instance.coin;
