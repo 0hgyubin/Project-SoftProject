@@ -43,7 +43,7 @@ public class PlayerStatsManager : MonoBehaviour
         }
     }
 
-    private void InitializeDefaultStats()
+    public void InitializeDefaultStats()
     {
         currentHP = maxHP;
         moveSpeed = 8f;  // 기본 이동 속도
@@ -52,6 +52,7 @@ public class PlayerStatsManager : MonoBehaviour
         
         // 모든 스탯 저장
         SaveAllStats();
+        Debug.Log("플레이어 스탯이 초기화되었습니다.");
     }
 
     private void SaveAllStats()
