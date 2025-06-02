@@ -815,9 +815,9 @@ public class MapController : MonoBehaviour
         // 상점 타일은 타일 순회하며, 적 타일 중 10% 확률로 변경
         while (shopCount < 5) // 상점 타일은 최대 5개까지만 생성
         {
-            for (int x = 5; x <= width; x+=2)
+            for (int x = 5; x <= width; x+=3)
             {
-                for (int y = 5; y <= height; y+=2)
+                for (int y = 5; y <= height; y+=3)
                 {
                     if (Map[x, y] == MAP_ENEMY && Random.value < 0.2f && shopCount < 5) // 적 타일 중 20% 확률로 상점 타일로 변경
                     {
