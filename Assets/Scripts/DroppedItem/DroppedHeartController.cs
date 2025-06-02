@@ -1,13 +1,10 @@
 using UnityEngine;
 
-public class DroppedPotionController : DroppedItemController
+public class DroppedHeartController : DroppedItemController
 {
-
     [SerializeField]
-    float addCurrentHP = 40f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    float addMaxHP = 1f;
 
-    // Update is called once per frame
     protected override void Update()
     {
         base.Update();
@@ -20,7 +17,7 @@ public class DroppedPotionController : DroppedItemController
 
     protected override void getItem()
     {
-        player.hpUI.TakeDamaged(-addCurrentHP);
+        player.AddMaxHP(addMaxHP);
         Destroy(gameObject);
     }
 }

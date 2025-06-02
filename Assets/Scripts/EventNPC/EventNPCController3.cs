@@ -101,10 +101,6 @@ public class EventNPCController3 : MonoBehaviour
         }
         if ((Input.GetKeyDown(KeyCode.W) || isPlayerSelected) && onFirstDialoge)
         {
-            // if (!wKeyPressed) // W 키가 이전에 눌리지 않았을 때만 처리
-            // {
-
-            //wKeyPressed = true;
             player.isDialoging = true;
             talkPanel.SetActive(true);
             buttonYesObject.SetActive(false);
@@ -194,21 +190,20 @@ public class EventNPCController3 : MonoBehaviour
                 {
                     talkText.text = "";
                     talkPanel.SetActive(false);
-                    portalController.SetIsEventOn(true);
+                    portalController.setIsEventOn(true);
                     player.isDialoging = false;
                     dialogIndex = 0; // 대화 종료 후 인덱스 초기화 (선택 사항)
                     onGamble = isOnGamble.notPushed;
                     gambleResult = gamble.notPushed;
                     isGambleOver = false;
-                    isCoinOver50 = false;
                     onFirstDialoge = false;
                     if (!isCoinOver50)
                     {
                         gameObject.SetActive(false);
                     }
+                    isCoinOver50 = false;
                 }
             }
-            //}
         }
 
         isPlayerSelected = false; // 이 부분을 Update 함수의 맨 마지막으로 이동

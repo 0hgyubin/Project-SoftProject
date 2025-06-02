@@ -366,4 +366,63 @@ public class Player : MonoBehaviour
         throw new NotImplementedException();
     }
 
+
+    //상점에서 바꿀 수 있는 스탯들 setter함수
+    public void SetStrength(float newStrength)
+    {
+        strength = newStrength;
+    }
+
+    public void SetMaxHP(float newMaxHP)
+    {
+        hpUI.setMaxHP(newMaxHP);
+    }
+
+    public void SetMoveSpeed(float newMoveSpeed)
+    {
+        MoveSpeed = newMoveSpeed;
+    }
+
+    public void SetMaxJumpCnt(int newMaxJumpCnt)
+    {
+        MaxJumpCnt = newMaxJumpCnt;
+    }
+
+    public void SetDashCoolTime(float newDashCoolTime)
+    {
+        DashCoolTime = newDashCoolTime;
+    }
+
+
+    //상점에서 바꿀 수 있는 스탯들 adder함수
+    public void AddStrength(float addStrength) //dumbbell
+    {
+        strength += addStrength;
+        strength = Mathf.Max(strength, 1f);
+    }
+
+    public void AddMaxHP(float addMaxHP) //heart
+    {
+        hpUI.setMaxHP(hpUI.maxHP + addMaxHP);
+        hpUI.TakeDamaged(-addMaxHP);
+    }
+
+    public void AddMoveSpeed(float addMoveSpeed) //feather
+    {
+        MoveSpeed += addMoveSpeed;
+        MoveSpeed = Mathf.Max(MoveSpeed, 1f);
+    }
+
+    public void AddMaxJumpCnt(int addMaxJumpCnt) //wings
+    {
+        MaxJumpCnt += addMaxJumpCnt;
+        MaxJumpCnt = Mathf.Max(MaxJumpCnt, 1);
+    }
+
+    public void DivideBy2DashCoolTime() //clock
+    {
+        DashCoolTime /= 2;
+        DashCoolTime = Mathf.Clamp(DashCoolTime, 0.00001f, 5f);
+    }
+
 }

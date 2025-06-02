@@ -1,13 +1,12 @@
 using UnityEngine;
 
-public class DroppedPotionController : DroppedItemController
+public class DroppedFeatherController : DroppedItemController
 {
 
     [SerializeField]
-    float addCurrentHP = 40f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    int addMoveSpeed = 1;
 
-    // Update is called once per frame
+
     protected override void Update()
     {
         base.Update();
@@ -20,7 +19,7 @@ public class DroppedPotionController : DroppedItemController
 
     protected override void getItem()
     {
-        player.hpUI.TakeDamaged(-addCurrentHP);
+        player.AddMoveSpeed(addMoveSpeed);
         Destroy(gameObject);
     }
 }

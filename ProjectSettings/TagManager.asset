@@ -17,6 +17,7 @@ TagManager:
   - MapPlayer
   - MapManager
   - Boss
+  - DroppedItem
   layers:
   - Default
   - TransparentFX
@@ -26,6 +27,11 @@ TagManager:
   - UI
   - Enemy
   - Player
+  - DroppdeItem
+  - Water
+  - UI
+  - Player
+  - 
   - 
   - 
   - 
