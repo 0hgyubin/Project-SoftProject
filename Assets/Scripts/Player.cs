@@ -15,11 +15,7 @@ public class Player : MonoBehaviour
     public int maxSpeed;
     public int curJumpCnt = 0;
     public float damageTimer = 2f;
-    public float dashCoolTime = 3f;
-
-    public float strength = 3f; //주인공이 가진 힘 스텟. 플레이어 공격력 = 무기 공격력 + 플레이어 힘 스탯
-
-
+    
     //데미지 연산은 ProjetcileController에서 진행할 예정
 
     public float damageInterval = 0.1f;
@@ -31,10 +27,14 @@ public class Player : MonoBehaviour
     public SpriteRenderer characterSpriteRender;
     public Collider2D CharacterColider;
 
+    [Header("stats")]
     public float moveSpeed = 8f;
     public int maxJumpCnt = 2;
+    public float dashCoolTime = 3f;
+    public float strength = 3f; //주인공이 가진 힘 스텟. 플레이어 공격력 = 무기 공격력 + 플레이어 힘 스탯
     public float jumpForce = 30f;
     public float dashForce = 10f;
+    [Header("Dash Effect")]
     public float blinkDuration = 1.6f;
 
     public bool isGrounded = true;
