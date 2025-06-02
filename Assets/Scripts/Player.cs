@@ -380,17 +380,17 @@ public class Player : MonoBehaviour
 
     public void SetMoveSpeed(float newMoveSpeed)
     {
-        MoveSpeed = newMoveSpeed;
+        moveSpeed = newMoveSpeed;
     }
 
     public void SetMaxJumpCnt(int newMaxJumpCnt)
     {
-        MaxJumpCnt = newMaxJumpCnt;
+        maxJumpCnt = newMaxJumpCnt;
     }
 
     public void SetDashCoolTime(float newDashCoolTime)
     {
-        DashCoolTime = newDashCoolTime;
+        dashCoolTime = newDashCoolTime;
     }
 
 
@@ -409,20 +409,20 @@ public class Player : MonoBehaviour
 
     public void AddMoveSpeed(float addMoveSpeed) //feather
     {
-        MoveSpeed += addMoveSpeed;
-        MoveSpeed = Mathf.Max(MoveSpeed, 1f);
+        moveSpeed += addMoveSpeed;
+        moveSpeed = Mathf.Max(moveSpeed, 1f);
     }
 
     public void AddMaxJumpCnt(int addMaxJumpCnt) //wings
     {
-        MaxJumpCnt += addMaxJumpCnt;
-        MaxJumpCnt = Mathf.Max(MaxJumpCnt, 1);
+        maxJumpCnt += addMaxJumpCnt;
+        maxJumpCnt = Mathf.Max(maxJumpCnt, 1);
     }
 
     public void DivideBy2DashCoolTime() //clock
     {
-        DashCoolTime /= 2;
-        DashCoolTime = Mathf.Clamp(DashCoolTime, 0.00001f, 5f);
+        dashCoolTime /= 2;
+        dashCoolTime = Mathf.Clamp(dashCoolTime, 0.00001f, 5f);
     }
 
 }
