@@ -163,6 +163,7 @@ public class MapController : MonoBehaviour
 
             MakeStoreNextToDes();
             MakeStonePillar();
+            MakeShopTile();           // 상점 타일 생성 함수
             MakeBoundWall();         // 10. 플레이어를 범위 밖으로 못나가게 벽 타일로 두루는 함수
 
 
@@ -805,6 +806,28 @@ public class MapController : MonoBehaviour
             if (pos != startPos)
                 Map[pos.x, pos.y] = (Random.value < 0.1f) ? MAP_ENEMY : MAP_FLOOR;
         }
+    }
+
+    //적 타일 중 랜덤하게 5개를 상점 타일로 변경
+    void MakeShopTile()
+    {
+        int shopCount = 0;
+        // 상점 타일은 타일 순회하며, 적 타일 중 10% 확률로 변경
+        while (shopCount < 5) // 상점 타일은 최대 5개까지만 생성
+        {
+            for (int x = 5; x <= width; x+=3)
+            {
+                for (int y = 5; y <= height; y+=3)
+                {
+                    if (Map[x, y] == MAP_ENEMY && Random.value < 0.2f && shopCount < 5) // 적 타일 중 20% 확률로 상점 타일로 변경
+                    {
+                        Map[x, y] = MAP_SHOP;
+                        shopCount++;
+                    }
+                }
+            }
+        }
+        Debug.Log("Shop tiles created: " + shopCount);
     }
 
     // 플레이어 벽 못나가게 막기
