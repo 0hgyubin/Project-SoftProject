@@ -22,5 +22,11 @@ public class RockProjectile : MonoBehaviour
 
             }
         }
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            EnemyController enemy = collision.collider.GetComponent<EnemyController>();
+            enemy.TakeDamage(10f);
+            Destroy(gameObject);
+        }
     }
 }
