@@ -116,9 +116,8 @@ public class PistolController : WeaponController
     private IEnumerator Reload()
     {
         isReloading = true;
-
         //재장전 자막 출력
-        SubtitleManager.Instance.ShowSubtitle("장전 중...", reloadTime);
+        SubtitleManager.Instance.ShowSubtitle("Reloading...", reloadTime);
 
         yield return new WaitForSeconds(reloadTime);
 
