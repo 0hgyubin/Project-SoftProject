@@ -202,11 +202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpUI: {fileID: 0}
   maxSpeed: 0
-  CurJumpCnt: 0
+  curJumpCnt: 0
   damageTimer: 2
-  DashCoolTime: 0
-  strength: 5
-  attackDamage: 0
   damageInterval: 2
   isDashed: 0
   isTouched: 0
@@ -214,11 +211,13 @@ MonoBehaviour:
   PlayerRigidBody: {fileID: 5087658730830177443}
   characterSpriteRender: {fileID: 7372242198396422055}
   CharacterColider: {fileID: 3701818329717684598}
-  MoveSpeed: 5
-  MaxJumpCnt: 2
-  JumpForce: 15
-  DashForce: 10
-  BlinkDuration: 1.6
+  moveSpeed: 6
+  maxJumpCnt: 2
+  dashCoolTime: 3
+  strength: 5
+  jumpForce: 15
+  dashForce: 10
+  blinkDuration: 1.6
   isGrounded: 0
   canDamaged: 1
   hitSound: {fileID: 8300000, guid: 93bd9b4aa002a784d8d0fb8950400755, type: 3}
