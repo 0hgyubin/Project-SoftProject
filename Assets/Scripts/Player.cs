@@ -376,7 +376,7 @@ public class Player : MonoBehaviour
 
     public void SetMaxHP(float newMaxHP)
     {
-        hpUI.setMaxHP(newMaxHP);
+        hpUI.SetMaxHP(newMaxHP);
         PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
@@ -409,7 +409,7 @@ public class Player : MonoBehaviour
 
     public void AddMaxHP(float addMaxHP) //heart
     {
-        hpUI.setMaxHP(hpUI.maxHP + addMaxHP);
+        hpUI.SetMaxHP(hpUI.GetMaxHP() + addMaxHP);
         hpUI.TakeDamaged(-addMaxHP);
         PlayerStatsManager.Instance.SaveStatsFrom(this);
     }

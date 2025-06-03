@@ -83,8 +83,13 @@ public class HPController : MonoBehaviour
             PlayerPrefs.Save();
         }
     }
-    public void setMaxHP(float newMaxHP)
+    public void SetMaxHP(float newMaxHP)
     {
         maxHP = newMaxHP;
+    }
+
+    public float GetMaxHP()
+    {
+        return maxHP;
     }
 }
