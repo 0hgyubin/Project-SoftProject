@@ -34,4 +34,14 @@ public class GameManager : MonoBehaviour
         CoinManagement.Instance.coin += 10;
         text.SetText(coin.ToString());
     }
+
+    public void SetCoin(int newCoin)
+    {
+        coin = newCoin;
+    }
+
+    public int GetCoin()
+    {
+        return coin;
+    }
 }

@@ -29,9 +29,9 @@ public class ShoppingController : MonoBehaviour
             if (distance <= 1)
             {
                 Debug.Log("사기");
-                if (gameManager.coin > howMuch)
+                if (gameManager.GetCoin() >= howMuch)
                 {
-                    gameManager.coin = gameManager.coin - howMuch;
+                    gameManager.SetCoin(gameManager.GetCoin() - howMuch) ;
                     Instantiate(droppedItem, transform.position, Quaternion.identity);
                 }
             }

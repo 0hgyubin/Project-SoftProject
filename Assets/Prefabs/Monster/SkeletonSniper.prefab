@@ -193,13 +193,13 @@ MonoBehaviour:
   detectionRadius: 40
   attackRadius: 30
   moveSpeed: 0
-  enemyHealth: 100
+  enemyHealth: 50
   attackDelay: 1
   attackDuration: 0.5
   ProjectilePrefab: {fileID: 6806752196399843684, guid: e02863cf30379b74bb5d7c4e161a3e28, type: 3}
   shootTransform: {fileID: 1687597179828110569}
   projectileSpeed: 5
-  damage: 5
+  damage: 1
   maxDistance: 35
   isMelee: 0
   bowIsSymmetry: 0

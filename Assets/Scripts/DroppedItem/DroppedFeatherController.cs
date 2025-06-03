@@ -4,7 +4,7 @@ public class DroppedFeatherController : DroppedItemController
 {
 
     [SerializeField]
-    int addMoveSpeed = 1;
+    float addMoveSpeed = 1;
 
 
     protected override void Update()

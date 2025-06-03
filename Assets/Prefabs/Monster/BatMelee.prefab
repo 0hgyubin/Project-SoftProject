@@ -107,7 +107,7 @@ MonoBehaviour:
   detectionRadius: 15
   attackRadius: 0.5
   moveSpeed: 4
-  enemyHealth: 50
+  enemyHealth: 60
   attackDelay: 1
   attackDuration: 0.5
   ProjectilePrefab: {fileID: 788857520513803481, guid: 08647988461aadc44942451e77d1d16a, type: 3}

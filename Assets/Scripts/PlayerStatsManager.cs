@@ -44,17 +44,16 @@ public class PlayerStatsManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     public void InitializeDefaultStats()
     {
         currentHP = maxHP;
         strength = 3f;     // 추가
-        jumpForce = 10f;   // 추가
+        jumpForce = 15f;   // 추가
         dashForce = 10f;   // 추가
         moveSpeed = 6f;  // 기본 이동 속도
-        maxJumpCnt = 3;  // 기본 점프 횟수
-        dashCoolTime = 3f;  // 기본 대시 쿨타임
-        
+        maxJumpCnt = 2;  // 기본 점프 횟수
+        dashCoolTime = 2f;  // 기본 대시 쿨타임
+
         // 모든 스탯 저장
         SaveAllStats();
         Debug.Log("플레이어 스탯이 초기화되었습니다.");
@@ -76,11 +75,11 @@ public class PlayerStatsManager : MonoBehaviour
     {
         currentHP = PlayerPrefs.GetFloat("PlayerHP", maxHP);
         strength = PlayerPrefs.GetFloat("Strength", 3f);      // 추가
-        jumpForce = PlayerPrefs.GetFloat("JumpForce", 10f);  // 추가
+        jumpForce = PlayerPrefs.GetFloat("JumpForce", 15f);  // 추가
         dashForce = PlayerPrefs.GetFloat("DashForce", 10f);  // 추가
         moveSpeed = PlayerPrefs.GetFloat("MoveSpeed", 6f);
-        maxJumpCnt = PlayerPrefs.GetInt("MaxJumpCnt", 3);
-        dashCoolTime = PlayerPrefs.GetFloat("DashCoolTime", 3f);
+        maxJumpCnt = PlayerPrefs.GetInt("MaxJumpCnt", 2);
+        dashCoolTime = PlayerPrefs.GetFloat("DashCoolTime", 2f);
     }
 
     /// 전투 씬 시작 시 호출: Player 오브젝트에 저장된 스탯을 적용
@@ -111,7 +110,7 @@ public class PlayerStatsManager : MonoBehaviour
             moveSpeed = player.moveSpeed;
             maxJumpCnt = player.maxJumpCnt;
             dashCoolTime = player.dashCoolTime;
-            
+
             SaveAllStats();
             Debug.Log($"SaveStatsFrom - HP: {currentHP}, Strength: {strength}");
         }

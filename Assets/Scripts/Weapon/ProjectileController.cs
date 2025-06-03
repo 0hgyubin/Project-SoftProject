@@ -19,17 +19,29 @@ public class ProjectileController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             EnemyController enemyController = collision.GetComponent<EnemyController>(); //충돌한 적 가져옴.
-            enemyController.TakeDamage(damage);//EnemyController의 TakeDamage함수 사용해서 적 체력 감소.
+
             Debug.Log("Enemy 피격!  damage: " + damage); //체력 줄은 거 확인하기 위해 +damage 추가
-            if (!isMelee) Destroy(gameObject);
+            if (!isMelee)
+            {
+                enemyController.TakeDamage(damage);//EnemyController의 TakeDamage함수 사용해서 적 체력 감소. 근접이 아니라면 그냥 데미지
+                Destroy(gameObject);
+            }
+            else enemyController.TakeDamage(damage * 2);
+
         }
         else if (collision.gameObject.CompareTag("Boss"))
         {
             BossDragonController bossController = collision.GetComponent<BossDragonController>(); //충돌한 적 가져옴.
-            bossController.TakeDamage(damage);
+
             Debug.Log("111111111111111111 피격 (1)!  damage: " + damage); //체력 줄은 거 확인하기 위해 +damage 추가
             //13 데미지 나와야 정상
-            if (!isMelee) Destroy(gameObject);
+            if (!isMelee)//원거리일 때
+            {
+                bossController.TakeDamage(damage);//EnemyController의 TakeDamage함수 사용해서 적 체력 감소. 근접이 아니라면 그냥 데미지
+                Destroy(gameObject);
+            }
+            else bossController.TakeDamage(damage * 2);//근접이면 데미지 2배
+
         }
         else if (!isMelee && collision.gameObject.CompareTag("Ground"))
         {

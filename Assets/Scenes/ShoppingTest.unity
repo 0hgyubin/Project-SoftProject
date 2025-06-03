@@ -2889,7 +2889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB300\uC26C \uCFE8\uD0C0\uC784\n70\uACE8\uB4DC"
+  m_text: "\uB300\uC26C \uCFE8\uD0C0\uC784\n120\uACE8\uB4DC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 590d25e5cb6f3cb43b52e40a8a4144b8, type: 2}
   m_sharedMaterial: {fileID: -6338272264537122243, guid: 590d25e5cb6f3cb43b52e40a8a4144b8, type: 2}
@@ -3489,7 +3489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 638909309}
-  howMuch: 70
+  howMuch: 120
   gameManager: {fileID: 1071730301}
   droppedItem: {fileID: 7003157282577378587, guid: 6bd8db9176589be46b436e0bc00e3340, type: 3}
 --- !u!212 &1196365758
