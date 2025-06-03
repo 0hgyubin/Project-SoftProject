@@ -30,12 +30,6 @@ public class HPController : MonoBehaviour
         UpdateHPUI();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void TakeDamaged(float damage)
     {
         float newHP = GetCurrentHP() - damage;
@@ -82,9 +76,17 @@ public class HPController : MonoBehaviour
             PlayerPrefs.SetFloat("PlayerHP", currentHP);
             PlayerPrefs.Save();
         }
+        Debug.Log($"SetCurrentHP() - currentHP: {currentHP}");
+        
     }
-    public void setMaxHP(float newMaxHP)
+    public void SetMaxHP(float newMaxHP)
     {
+        Debug.Log($"SetMaxHP(): newMaxHP: {newMaxHP}");
         maxHP = newMaxHP;
+    }
+
+    public float GetMaxHP()
+    {
+        return maxHP;
     }
 }

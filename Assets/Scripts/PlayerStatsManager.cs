@@ -8,7 +8,7 @@ public class PlayerStatsManager : MonoBehaviour
     //  보존할 기본 스탯 
     [Header("필수 보존 스탯")]
     public float currentHP;
-    public float maxHP = 100;
+    public float maxHP;
     public float strength;
     public float jumpForce;
     public float dashForce;
@@ -47,10 +47,11 @@ public class PlayerStatsManager : MonoBehaviour
 
     public void InitializeDefaultStats()
     {
+        maxHP = 100f; // 추가
         currentHP = maxHP;
-        strength = 3f;     // 추가
-        jumpForce = 20f;   // 추가
-        dashForce = 10f;   // 추가
+        strength = 3f; 
+        jumpForce = 20f;
+        dashForce = 10f;
         moveSpeed = 6f;  // 기본 이동 속도
         maxJumpCnt = 2;  // 기본 점프 횟수
         dashCoolTime = 3f;  // 기본 대시 쿨타임
@@ -63,9 +64,10 @@ public class PlayerStatsManager : MonoBehaviour
     private void SaveAllStats()
     {
         PlayerPrefs.SetFloat("PlayerHP", currentHP);
-        PlayerPrefs.SetFloat("Strength", strength);       // 추가
-        PlayerPrefs.SetFloat("JumpForce", jumpForce);     // 추가
-        PlayerPrefs.SetFloat("DashForce", dashForce);     // 추가
+        PlayerPrefs.SetFloat("MaxHP", maxHP);       // 추가
+        PlayerPrefs.SetFloat("Strength", strength);
+        PlayerPrefs.SetFloat("JumpForce", jumpForce);
+        PlayerPrefs.SetFloat("DashForce", dashForce);
         PlayerPrefs.SetFloat("MoveSpeed", moveSpeed);
         PlayerPrefs.SetInt("MaxJumpCnt", maxJumpCnt);
         PlayerPrefs.SetFloat("DashCoolTime", dashCoolTime);
@@ -74,11 +76,12 @@ public class PlayerStatsManager : MonoBehaviour
 
     private void LoadAllStats()
     {
+        maxHP = PlayerPrefs.GetFloat("MaxHP", 100f);    // 추가
         currentHP = PlayerPrefs.GetFloat("PlayerHP", maxHP);
-        strength = PlayerPrefs.GetFloat("Strength", 3f);      // 추가
-        jumpForce = PlayerPrefs.GetFloat("JumpForce", 20f);  // 추가
-        dashForce = PlayerPrefs.GetFloat("DashForce", 10f);  // 추가
-        moveSpeed = PlayerPrefs.GetFloat("MoveSpeed", 6f);
+        strength = PlayerPrefs.GetFloat("Strength", 3f);
+        jumpForce = PlayerPrefs.GetFloat("JumpForce", 30f);
+        dashForce = PlayerPrefs.GetFloat("DashForce", 10f);
+        moveSpeed = PlayerPrefs.GetFloat("MoveSpeed", 8f);
         maxJumpCnt = PlayerPrefs.GetInt("MaxJumpCnt", 2);
         dashCoolTime = PlayerPrefs.GetFloat("DashCoolTime", 3f);
     }
@@ -90,9 +93,10 @@ public class PlayerStatsManager : MonoBehaviour
         {
             Debug.Log($"LoadStatsTo - currentHP: {currentHP}, strength: {strength}, moveSpeed: {moveSpeed}");
             player.hpUI.SetCurrentHP(currentHP);
-            player.strength = strength;         // 추가
-            player.jumpForce = jumpForce;       // 추가
-            player.dashForce = dashForce;       // 추가
+            player.hpUI.SetMaxHP(maxHP);         // 추가
+            player.strength = strength;
+            player.jumpForce = jumpForce;
+            player.dashForce = dashForce;
             player.moveSpeed = moveSpeed;
             player.maxJumpCnt = maxJumpCnt;
             player.dashCoolTime = dashCoolTime;
@@ -105,9 +109,10 @@ public class PlayerStatsManager : MonoBehaviour
         if (player != null && player.hpUI != null)
         {
             currentHP = player.hpUI.GetCurrentHP();
-            strength = player.strength;         // 추가
-            jumpForce = player.jumpForce;       // 추가
-            dashForce = player.dashForce;       // 추가
+            maxHP = player.hpUI.GetMaxHP();       // 추가
+            strength = player.strength;
+            jumpForce = player.jumpForce;
+            dashForce = player.dashForce;
             moveSpeed = player.moveSpeed;
             maxJumpCnt = player.maxJumpCnt;
             dashCoolTime = player.dashCoolTime;

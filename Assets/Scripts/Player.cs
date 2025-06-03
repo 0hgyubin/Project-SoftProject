@@ -375,7 +375,7 @@ public class Player : MonoBehaviour
 
     public void SetMaxHP(float newMaxHP)
     {
-        hpUI.setMaxHP(newMaxHP);
+        hpUI.SetMaxHP(newMaxHP);
     }
 
     public void SetMoveSpeed(float newMoveSpeed)
@@ -403,7 +403,7 @@ public class Player : MonoBehaviour
 
     public void AddMaxHP(float addMaxHP) //heart
     {
-        hpUI.setMaxHP(hpUI.maxHP + addMaxHP);
+        hpUI.SetMaxHP(hpUI.maxHP + addMaxHP);
         hpUI.TakeDamaged(-addMaxHP);
     }
 
