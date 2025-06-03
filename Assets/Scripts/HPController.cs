@@ -69,20 +69,23 @@ public class HPController : MonoBehaviour
         currentHP = Mathf.Clamp(hp, 0f, maxHP);
         UpdateHPUI();
 
-        // HP 변경시마다 저장
+        // PlayerStatsManager만 사용
         if (PlayerStatsManager.Instance != null)
         {
             PlayerStatsManager.Instance.currentHP = currentHP;
-            PlayerPrefs.SetFloat("PlayerHP", currentHP);
-            PlayerPrefs.Save();
         }
         Debug.Log($"SetCurrentHP() - currentHP: {currentHP}");
-        
     }
-    public void SetMaxHP(float newMaxHP)
+
+    public void setMaxHP(float newMaxHP)
     {
-        Debug.Log($"SetMaxHP(): newMaxHP: {newMaxHP}");
         maxHP = newMaxHP;
+        // PlayerStatsManager만 사용
+        if (PlayerStatsManager.Instance != null)
+        {
+            PlayerStatsManager.Instance.maxHP = maxHP;
+        }
+        UpdateHPUI();
     }
 
     public float GetMaxHP()
