@@ -71,7 +71,7 @@ public class PlayerStatsManager : MonoBehaviour
         PlayerPrefs.SetFloat("MoveSpeed", moveSpeed);
         PlayerPrefs.SetInt("MaxJumpCnt", maxJumpCnt);
         PlayerPrefs.SetFloat("DashCoolTime", dashCoolTime);
-        PlayerPrefs.Save();
+        PlayerPrefs.Save(); 
     }
 
     private void LoadAllStats()
