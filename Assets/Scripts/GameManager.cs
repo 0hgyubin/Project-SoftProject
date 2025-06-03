@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseCoin()
     {
-        CoinManagement.Instance.coin += 1;
+        CoinManagement.Instance.coin += 10;
         text.SetText(coin.ToString());
     }
 }

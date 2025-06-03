@@ -20,6 +20,9 @@ public class EventNPCController2 : MonoBehaviour
     [SerializeField]
     public GameObject talkPanel;
 
+    [SerializeField]
+    private GameObject[] droppedItems;
+
     private bool onFirstDialoge = false;
 
     // [SerializeField]
@@ -65,6 +68,10 @@ public class EventNPCController2 : MonoBehaviour
                 {
                     // droppedItem 배열 크기만큼 랜덤 숫자 뽑기
                     // droppedItem[랜덤 숫자]에 해당하는 아이템 프리팹 떨어트리기
+                    int random = Random.Range(0,droppedItems.Length);
+                    GameObject gameObject = droppedItems[random];
+                    Instantiate(gameObject, transform.position, Quaternion.identity);
+
                 }
 
                 dialogIndex++;

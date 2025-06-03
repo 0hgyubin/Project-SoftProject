@@ -34,7 +34,7 @@ public class TreasuerChestController : MonoBehaviour
                 float distance = Vector3.Distance(transform.position, player.transform.position);
                 if (distance <= 1.0f && Input.GetKeyDown(KeyCode.W))
                 {
-                    int randomCoin = floor * Random.Range(7, 10);
+                    int randomCoin = floor * Random.Range(3, 5);
                     for(int i = 0 ; i < randomCoin; i++){
                         Instantiate(coin, transform.position, Quaternion.identity);
                     }

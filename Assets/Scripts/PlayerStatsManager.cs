@@ -52,7 +52,7 @@ public class PlayerStatsManager : MonoBehaviour
         jumpForce = 10f;   // 추가
         dashForce = 10f;   // 추가
         moveSpeed = 6f;  // 기본 이동 속도
-        maxJumpCnt = 2;  // 기본 점프 횟수
+        maxJumpCnt = 3;  // 기본 점프 횟수
         dashCoolTime = 3f;  // 기본 대시 쿨타임
         
         // 모든 스탯 저장
@@ -79,7 +79,7 @@ public class PlayerStatsManager : MonoBehaviour
         jumpForce = PlayerPrefs.GetFloat("JumpForce", 10f);  // 추가
         dashForce = PlayerPrefs.GetFloat("DashForce", 10f);  // 추가
         moveSpeed = PlayerPrefs.GetFloat("MoveSpeed", 6f);
-        maxJumpCnt = PlayerPrefs.GetInt("MaxJumpCnt", 2);
+        maxJumpCnt = PlayerPrefs.GetInt("MaxJumpCnt", 3);
         dashCoolTime = PlayerPrefs.GetFloat("DashCoolTime", 3f);
     }
 
