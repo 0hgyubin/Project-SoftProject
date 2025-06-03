@@ -812,9 +812,12 @@ public class MapController : MonoBehaviour
     void MakeShopTile()
     {
         int shopCount = 0;
+        int attempt = 0;
+        int maxAttempt = 100;
         // 상점 타일은 타일 순회하며, 적 타일 중 10% 확률로 변경
-        while (shopCount < 5) // 상점 타일은 최대 5개까지만 생성
+        while (shopCount < 5 && attempt < maxAttempt) // 상점 타일은 최대 5개까지만 생성
         {
+            attempt++;
             for (int x = 5; x <= width; x+=3)
             {
                 for (int y = 5; y <= height; y+=3)
