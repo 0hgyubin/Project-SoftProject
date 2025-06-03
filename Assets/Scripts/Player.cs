@@ -371,26 +371,31 @@ public class Player : MonoBehaviour
     public void SetStrength(float newStrength)
     {
         strength = newStrength;
+        PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
     public void SetMaxHP(float newMaxHP)
     {
         hpUI.setMaxHP(newMaxHP);
+        PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
     public void SetMoveSpeed(float newMoveSpeed)
     {
         moveSpeed = newMoveSpeed;
+        PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
     public void SetMaxJumpCnt(int newMaxJumpCnt)
     {
         maxJumpCnt = newMaxJumpCnt;
+        PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
     public void SetDashCoolTime(float newDashCoolTime)
     {
         dashCoolTime = newDashCoolTime;
+        PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
 
@@ -399,30 +404,35 @@ public class Player : MonoBehaviour
     {
         strength += addStrength;
         strength = Mathf.Max(strength, 1f);
+        PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
     public void AddMaxHP(float addMaxHP) //heart
     {
         hpUI.setMaxHP(hpUI.maxHP + addMaxHP);
         hpUI.TakeDamaged(-addMaxHP);
+        PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
     public void AddMoveSpeed(float addMoveSpeed) //feather
     {
         moveSpeed += addMoveSpeed;
         moveSpeed = Mathf.Max(moveSpeed, 1f);
+        PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
     public void AddMaxJumpCnt(int addMaxJumpCnt) //wings
     {
         maxJumpCnt += addMaxJumpCnt;
         maxJumpCnt = Mathf.Max(maxJumpCnt, 1);
+        PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
     public void DivideBy2DashCoolTime() //clock
     {
         dashCoolTime /= 2;
         dashCoolTime = Mathf.Clamp(dashCoolTime, 0.00001f, 5f);
+        PlayerStatsManager.Instance.SaveStatsFrom(this);
     }
 
 }

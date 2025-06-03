@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     public void SetCoin(int newCoin)
     {
+        CoinManagement.Instance.coin = newCoin;
         coin = newCoin;
     }
 
