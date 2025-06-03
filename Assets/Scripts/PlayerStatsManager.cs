@@ -49,7 +49,7 @@ public class PlayerStatsManager : MonoBehaviour
     {
         currentHP = maxHP;
         strength = 3f;     // 추가
-        jumpForce = 20f;   // 추가
+        jumpForce = 10f;   // 추가
         dashForce = 10f;   // 추가
         moveSpeed = 6f;  // 기본 이동 속도
         maxJumpCnt = 2;  // 기본 점프 횟수
@@ -76,7 +76,7 @@ public class PlayerStatsManager : MonoBehaviour
     {
         currentHP = PlayerPrefs.GetFloat("PlayerHP", maxHP);
         strength = PlayerPrefs.GetFloat("Strength", 3f);      // 추가
-        jumpForce = PlayerPrefs.GetFloat("JumpForce", 20f);  // 추가
+        jumpForce = PlayerPrefs.GetFloat("JumpForce", 10f);  // 추가
         dashForce = PlayerPrefs.GetFloat("DashForce", 10f);  // 추가
         moveSpeed = PlayerPrefs.GetFloat("MoveSpeed", 6f);
         maxJumpCnt = PlayerPrefs.GetInt("MaxJumpCnt", 2);
