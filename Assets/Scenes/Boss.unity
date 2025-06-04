@@ -1430,11 +1430,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715aeae1208341f4d965056fc150448d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2000
+  maxHealth: 4000
   idleSprite: {fileID: -5903477578860805964, guid: d75f6e38d5f83cb41a2ef6718e6d113e, type: 3}
   howlSprite: {fileID: -5735793120535500389, guid: a3983cbbb478da142b0be596b270b59b, type: 3}
   castSprite: {fileID: 2193681635637804271, guid: 6861a9df7abfcbd41b6bb8c1715b8316, type: 3}
   fireSprite: {fileID: 3351037053149893583, guid: b2382ec75e81340448dd579195a8ff22, type: 3}
+  deadSprite: {fileID: 2649847697073447219, guid: 9962cb6a11e6c4e48a4cb4f87e148eca, type: 3}
   monsterPrefab: {fileID: 8153778387994007551, guid: 64c0d85f0cdc76f4b8e8711f671738b6, type: 3}
   firePrefab: {fileID: 6637779713606905335, guid: e1d3a025b8cb49945bb1dc21bd48efbf, type: 3}
   rockPrefab: {fileID: 189122127768120494, guid: 5a2bf0ebf41eb7743a3f9b09dbf22517, type: 3}

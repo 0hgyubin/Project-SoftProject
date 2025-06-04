@@ -1,8 +1,8 @@
-
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // ì”¬ ì´ë™ ìœ„í•´ í•„ìš”
 
 public class BossDragonController : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class BossDragonController : MonoBehaviour
     public Sprite howlSprite;
     public Sprite castSprite;
     public Sprite fireSprite;
+    public Sprite deadSprite; // âœ… ì£½ìŒ ìƒíƒœ ìŠ¤í”„ë¼ì´íŠ¸ ì¶”ê°€
 
     public GameObject monsterPrefab;
     public GameObject firePrefab;
@@ -31,19 +32,20 @@ public class BossDragonController : MonoBehaviour
     public Image healthBarImage;
 
     private SpriteRenderer sr;
+    private bool isDead = false;
+    private Coroutine bossPatternCoroutine;
 
     private void Start()
     {
         currentHealth = maxHealth;
         sr = GetComponent<SpriteRenderer>();
-        StartCoroutine(BossRoutine());
-
+        bossPatternCoroutine = StartCoroutine(BossRoutine()); //ì½”ë£¨í‹´ ì €ì¥
         UpdateHealthUI();
     }
 
     private IEnumerator BossRoutine()
     {
-        while (true)
+        while (!isDead)
         {
             // Idle
             sr.sprite = idleSprite;
@@ -63,7 +65,7 @@ public class BossDragonController : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            // Pattern 2: Rock Drop (Y = 5)
+            // Pattern 2: Rock Drop
             sr.sprite = castSprite;
             yield return new WaitForSeconds(castDelay);
             List<float> usedX = new List<float>();
@@ -79,7 +81,7 @@ public class BossDragonController : MonoBehaviour
                 } while (usedX.Exists(prev => Mathf.Abs(prev - x) < 1f));
 
                 usedX.Add(x);
-                Vector3 dropPosition = new Vector3(x, 5f, 0); // Y À§Ä¡¸¦ 5·Î º¯°æ
+                Vector3 dropPosition = new Vector3(x, 5f, 0);
                 GameObject warning = Instantiate(warningIndicatorPrefab, new Vector3(x, -3.5f, 0), Quaternion.identity);
                 StartCoroutine(FadeAndDrop(warning, dropPosition));
                 yield return new WaitForSeconds(rockDropInterval);
@@ -87,9 +89,9 @@ public class BossDragonController : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            // Pattern 3: Fire Breath after 2s delay
+            // Pattern 3: Fire Breath
             sr.sprite = fireSprite;
-            yield return new WaitForSeconds(2f); // 2ÃÊ ´ë±â ÈÄ ºÒ ³»»Õ±â ½ÃÀÛ
+            yield return new WaitForSeconds(2f);
             for (int i = 0; i < fireCount; i++)
             {
                 Instantiate(firePrefab, transform.position + Vector3.down * 0.5f, Quaternion.identity);
@@ -117,28 +119,50 @@ public class BossDragonController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentHealth -= (int)damage;
+        if (isDead) return;
+
+        currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         UpdateHealthUI();
 
         if (currentHealth <= 0)
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
+        isDead = true;
+
+        if (bossPatternCoroutine != null)
+        {
+            StopCoroutine(bossPatternCoroutine);
+        }
+
+        sr.sprite = deadSprite;
+
         Debug.Log("Boss defeated!");
-        Destroy(gameObject);
+        CameraShake.Instance.ShakeCamera(4f);
+
+        yield return new WaitForSeconds(4f);
+
+        Color color = sr.color;
+        color.a = 0f;
+        sr.color = color;
+
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Victory");
     }
+
+
 
     private void UpdateHealthUI()
     {
         if (healthBarImage != null)
         {
-            healthBarImage.fillAmount = (float)currentHealth / maxHealth;
+            healthBarImage.fillAmount = currentHealth / maxHealth;
         }
     }
 }
