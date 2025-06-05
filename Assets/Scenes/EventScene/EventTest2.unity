@@ -2154,6 +2154,13 @@ MonoBehaviour:
   portalController: {fileID: 36377745}
   talkText: {fileID: 676287933}
   talkPanel: {fileID: 1667630864}
+  droppedItems:
+  - {fileID: 7003157282577378587, guid: 6bd8db9176589be46b436e0bc00e3340, type: 3}
+  - {fileID: 6323468510945673618, guid: ee2471fe06206cc4ea12af3b8205a1a7, type: 3}
+  - {fileID: 8800205892264710879, guid: 3721bf5ffcacfe04da7713056b97650d, type: 3}
+  - {fileID: 4968996616840633053, guid: e60e5ab494f4c2440a7fec023a1390a1, type: 3}
+  - {fileID: 5427269555097852427, guid: 35ab7b0dd2feec24da2fdadcf10e0590, type: 3}
+  - {fileID: 6411021608597884465, guid: f721527c4589b4f45b3252f3916eb420, type: 3}
 --- !u!1 &1181552968
 GameObject:
   m_ObjectHideFlags: 0
