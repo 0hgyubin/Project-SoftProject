@@ -214,7 +214,6 @@ public class EnemyController : MonoBehaviour
             // 게임오브젝트의 색을 빨간 색으로 바꿔주기
             if (spriteRenderer != null)
             {
-                StopAllCoroutines(); // 만약 연속으로 피격되어도 코루틴이 겹치지 않도록
                 StartCoroutine(ResetColor());
             }
         }
